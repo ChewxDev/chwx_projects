@@ -77,7 +77,7 @@ const services = [
 const portfolio = [
   { cat: 'pm dev', gradient: 'card-gradient-1', decor: '🤖', category: 'AI / Project Management', title: 'AI Customer Support Chatbot', link: 'https://www.notion.so/AI-Chatbot-Project-Lean-Geeks-258b3df263db804fb5eef083a9468b42?source=copy_link', metrics: [['60%', 'Ticket Reduction'], ['25%', 'Under Budget'], ['85%', 'Accuracy Rate']] },
   { cat: 'dev pm', gradient: 'card-gradient-2', decor: '🛒', category: 'E-Commerce / Development', title: 'Platform Migration', link: 'https://www.notion.so/E-commerce-Platform-Migration-Convertain-Limited-258b3df263db807dae26f534b013f3d0?source=copy_link', metrics: [['29%', 'Under Budget'], ['40%', 'Performance Gain']] },
-  { cat: 'pm', gradient: 'card-gradient-3', decor: '🏪', category: 'Operations / Executive', title: 'BeePawn Multi-Location Ops Overhaul', metrics: [['30%', 'Faster Delivery'], ['98%', 'Inventory Accuracy']] },
+  { cat: 'pm', gradient: 'card-gradient-3', decor: '🏪', category: 'Operations / Executive', title: 'BeePawn Multi-Location Ops Overhaul', link: 'https://www.notion.so/BeePawn-Operations-Hub-PM-Executive-Office-34eb3df263db8104acb2e7af82f9f48c', metrics: [['30%', 'Faster Delivery'], ['98%', 'Inventory Accuracy']] },
   { cat: 'pm dev', gradient: 'card-gradient-4', decor: '🔗', category: 'Automation / Slack Integration', title: 'Slack Bot Workspace Integration', link: 'https://www.notion.so/Slack-Bot-Integration-Project-25bb3df263db8094ab93ef7d91ca529b', metrics: [['35%', 'Efficiency Gain'], ['15hrs', 'Saved / Week']] },
   {
     cat: 'marketing',
@@ -544,15 +544,15 @@ function Services() {
         </div>
         <div className="services-grid">
           {services.map((service, index) => (
-            <div className={`service-card reveal delay-${Math.min(index + 1, 4)}`} data-tilt key={service.title}>
+            <a className={`service-card reveal delay-${Math.min(index + 1, 4)}`} data-tilt key={service.title} href="#finder" aria-label={`Find out if ${service.title} is right for you`}>
               <div className="service-icon" style={{ background: service.color, border: `1px solid ${service.border}` }}>{service.icon}</div>
               <div className="service-title">{service.title}</div>
               <div className="service-desc">{service.desc}</div>
               <div className="service-tags">{service.tags.map((tag) => <span className="service-tag" key={tag}>{tag}</span>)}</div>
               <div className="service-arrow">→</div>
-            </div>
+            </a>
           ))}
-          <div className="service-card reveal delay-3" data-tilt style={{ gridColumn: 'span 2' }}>
+          <a className="service-card reveal delay-3" data-tilt style={{ gridColumn: 'span 2' }} href="#finder" aria-label="Find out if Business Development and Strategy is right for you">
             <div style={{ display: 'flex', gap: 32, alignItems: 'center', flexWrap: 'wrap' }}>
               <div style={{ flex: 1, minWidth: 240 }}>
                 <div className="service-icon" style={{ background: 'rgba(30,200,200,.1)', border: '1px solid rgba(30,200,200,.2)' }}>📈</div>
@@ -565,7 +565,7 @@ function Services() {
               </div>
             </div>
             <div className="service-arrow">→</div>
-          </div>
+          </a>
         </div>
       </div>
     </section>
