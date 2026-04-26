@@ -79,7 +79,19 @@ const portfolio = [
   { cat: 'dev pm', gradient: 'card-gradient-2', decor: '🛒', category: 'E-Commerce / Development', title: 'Platform Migration', link: 'https://www.notion.so/E-commerce-Platform-Migration-Convertain-Limited-258b3df263db807dae26f534b013f3d0?source=copy_link', metrics: [['29%', 'Under Budget'], ['40%', 'Performance Gain']] },
   { cat: 'pm', gradient: 'card-gradient-3', decor: '🏪', category: 'Operations / Executive', title: 'BeePawn Multi-Location Ops Overhaul', metrics: [['30%', 'Faster Delivery'], ['98%', 'Inventory Accuracy']] },
   { cat: 'pm dev', gradient: 'card-gradient-4', decor: '🔗', category: 'Automation / Slack Integration', title: 'Slack Bot Workspace Integration', link: 'https://github.com/ChewxDev/lannisterPay', metrics: [['35%', 'Efficiency Gain'], ['15hrs', 'Saved / Week']] },
-  { cat: 'marketing', gradient: 'card-gradient-5', decor: '📺', category: 'Social Media / Content', title: 'Gaming Creator Network Growth', metrics: [['20%', 'Sub Growth'], ['30%', 'More Views']] }
+  {
+    cat: 'marketing',
+    gradient: 'card-gradient-5',
+    decor: '📺',
+    category: 'Social Media / Content',
+    title: 'Gaming Creator Network Growth',
+    links: [
+      { label: 'Gaming YouTube', href: 'https://www.youtube.com/@christianrauchenwald-gaming' },
+      { label: 'Main YouTube', href: 'https://www.youtube.com/@ChristianRauchenwald' },
+      { label: 'Twitch', href: 'https://m.twitch.tv/ChristianRauchenwald/home' }
+    ],
+    metrics: [['20%', 'Sub Growth'], ['30%', 'More Views']]
+  }
 ];
 
 const socialLinks = [
@@ -594,6 +606,13 @@ function Portfolio() {
                   {item.metrics.map(([value, label]) => <div className="card-metric" key={label}><strong>{value}</strong>{label}</div>)}
                 </div>
                 {item.link && <a className="card-link" href={item.link} target="_blank" rel="noreferrer">View case study ↗</a>}
+                {item.links && (
+                  <div className="card-link-group">
+                    {item.links.map((link) => (
+                      <a className="card-link" href={link.href} target="_blank" rel="noreferrer" key={link.href}>{link.label} ↗</a>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
           ))}
