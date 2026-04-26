@@ -1211,7 +1211,12 @@ function CTA() {
   };
 
   const sanitizedForm = sanitizeContactForm(form);
-  const serviceSummary = form.service.includes('Not sure yet') ? 'Not sure yet' : form.service.join(', ');
+  const serviceSummary = (() => {
+    if (form.service.includes('Not sure yet')) return 'Not sure yet';
+    if (form.service.length <= 2) return form.service.join(', ');
+    return `${form.service.slice(0, 2).join(', ')} ... +${form.service.length - 2} more`;
+  })();
+  const fullServiceSummary = form.service.join(', ');
   const mailSubject = encodeURIComponent(`Project inquiry from ${sanitizedForm.name || 'website visitor'}`);
   const mailBody = encodeURIComponent(
     `Name: ${sanitizedForm.name}\nEmail: ${sanitizedForm.email}\nClient type: ${sanitizedForm.clientType}\nService interest: ${sanitizedForm.service}\nBudget: ${sanitizedForm.budget}\nTimeline: ${sanitizedForm.timeline}\n\nProject details:\n${sanitizedForm.message}`
@@ -1269,7 +1274,7 @@ function CTA() {
                   aria-expanded={serviceMenuOpen}
                   aria-haspopup="listbox"
                 >
-                  <span>{serviceSummary}</span>
+                  <span title={fullServiceSummary}>{serviceSummary}</span>
                   <i>⌄</i>
                 </button>
                 {serviceMenuOpen && (
