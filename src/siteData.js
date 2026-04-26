@@ -92,7 +92,7 @@ export const services = [
 export const caseStudies = [
   {
     id: 'chatbot',
-    title: 'AI Customer Support Chatbot',
+    title: 'AI Chatbot Project - Lean Geeks',
     type: 'AI / Project Management',
     category: ['pm', 'dev'],
     icon: '🤖',
@@ -103,36 +103,36 @@ export const caseStudies = [
   },
   {
     id: 'migration',
-    title: 'Platform Migration',
+    title: 'E-commerce Platform Migration - Convertain Limited',
     type: 'E-Commerce / Development',
     category: ['dev', 'pm'],
     icon: '🛒',
     gradient: 'grad-two',
     link: 'https://www.notion.so/E-commerce-Platform-Migration-Convertain-Limited-258b3df263db807dae26f534b013f3d0?source=copy_link',
-    description: 'Coordinated a complex e-commerce migration across stakeholders, data, QA, and launch readiness.',
-    results: [{ value: '29%', label: 'Under budget' }, { value: '40%', label: 'Performance gain' }]
+    description: 'Coordinated a legacy e-commerce platform migration to a modern, scalable architecture for Convertain Limited.',
+    results: [{ value: '68%', label: 'Complete' }, { value: '29%', label: 'Under budget' }, { value: '40%', label: 'Performance gain' }]
   },
   {
     id: 'operations',
-    title: 'BeePawn Multi-Location Ops Overhaul',
+    title: 'BeePawn Operations Hub - PM & Executive Office',
     type: 'Operations / Executive',
     category: ['pm'],
-    icon: '🏪',
+    icon: '🏢',
     gradient: 'grad-three',
     link: 'https://www.notion.so/BeePawn-Operations-Hub-PM-Executive-Office-34eb3df263db8104acb2e7af82f9f48c?source=copy_link',
-    description: 'Improved operating cadence, inventory visibility, reporting structure, and executive coordination across multiple locations.',
-    results: [{ value: '30%', label: 'Faster delivery' }, { value: '98%', label: 'Inventory accuracy' }]
+    description: "Managed operational documents, project plans, communications, and performance records across BeePawn's 8+ Florida locations.",
+    results: [{ value: '8+', label: 'Florida locations' }, { value: 'PM', label: 'Executive office' }, { value: 'Hub', label: 'Operations records' }]
   },
   {
     id: 'slack',
-    title: 'Slack Bot Workspace Integration',
+    title: 'Slack Bot Integration Project',
     type: 'Automation / Slack Integration',
     category: ['pm', 'dev'],
-    icon: '🔗',
+    icon: '🤖',
     gradient: 'grad-four',
     link: 'https://www.notion.so/Slack-Bot-Integration-Project-25bb3df263db8094ab93ef7d91ca529b?source=copy_link',
-    description: 'Built a Slack automation workflow that connected multiple bots into a cleaner operational system for the team.',
-    results: [{ value: '35%', label: 'Efficiency gain' }, { value: '15hrs', label: 'Saved per week' }]
+    description: 'Integrated 6 critical business bots into a Slack workspace, improving team efficiency and reducing operating cost.',
+    results: [{ value: '35%', label: 'Efficiency improvement' }, { value: '$7.2K', label: 'Budget savings' }, { value: 'Q2-Q3', label: '2023' }]
   },
   {
     id: 'peter-sage-zendesk',
@@ -142,8 +142,8 @@ export const caseStudies = [
     icon: '🎧',
     gradient: 'grad-one',
     link: 'https://www.notion.so/Peter-Sage-Zendesk-AI-Agent-Integration-25bb3df263db8190a76cd1b4ee283dc6?source=copy_link',
-    description: 'Delivered a Zendesk AI agent workflow for support automation and customer response improvements.',
-    results: [{ value: 'AI', label: 'Agent integration' }, { value: 'Zendesk', label: 'Workflow' }]
+    description: 'Integrated an intelligent AI agent with Zendesk for Peter Sage, enabling automated support responses with 24/7 availability.',
+    results: [{ value: '95%', label: 'Accuracy' }, { value: '24/7', label: 'Availability' }, { value: 'AI', label: 'Agent' }]
   },
   {
     id: 'sutton-legal',
