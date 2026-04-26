@@ -75,11 +75,18 @@ const services = [
 ];
 
 const portfolio = [
-  { cat: 'pm dev', gradient: 'card-gradient-1', decor: '🤖', category: 'AI / Project Management', title: 'AI Customer Support Chatbot', metrics: [['60%', 'Ticket Reduction'], ['25%', 'Under Budget'], ['85%', 'Accuracy Rate']] },
-  { cat: 'dev pm', gradient: 'card-gradient-2', decor: '🛒', category: 'E-Commerce / Development', title: 'Platform Migration', metrics: [['29%', 'Under Budget'], ['40%', 'Performance Gain']] },
+  { cat: 'pm dev', gradient: 'card-gradient-1', decor: '🤖', category: 'AI / Project Management', title: 'AI Customer Support Chatbot', link: 'https://www.notion.so/AI-Chatbot-Project-Lean-Geeks-258b3df263db804fb5eef083a9468b42?source=copy_link', metrics: [['60%', 'Ticket Reduction'], ['25%', 'Under Budget'], ['85%', 'Accuracy Rate']] },
+  { cat: 'dev pm', gradient: 'card-gradient-2', decor: '🛒', category: 'E-Commerce / Development', title: 'Platform Migration', link: 'https://www.notion.so/E-commerce-Platform-Migration-Convertain-Limited-258b3df263db807dae26f534b013f3d0?source=copy_link', metrics: [['29%', 'Under Budget'], ['40%', 'Performance Gain']] },
   { cat: 'pm', gradient: 'card-gradient-3', decor: '🏪', category: 'Operations / Executive', title: 'BeePawn Multi-Location Ops Overhaul', metrics: [['30%', 'Faster Delivery'], ['98%', 'Inventory Accuracy']] },
-  { cat: 'pm dev', gradient: 'card-gradient-4', decor: '🔗', category: 'Automation / Slack Integration', title: 'Slack Bot Workspace Integration', metrics: [['35%', 'Efficiency Gain'], ['15hrs', 'Saved / Week']] },
+  { cat: 'pm dev', gradient: 'card-gradient-4', decor: '🔗', category: 'Automation / Slack Integration', title: 'Slack Bot Workspace Integration', link: 'https://github.com/ChewxDev/lannisterPay', metrics: [['35%', 'Efficiency Gain'], ['15hrs', 'Saved / Week']] },
   { cat: 'marketing', gradient: 'card-gradient-5', decor: '📺', category: 'Social Media / Content', title: 'Gaming Creator Network Growth', metrics: [['20%', 'Sub Growth'], ['30%', 'More Views']] }
+];
+
+const socialLinks = [
+  { label: 'LinkedIn', title: 'LinkedIn', text: 'in', href: 'https://www.linkedin.com/in/nicholas-njoku-897054223/' },
+  { label: 'GitHub', title: 'GitHub', text: 'gh', href: 'https://github.com/ChewxDev' },
+  { label: 'Twitter', title: 'Twitter', text: 'tw', href: 'https://twitter.com/cxxzy_zeus' },
+  { label: 'Discord', title: 'Discord', text: 'dc', href: 'https://discord.gg/nzBWrFPz' }
 ];
 
 const tools = [
@@ -585,6 +592,7 @@ function Portfolio() {
                 <div className="card-metrics">
                   {item.metrics.map(([value, label]) => <div className="card-metric" key={label}><strong>{value}</strong>{label}</div>)}
                 </div>
+                {item.link && <a className="card-link" href={item.link} target="_blank" rel="noreferrer">View case study ↗</a>}
               </div>
             </div>
           ))}
@@ -872,9 +880,9 @@ function Footer() {
         <div className="footer-left">chwx projects<span style={{ color: 'var(--gold)' }}>.</span></div>
         <div className="footer-center">© 2026 chwx projects · Njoku Nicholas C. · nicholascents77@gmail.com · Available Worldwide</div>
         <div className="footer-right">
-          <a href="#" className="footer-social" title="LinkedIn">in</a>
-          <a href="#" className="footer-social" title="GitHub">gh</a>
-          <a href="#" className="footer-social" title="Twitter">tw</a>
+          {socialLinks.map((link) => (
+            <a href={link.href} className="footer-social" title={link.title} aria-label={link.label} target="_blank" rel="noreferrer" key={link.label}>{link.text}</a>
+          ))}
         </div>
       </div>
     </footer>
