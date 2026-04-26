@@ -86,12 +86,78 @@ const services = [
 ];
 
 const portfolio = [
-  { cat: 'pm dev', gradient: 'card-gradient-1', decor: '🤖', category: 'AI / Project Management', title: 'AI Chatbot Project - Lean Geeks', link: 'https://www.notion.so/AI-Chatbot-Project-Lean-Geeks-258b3df263db804fb5eef083a9468b42?source=copy_link', metrics: [['60%', 'Ticket Reduction'], ['25%', 'Under Budget'], ['85%', 'Accuracy Rate']] },
-  { cat: 'dev pm', gradient: 'card-gradient-2', decor: '🛒', category: 'E-Commerce / Development', title: 'E-commerce Platform Migration - Convertain Limited', link: 'https://www.notion.so/E-commerce-Platform-Migration-Convertain-Limited-258b3df263db807dae26f534b013f3d0?source=copy_link', metrics: [['68%', 'Complete'], ['29%', 'Under Budget'], ['40%', 'Performance Gain']] },
-  { cat: 'pm', gradient: 'card-gradient-3', decor: '🏢', category: 'Operations / Executive', title: 'Pawn Shop Operations Hub - PM & Executive Office', link: 'https://www.notion.so/BeePawn-Operations-Hub-PM-Executive-Office-34eb3df263db8104acb2e7af82f9f48c?source=copy_link', metrics: [['8+', 'Florida Locations'], ['PM', 'Executive Office'], ['Hub', 'Operations Records']] },
-  { cat: 'pm dev', gradient: 'card-gradient-4', decor: '🤖', category: 'Automation / Slack Integration', title: 'Slack Bot Integration Project', link: 'https://www.notion.so/Slack-Bot-Integration-Project-25bb3df263db8094ab93ef7d91ca529b?source=copy_link', metrics: [['35%', 'Efficiency Improvement'], ['$7.2K', 'Budget Savings'], ['Q2-Q3', '2023']] },
-  { cat: 'pm dev', gradient: 'card-gradient-1', decor: '🎧', category: 'Zendesk / AI Agent', title: 'Peter Sage Zendesk AI Agent Integration', link: 'https://www.notion.so/Peter-Sage-Zendesk-AI-Agent-Integration-25bb3df263db8190a76cd1b4ee283dc6?source=copy_link', metrics: [['95%', 'Accuracy'], ['24/7', 'Availability'], ['AI', 'Agent']] },
-  { cat: 'dev', gradient: 'card-gradient-2', decor: '⚖️', category: 'Legal / Web Development', title: 'Sutton Legal Consulting Website', link: 'https://sutton-legal.vercel.app/', metrics: [['Live', 'Vercel Site'], ['Compliance', 'Check Flow'], ['Legal', 'Consulting Site']] },
+  {
+    cat: 'pm dev',
+    gradient: 'card-gradient-1',
+    decor: '🤖',
+    category: 'AI / Project Management',
+    title: 'AI Chatbot Project - Lean Geeks',
+    link: 'https://www.notion.so/AI-Chatbot-Project-Lean-Geeks-258b3df263db804fb5eef083a9468b42?source=copy_link',
+    metrics: [['60%', 'Ticket Reduction'], ['25%', 'Under Budget'], ['85%', 'Accuracy Rate']],
+    summary: 'Managed the delivery of an AI customer support chatbot that reduced repetitive support load, tightened response handling, and kept implementation under budget.',
+    stack: ['AI chatbot', 'Sprint planning', 'Risk register', 'Stakeholder comms'],
+    signal: 'Fast support automation'
+  },
+  {
+    cat: 'dev pm',
+    gradient: 'card-gradient-2',
+    decor: '🛒',
+    category: 'E-Commerce / Development',
+    title: 'E-commerce Platform Migration - Convertain Limited',
+    link: 'https://www.notion.so/E-commerce-Platform-Migration-Convertain-Limited-258b3df263db807dae26f534b013f3d0?source=copy_link',
+    metrics: [['68%', 'Complete'], ['29%', 'Under Budget'], ['40%', 'Performance Gain']],
+    summary: 'Coordinated a legacy e-commerce migration into a cleaner, faster platform path with measurable performance gains and budget discipline.',
+    stack: ['Migration planning', 'Performance', 'Product delivery', 'Distributed team'],
+    signal: 'Commerce modernization'
+  },
+  {
+    cat: 'pm',
+    gradient: 'card-gradient-3',
+    decor: '🏢',
+    category: 'Operations / Executive',
+    title: 'Pawn Shop Operations Hub - PM & Executive Office',
+    link: 'https://www.notion.so/BeePawn-Operations-Hub-PM-Executive-Office-34eb3df263db8104acb2e7af82f9f48c?source=copy_link',
+    metrics: [['8+', 'Florida Locations'], ['PM', 'Executive Office'], ['Hub', 'Operations Records']],
+    summary: 'Built an operating hub for multi-location pawn shop leadership, centralizing project plans, communications, performance records, and executive support workflows.',
+    stack: ['Operations hub', 'Executive office', 'Reporting', 'Documentation'],
+    signal: 'Multi-location control'
+  },
+  {
+    cat: 'pm dev',
+    gradient: 'card-gradient-4',
+    decor: '🤖',
+    category: 'Automation / Slack Integration',
+    title: 'Slack Bot Integration Project',
+    link: 'https://www.notion.so/Slack-Bot-Integration-Project-25bb3df263db8094ab93ef7d91ca529b?source=copy_link',
+    metrics: [['35%', 'Efficiency Improvement'], ['$7.2K', 'Budget Savings'], ['Q2-Q3', '2023']],
+    summary: 'Integrated six critical business bots into a Slack workspace to reduce manual coordination, improve routing, and save recurring operating time.',
+    stack: ['Slack bots', 'Workflow automation', 'Tool integration', 'Ops design'],
+    signal: 'Team automation layer'
+  },
+  {
+    cat: 'pm dev',
+    gradient: 'card-gradient-1',
+    decor: '🎧',
+    category: 'Zendesk / AI Agent',
+    title: 'Peter Sage Zendesk AI Agent Integration',
+    link: 'https://www.notion.so/Peter-Sage-Zendesk-AI-Agent-Integration-25bb3df263db8190a76cd1b4ee283dc6?source=copy_link',
+    metrics: [['95%', 'Accuracy'], ['24/7', 'Availability'], ['AI', 'Agent']],
+    summary: 'Integrated an intelligent Zendesk AI agent for customer support coverage, improving consistency, availability, and response accuracy.',
+    stack: ['Zendesk', 'AI agent', 'Support automation', 'QA'],
+    signal: 'Always-on support'
+  },
+  {
+    cat: 'dev',
+    gradient: 'card-gradient-2',
+    decor: '⚖️',
+    category: 'Legal / Web Development',
+    title: 'Sutton Legal Consulting Website',
+    link: 'https://sutton-legal.vercel.app/',
+    metrics: [['Live', 'Vercel Site'], ['Compliance', 'Check Flow'], ['Legal', 'Consulting Site']],
+    summary: 'Designed and built a premium legal consulting website with a polished first impression, compliance check flow, and clear service positioning.',
+    stack: ['Web design', 'Frontend', 'Compliance flow', 'Vercel'],
+    signal: 'Premium legal presence'
+  },
   {
     cat: 'marketing',
     gradient: 'card-gradient-5',
@@ -103,7 +169,10 @@ const portfolio = [
       { label: 'Main YouTube', href: 'https://www.youtube.com/@ChristianRauchenwald' },
       { label: 'Twitch', href: 'https://m.twitch.tv/ChristianRauchenwald/home' }
     ],
-    metrics: [['20%', 'Sub Growth'], ['30%', 'More Views']]
+    metrics: [['20%', 'Sub Growth'], ['30%', 'More Views']],
+    summary: 'Supported creator-channel growth through content structure, channel consistency, platform awareness, and performance-driven social media work.',
+    stack: ['YouTube', 'Twitch', 'SMM', 'Analytics'],
+    signal: 'Creator growth system'
   }
 ];
 
@@ -719,7 +788,24 @@ function Services() {
 
 function Portfolio() {
   const [filter, setFilter] = useState('all');
+  const [activeTitle, setActiveTitle] = useState(portfolio[0].title);
   const filtered = useMemo(() => portfolio.map((item) => ({ ...item, visible: filter === 'all' || item.cat.includes(filter) })), [filter]);
+  const activeProject = filtered.find((item) => item.title === activeTitle && item.visible) || filtered.find((item) => item.visible) || filtered[0];
+
+  useEffect(() => {
+    if (!activeProject || activeProject.title === activeTitle) return;
+    setActiveTitle(activeProject.title);
+  }, [activeProject, activeTitle]);
+
+  const selectProject = (item) => {
+    if (item.visible) setActiveTitle(item.title);
+  };
+
+  const selectProjectFromKeyboard = (event, item) => {
+    if (event.key !== 'Enter' && event.key !== ' ') return;
+    event.preventDefault();
+    selectProject(item);
+  };
 
   return (
     <section id="portfolio">
@@ -736,25 +822,33 @@ function Portfolio() {
         <div className="portfolio-grid" id="portfolio-grid">
           {filtered.map((item) => (
             <div
-              className={`portfolio-card reveal delay-1 ${item.visible ? '' : 'is-muted'}`}
+              className={`portfolio-card reveal delay-1 ${item.visible ? '' : 'is-muted'} ${activeProject?.title === item.title ? 'active' : ''}`}
               data-cat={item.cat}
               key={item.title}
+              role="button"
+              tabIndex={item.visible ? 0 : -1}
+              aria-pressed={activeProject?.title === item.title}
+              onClick={() => selectProject(item)}
+              onFocus={() => selectProject(item)}
+              onKeyDown={(event) => selectProjectFromKeyboard(event, item)}
               style={{ '--filter-scale': item.visible ? 1 : 0.95, pointerEvents: item.visible ? 'all' : 'none' }}
             >
               <div className={`card-bg ${item.gradient}`} />
               <div className="card-glow" />
+              <div className="card-scanline" />
               <div className="card-decor">{item.decor}</div>
+              <div className="card-signal">{item.signal}</div>
               <div className="card-overlay">
                 <div className="card-category">{item.category}</div>
                 <div className="card-title">{item.title}</div>
                 <div className="card-metrics">
                   {item.metrics.map(([value, label]) => <div className="card-metric" key={label}><strong>{value}</strong>{label}</div>)}
                 </div>
-                {item.link && <a className="card-link" href={item.link} target="_blank" rel="noreferrer">View case study ↗</a>}
+                {item.link && <a className="card-link" href={item.link} target="_blank" rel="noreferrer" onClick={(event) => event.stopPropagation()}>View case study ↗</a>}
                 {item.links && (
                   <div className="card-link-group">
                     {item.links.map((link) => (
-                      <a className="card-link" href={link.href} target="_blank" rel="noreferrer" key={link.href}>{link.label} ↗</a>
+                      <a className="card-link" href={link.href} target="_blank" rel="noreferrer" key={link.href} onClick={(event) => event.stopPropagation()}>{link.label} ↗</a>
                     ))}
                   </div>
                 )}
@@ -762,6 +856,24 @@ function Portfolio() {
             </div>
           ))}
         </div>
+        {activeProject && (
+          <div className="portfolio-detail reveal visible" aria-live="polite">
+            <div className="portfolio-detail-copy">
+              <div className="detail-eyebrow">Selected case study</div>
+              <h3>{activeProject.title}</h3>
+              <p>{activeProject.summary}</p>
+            </div>
+            <div className="detail-stack">
+              {activeProject.stack.map((item) => <span key={item}>{item}</span>)}
+            </div>
+            <div className="detail-actions">
+              {activeProject.link && <a className="finder-btn" href={activeProject.link} target="_blank" rel="noreferrer">Open case study ↗</a>}
+              {activeProject.links?.map((link) => (
+                <a className="finder-btn ghost" href={link.href} target="_blank" rel="noreferrer" key={link.href}>{link.label} ↗</a>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );
