@@ -1172,6 +1172,7 @@ function ServiceFinder() {
 
 function CTA() {
   const [serviceMenuOpen, setServiceMenuOpen] = useState(false);
+  const serviceDropdownRef = useRef(null);
   const [form, setForm] = useState({
     name: '',
     email: '',
@@ -1244,6 +1245,30 @@ function CTA() {
     window.location.href = mailtoHref;
   };
 
+  useEffect(() => {
+    if (!serviceMenuOpen) return undefined;
+
+    const closeOnOutsideInteraction = (event) => {
+      if (!serviceDropdownRef.current?.contains(event.target)) {
+        setServiceMenuOpen(false);
+      }
+    };
+
+    const closeOnEscape = (event) => {
+      if (event.key === 'Escape') setServiceMenuOpen(false);
+    };
+
+    document.addEventListener('pointerdown', closeOnOutsideInteraction);
+    document.addEventListener('focusin', closeOnOutsideInteraction);
+    document.addEventListener('keydown', closeOnEscape);
+
+    return () => {
+      document.removeEventListener('pointerdown', closeOnOutsideInteraction);
+      document.removeEventListener('focusin', closeOnOutsideInteraction);
+      document.removeEventListener('keydown', closeOnEscape);
+    };
+  }, [serviceMenuOpen]);
+
   return (
     <section id="cta">
       <div className="cta-bg" />
@@ -1266,7 +1291,7 @@ function CTA() {
               </select>
             </label>
             <label>Service interest
-              <div className="multi-dropdown">
+              <div className="multi-dropdown" ref={serviceDropdownRef}>
                 <button
                   className={`multi-trigger ${serviceMenuOpen ? 'open' : ''}`}
                   type="button"
