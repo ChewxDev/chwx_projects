@@ -123,38 +123,43 @@ const tools = [
   ['🐳', 'Docker'], ['☁️', 'Salesforce'], ['🧡', 'HubSpot'], ['🎧', 'Zendesk'],
   ['💬', 'Slack'], ['🤖', 'OpenAI'], ['🧠', 'ChatGPT'], ['⚙️', 'Zapier'],
   ['🔁', 'Make.com'], ['📹', 'Zoom'], ['🔷', 'Miro'], ['🐙', 'GitHub'],
+  ['✅', 'ClickUp'], ['📆', 'Monday.com'], ['📐', 'Linear'], ['🧮', 'Airtable'],
   ['▲', 'Vercel'], ['🌍', 'Netlify'], ['🚀', 'Render'], ['🛤️', 'Railway'],
+  ['🧩', 'Webflow'], ['🖥️', 'Framer'], ['🟦', 'Wix'], ['🛍️', 'WooCommerce'],
   ['🔑', 'Google Workspace'], ['📊', 'Google Analytics'], ['📣', 'Meta Business Suite'],
+  ['📌', 'Buffer'], ['🗓️', 'Later'], ['🌱', 'Hootsuite'], ['🎬', 'YouTube Studio'],
   ['✉️', 'Mailchimp'], ['🛒', 'Shopify'], ['💳', 'Stripe'], ['📝', 'WordPress'],
   ['📈', 'Google Search Console'], ['🏷️', 'Google Tag Manager'], ['📉', 'Looker Studio'],
-  ['🔎', 'SEMrush'], ['🧭', 'Ahrefs'], ['📅', 'Calendly'], ['📞', 'Apollo'],
+  ['🔎', 'SEMrush'], ['🧭', 'Ahrefs'], ['🕷️', 'Screaming Frog'], ['🟠', 'Moz'],
+  ['🌡️', 'Hotjar'], ['🔍', 'Microsoft Clarity'], ['📅', 'Calendly'], ['🗓️', 'Cal.com'],
+  ['📞', 'Apollo'], ['📇', 'Pipedrive'], ['🟣', 'Zoho CRM'], ['🔄', 'n8n'],
   ['🎭', 'Figma'], ['🖼️', 'Canva'], ['🪄', 'Photoshop'], ['✒️', 'Illustrator']
 ];
 
 const testimonials = [
   {
-    quote: "Nicholas brought structure, speed, and real technical judgment to our AI chatbot project. He kept the team aligned, protected the budget, and helped turn a complex support workflow into a practical system that improved response time and reduced repetitive support work.",
+    quote: "Ni brought structure, speed, and real technical judgment to our AI chatbot project. He kept the team aligned, protected the budget, and helped turn a complex support workflow into a practical system that improved response time and reduced repetitive support work.",
     initials: 'AD',
     name: 'Anton Dorofeev',
     role: 'CEO · Lean Geeks',
     rating: 5
   },
   {
-    quote: "Nicholas handled our e-commerce migration with the calm of someone who understands both product delivery and business pressure. He coordinated the moving parts, improved performance, and kept the project disciplined from planning through execution.",
+    quote: "Ni handled our e-commerce migration with the calm of someone who understands both product delivery and business pressure. He coordinated the moving parts, improved performance, and kept the project disciplined from planning through execution.",
     initials: 'CR',
     name: 'Christian Rauchenwald',
     role: 'Owner · Convertain Limited',
     rating: 5
   },
   {
-    quote: "Nicholas helped bring order to busy multi-location operations. His project tracking, executive support, and communication systems made it easier for branch leadership to stay aligned, follow priorities, and move faster without losing visibility.",
+    quote: "Ni helped bring order to busy multi-location operations. His project tracking, executive support, and communication systems made it easier for branch leadership to stay aligned, follow priorities, and move faster without losing visibility.",
     initials: 'DN',
     name: 'Daniil',
     role: 'Branch Manager · BeePawn',
     rating: 5
   },
   {
-    quote: "Nicholas translated the Sutton Legal Consulting brand into a polished web presence with strong positioning, clean user experience, and professional detail. He understood the trust and clarity a legal consulting site needed to communicate from the first screen.",
+    quote: "Ni translated the Sutton Legal Consulting brand into a polished web presence with strong positioning, clean user experience, and professional detail. He understood the trust and clarity a legal consulting site needed to communicate from the first screen.",
     initials: 'OM',
     name: 'Onyeka Momah',
     role: 'Owner · Sutton Legal Consulting',
@@ -574,7 +579,7 @@ function Hero() {
         </span>
       </h1>
       <p className="hero-sub">
-        Results-driven digital work by <strong>Njoku Nicholas C.</strong>, delivering <strong>AI/ML projects</strong>, <strong>software products</strong>, <strong>premium design</strong> and <strong>operational excellence</strong> all from one trusted source.
+        Results-driven digital work by <strong>Ni</strong>, delivering <strong>AI/ML projects</strong>, <strong>software products</strong>, <strong>premium design</strong> and <strong>operational excellence</strong> all from one trusted source.
       </p>
       <div className="hero-actions">
         <a href="#portfolio" className="btn-primary magnetic">View My Work <span className="btn-arrow">→</span></a>
@@ -617,9 +622,9 @@ function About() {
           <div className="float-card float-card-2"><div className="float-metric">4+</div><div className="float-metric-label">Countries Served</div></div>
         </div>
         <div className="about-content">
-          <div className="section-tag reveal delay-1">About Nicholas</div>
+          <div className="section-tag reveal delay-1">About Ni</div>
           <h2 className="section-title reveal delay-2">One Pro.<br /><span>Every Capability.</span></h2>
-          <p className="reveal delay-2">I'm <strong>Njoku Nicholas C.</strong>, the professional behind <strong>chwx projects</strong>. I build, manage, design, and deliver all under one roof. With a <strong>B.Sc. in Computer Science</strong> and 5+ years leading high-stakes projects for clients in the US, UK, Hong Kong, and Ukraine.</p>
+          <p className="reveal delay-2">I'm <strong>Ni</strong>, the professional behind <strong>chwx projects</strong>. I build, manage, design, and deliver all under one roof. With a <strong>B.Sc. in Computer Science</strong> and 5+ years leading high-stakes projects for clients in the US, UK, Hong Kong, and Ukraine.</p>
           <p className="reveal delay-3">From <strong>AI chatbots</strong> that slashed response times from 24 hours to under 5 minutes, to <strong>e-commerce migrations</strong> delivered 29% under budget I bring measurable outcomes to every engagement.</p>
           <div className="skills-grid reveal delay-4">
             <div className="skill-item"><span className="skill-icon">⚙️</span> Agile Project Management</div>
@@ -1102,7 +1107,7 @@ function Footer() {
     <footer>
       <div className="footer-inner">
         <div className="footer-left">chwx projects<span style={{ color: 'var(--gold)' }}>.</span></div>
-        <div className="footer-center">© 2026 chwx projects · Njoku Nicholas C. · nicholascents77@gmail.com · Available Worldwide</div>
+        <div className="footer-center">© 2026 chwx projects · Ni · nicholascents77@gmail.com · Available Worldwide</div>
         <div className="footer-right">
           {socialLinks.map((link) => (
             <a href={link.href} className="footer-social" title={link.title} aria-label={link.label} target="_blank" rel="noreferrer" key={link.label}>{link.text}</a>
