@@ -97,6 +97,7 @@ export const caseStudies = [
     category: ['pm', 'dev'],
     icon: '🤖',
     gradient: 'grad-one',
+    link: 'https://www.notion.so/AI-Chatbot-Project-Lean-Geeks-258b3df263db804fb5eef083a9468b42?source=copy_link',
     description: 'Managed and delivered an AI customer support chatbot that reduced manual ticket handling while improving response speed.',
     results: [{ value: '60%', label: 'Ticket reduction' }, { value: '25%', label: 'Under budget' }, { value: '85%', label: 'Accuracy rate' }]
   },
@@ -107,6 +108,7 @@ export const caseStudies = [
     category: ['dev', 'pm'],
     icon: '🛒',
     gradient: 'grad-two',
+    link: 'https://www.notion.so/E-commerce-Platform-Migration-Convertain-Limited-258b3df263db807dae26f534b013f3d0?source=copy_link',
     description: 'Coordinated a complex e-commerce migration across stakeholders, data, QA, and launch readiness.',
     results: [{ value: '29%', label: 'Under budget' }, { value: '40%', label: 'Performance gain' }]
   },
@@ -117,6 +119,7 @@ export const caseStudies = [
     category: ['pm'],
     icon: '🏪',
     gradient: 'grad-three',
+    link: 'https://www.notion.so/BeePawn-Operations-Hub-PM-Executive-Office-34eb3df263db8104acb2e7af82f9f48c?source=copy_link',
     description: 'Improved operating cadence, inventory visibility, reporting structure, and executive coordination across multiple locations.',
     results: [{ value: '30%', label: 'Faster delivery' }, { value: '98%', label: 'Inventory accuracy' }]
   },
@@ -127,8 +130,31 @@ export const caseStudies = [
     category: ['pm', 'dev'],
     icon: '🔗',
     gradient: 'grad-four',
+    link: 'https://www.notion.so/Slack-Bot-Integration-Project-25bb3df263db8094ab93ef7d91ca529b?source=copy_link',
     description: 'Built a Slack automation workflow that connected multiple bots into a cleaner operational system for the team.',
     results: [{ value: '35%', label: 'Efficiency gain' }, { value: '15hrs', label: 'Saved per week' }]
+  },
+  {
+    id: 'peter-sage-zendesk',
+    title: 'Peter Sage Zendesk AI Agent Integration',
+    type: 'Zendesk / AI Agent',
+    category: ['pm', 'dev'],
+    icon: '🎧',
+    gradient: 'grad-one',
+    link: 'https://www.notion.so/Peter-Sage-Zendesk-AI-Agent-Integration-25bb3df263db8190a76cd1b4ee283dc6?source=copy_link',
+    description: 'Delivered a Zendesk AI agent workflow for support automation and customer response improvements.',
+    results: [{ value: 'AI', label: 'Agent integration' }, { value: 'Zendesk', label: 'Workflow' }]
+  },
+  {
+    id: 'sutton-legal',
+    title: 'Sutton Legal Website Repository',
+    type: 'Legal / Web Development',
+    category: ['dev'],
+    icon: '⚖️',
+    gradient: 'grad-two',
+    link: 'https://github.com/ChewxDev/sutton-legal',
+    description: 'Source repository for Sutton Legal web development work.',
+    results: [{ value: 'GitHub', label: 'Source code' }, { value: 'Legal', label: 'Website' }]
   },
   {
     id: 'creator',
