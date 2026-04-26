@@ -152,9 +152,9 @@ export const caseStudies = [
     category: ['dev'],
     icon: '⚖️',
     gradient: 'grad-two',
-    link: 'https://github.com/ChewxDev/sutton-legal',
+    link: 'https://sutton-legal.vercel.app/',
     description: 'Created a polished legal consulting website with premium positioning, service navigation, consultation CTA, and compliance-check flow.',
-    results: [{ value: 'Legal', label: 'Consulting site' }, { value: 'Compliance', label: 'Check flow' }, { value: 'GitHub', label: 'Source code' }]
+    results: [{ value: 'Live', label: 'Vercel site' }, { value: 'Compliance', label: 'Check flow' }, { value: 'Legal', label: 'Consulting site' }]
   },
   {
     id: 'creator',
