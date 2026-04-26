@@ -302,12 +302,20 @@ section{padding:100px 48px}
 .contact-form textarea{resize:vertical;min-height:130px;line-height:1.6}
 .contact-form input:focus,.contact-form select:focus,.contact-form textarea:focus{border-color:rgba(200,150,30,.48);box-shadow:0 0 0 4px rgba(200,150,30,.08)}
 .contact-form input::placeholder,.contact-form textarea::placeholder{color:rgba(139,148,158,.62)}
-.multi-select{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.multi-option{border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.04);color:var(--muted);border-radius:13px;padding:10px 11px;font:700 12px 'Inter',sans-serif;text-align:left;display:flex;align-items:center;gap:8px;cursor:pointer;transition:all .2s}
-.multi-option span{width:20px;height:20px;border-radius:50%;border:1px solid rgba(200,150,30,.28);display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:11px;flex:0 0 auto}
-.multi-option:hover,.multi-option.selected{border-color:rgba(200,150,30,.42);background:rgba(200,150,30,.1);color:var(--white)}
+.multi-dropdown{position:relative}
+.multi-trigger{width:100%;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.04);color:var(--white);border-radius:14px;padding:14px 15px;font:500 14px 'Inter',sans-serif;text-align:left;display:flex;align-items:center;justify-content:space-between;gap:12px;cursor:pointer;transition:all .2s}
+.multi-trigger span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.multi-trigger i{font-style:normal;color:var(--gold);font-size:16px;transition:transform .2s}
+.multi-trigger.open,.multi-trigger:focus{border-color:rgba(200,150,30,.48);box-shadow:0 0 0 4px rgba(200,150,30,.08)}
+.multi-trigger.open i{transform:rotate(180deg)}
+.multi-menu{position:absolute;z-index:20;top:calc(100% + 8px);left:0;right:0;max-height:280px;overflow:auto;border:1px solid rgba(255,255,255,.1);background:rgba(13,17,23,.98);border-radius:14px;padding:8px;box-shadow:0 22px 54px rgba(0,0,0,.45);backdrop-filter:blur(20px)}
+.multi-option{width:100%;border:0;background:transparent;color:var(--muted);border-radius:10px;padding:10px 11px;font:700 12px 'Inter',sans-serif;text-align:left;display:flex;align-items:center;gap:9px;cursor:pointer;transition:all .2s}
+.multi-option span{width:20px;height:20px;border-radius:6px;border:1px solid rgba(200,150,30,.28);display:flex;align-items:center;justify-content:center;color:#000;background:transparent;font-size:11px;flex:0 0 auto}
+.multi-option:hover,.multi-option.selected{background:rgba(200,150,30,.1);color:var(--white)}
+.multi-option.selected span{background:var(--gold);border-color:var(--gold)}
 .contact-form .cta-actions{justify-content:flex-start;margin-top:10px}
-.contact-form button{border:0;cursor:pointer}
+.contact-form button{cursor:pointer}
+.contact-form button.btn-primary{border:0}
 .form-error{color:#ff8a8a;font-size:11px;text-transform:none;letter-spacing:0;font-weight:600}
 .form-count{align-self:flex-end;color:rgba(139,148,158,.7);font-size:11px;text-transform:none;letter-spacing:0;font-weight:500}
 .form-status{border:1px solid rgba(200,150,30,.22);background:rgba(200,150,30,.08);color:var(--gold);border-radius:12px;padding:12px 14px;font-size:13px;line-height:1.5;margin:4px 0 14px}
@@ -359,7 +367,7 @@ footer{background:var(--navy2);border-top:1px solid var(--border);padding:40px 4
   .footer-inner{flex-direction:column;text-align:center}
   .testi-track{height:470px}
   .testi-card{padding:32px 28px}
-  .multi-select{grid-template-columns:1fr}
+  .multi-menu{position:relative;top:8px;max-height:none}
 }
 
 /* NOISE TEXTURE OVERLAY */

@@ -928,6 +928,7 @@ function ServiceFinder() {
 }
 
 function CTA() {
+  const [serviceMenuOpen, setServiceMenuOpen] = useState(false);
   const [form, setForm] = useState({
     name: '',
     email: '',
@@ -967,6 +968,7 @@ function CTA() {
   };
 
   const sanitizedForm = sanitizeContactForm(form);
+  const serviceSummary = form.service.includes('Not sure yet') ? 'Not sure yet' : form.service.join(', ');
   const mailSubject = encodeURIComponent(`Project inquiry from ${sanitizedForm.name || 'website visitor'}`);
   const mailBody = encodeURIComponent(
     `Name: ${sanitizedForm.name}\nEmail: ${sanitizedForm.email}\nClient type: ${sanitizedForm.clientType}\nService interest: ${sanitizedForm.service}\nBudget: ${sanitizedForm.budget}\nTimeline: ${sanitizedForm.timeline}\n\nProject details:\n${sanitizedForm.message}`
@@ -1016,22 +1018,37 @@ function CTA() {
               </select>
             </label>
             <label>Service interest
-              <div className="multi-select" role="group" aria-label="Service interest">
-                {contactServiceOptions.map((service) => {
-                  const selected = form.service.includes(service);
-                  return (
-                    <button
-                      className={`multi-option ${selected ? 'selected' : ''}`}
-                      key={service}
-                      type="button"
-                      onClick={() => toggleService(service)}
-                      aria-pressed={selected}
-                    >
-                      <span>{selected ? '✓' : '+'}</span>
-                      {service}
-                    </button>
-                  );
-                })}
+              <div className="multi-dropdown">
+                <button
+                  className={`multi-trigger ${serviceMenuOpen ? 'open' : ''}`}
+                  type="button"
+                  onClick={() => setServiceMenuOpen((open) => !open)}
+                  aria-expanded={serviceMenuOpen}
+                  aria-haspopup="listbox"
+                >
+                  <span>{serviceSummary}</span>
+                  <i>⌄</i>
+                </button>
+                {serviceMenuOpen && (
+                  <div className="multi-menu" role="listbox" aria-label="Service interest" aria-multiselectable="true">
+                    {contactServiceOptions.map((service) => {
+                      const selected = form.service.includes(service);
+                      return (
+                        <button
+                          className={`multi-option ${selected ? 'selected' : ''}`}
+                          key={service}
+                          type="button"
+                          onClick={() => toggleService(service)}
+                          role="option"
+                          aria-selected={selected}
+                        >
+                          <span>{selected ? '✓' : ''}</span>
+                          {service}
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
               </div>
               {errors.service && <span className="form-error">{errors.service}</span>}
             </label>
