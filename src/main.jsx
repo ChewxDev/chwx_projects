@@ -159,64 +159,142 @@ const testimonials = [
 const questionnaireSteps = [
   {
     id: 'profile',
-    title: 'Who needs help?',
-    subtitle: 'This changes the recommendation mix.',
+    title: 'What best describes you?',
+    subtitle: 'This sets the context for the engagement and how hands-on the support should be.',
     type: 'single',
     options: [
-      { label: 'Individual / founder', scores: { 'Business Development & Strategy': 2, Design: 1, 'Software Development': 1 } },
-      { label: 'Small business', scores: { 'Project Management & Ops': 2, 'Social Media & Marketing': 2, 'Business Development & Strategy': 1 } },
-      { label: 'Growing team', scores: { 'Project Management & Ops': 3, 'Virtual & Executive Assistance': 2, 'Software Development': 1 } },
-      { label: 'Enterprise / executive office', scores: { 'Virtual & Executive Assistance': 3, 'Project Management & Ops': 2, 'Writing & Content': 1 } }
+      { label: 'Founder or solo operator', detail: 'You need someone who can think, build, write, and execute without heavy hand-holding.', scores: { 'Business Development & Strategy': 3, 'Software Development': 2, Design: 2, 'Writing & Content': 1 } },
+      { label: 'Small business', detail: 'You need better systems, stronger presence, and practical execution that moves revenue.', scores: { 'Project Management & Ops': 2, 'Social Media & Marketing': 3, 'Business Development & Strategy': 2, Design: 1 } },
+      { label: 'Growing team', detail: 'You need coordination, product/process structure, and clearer ownership across people and tools.', scores: { 'Project Management & Ops': 4, 'Virtual & Executive Assistance': 2, 'Software Development': 2 } },
+      { label: 'Executive office or enterprise team', detail: 'You need trusted support around operations, reporting, admin, stakeholders, and execution rhythm.', scores: { 'Virtual & Executive Assistance': 4, 'Project Management & Ops': 3, 'Writing & Content': 2 } }
     ]
   },
   {
     id: 'goal',
-    title: 'What outcome matters most right now?',
-    subtitle: 'Choose the main win you want from the engagement.',
+    title: 'What outcome would make this a win?',
+    subtitle: 'Pick the result that would make the biggest difference in the next 30 to 90 days.',
     type: 'single',
     options: [
-      { label: 'Launch or fix a digital product', scores: { 'Software Development': 3, 'Project Management & Ops': 2, Design: 1 } },
-      { label: 'Make operations less chaotic', scores: { 'Project Management & Ops': 3, 'Virtual & Executive Assistance': 2 } },
-      { label: 'Improve brand, visuals, or conversion', scores: { Design: 3, 'Social Media & Marketing': 2, 'Writing & Content': 1 } },
-      { label: 'Grow leads, audience, or revenue', scores: { 'Business Development & Strategy': 3, 'Social Media & Marketing': 2, 'Writing & Content': 1 } }
+      { label: 'Launch or rebuild a product', detail: 'A website, web app, mobile app, API, portal, dashboard, or automation needs to go live.', scores: { 'Software Development': 5, 'Project Management & Ops': 2, Design: 2 } },
+      { label: 'Fix messy operations', detail: 'Work is happening, but deadlines, ownership, reporting, or communication are too loose.', scores: { 'Project Management & Ops': 5, 'Virtual & Executive Assistance': 3 } },
+      { label: 'Look more premium and credible', detail: 'The brand, website, logo, flyers, deck, or customer-facing materials need to feel sharper.', scores: { Design: 5, 'Writing & Content': 2, 'Social Media & Marketing': 1 } },
+      { label: 'Generate more demand', detail: 'You need stronger content, better campaigns, clearer offers, or a repeatable growth engine.', scores: { 'Social Media & Marketing': 4, 'Business Development & Strategy': 4, 'Writing & Content': 2 } }
+    ]
+  },
+  {
+    id: 'assets',
+    title: 'What needs to be created or improved?',
+    subtitle: 'Select every asset or system you need help with.',
+    type: 'multi',
+    options: [
+      { label: 'Website or landing page', detail: 'Web design, frontend build, conversion flow, copy, and launch polish.', scores: { 'Software Development': 3, Design: 3, 'Writing & Content': 1 } },
+      { label: 'Mobile or web app', detail: 'React, Flutter, APIs, dashboards, portals, product flows, and deployment.', scores: { 'Software Development': 5, 'Project Management & Ops': 2, Design: 1 } },
+      { label: 'Logo, brand, flyer, or pitch deck', detail: 'Identity, campaign visuals, print-ready collateral, and presentation design.', scores: { Design: 5, 'Writing & Content': 2 } },
+      { label: 'Content calendar or social channels', detail: 'Platform strategy, publishing rhythm, analytics, and growth loops.', scores: { 'Social Media & Marketing': 5, 'Writing & Content': 2 } },
+      { label: 'Workflow, SOP, CRM, or reporting system', detail: 'Operational documentation, dashboards, stakeholder reporting, and tool setup.', scores: { 'Project Management & Ops': 4, 'Virtual & Executive Assistance': 3 } },
+      { label: 'AI chatbot, support agent, or automation', detail: 'AI-assisted support, Slack/Zendesk workflows, response automation, and integrations.', scores: { 'Software Development': 4, 'Project Management & Ops': 2, 'Virtual & Executive Assistance': 1 } }
     ]
   },
   {
     id: 'friction',
-    title: 'Where is the pressure coming from?',
-    subtitle: 'Pick every pain point that applies.',
+    title: 'Where are things breaking down?',
+    subtitle: 'Pick the friction points that are costing the most time, money, or momentum.',
     type: 'multi',
     options: [
-      { label: 'Missed deadlines or unclear ownership', scores: { 'Project Management & Ops': 3 } },
-      { label: 'Manual tasks and slow response times', scores: { 'Software Development': 2, 'Project Management & Ops': 1 } },
-      { label: 'Weak online presence or content consistency', scores: { 'Social Media & Marketing': 3, 'Writing & Content': 1 } },
-      { label: 'Too much admin work for leaders', scores: { 'Virtual & Executive Assistance': 3 } },
-      { label: 'Unclear offer, pitch, or market strategy', scores: { 'Business Development & Strategy': 3, 'Writing & Content': 2 } },
-      { label: 'Product or brand does not look premium enough', scores: { Design: 3 } }
+      { label: 'Deadlines slip and ownership is unclear', detail: 'Tasks move, but nobody has a clean view of priorities, blockers, or accountability.', scores: { 'Project Management & Ops': 5, 'Virtual & Executive Assistance': 1 } },
+      { label: 'Manual tasks are slowing the team down', detail: 'Support, reporting, admin, or handoffs need automation and cleaner systems.', scores: { 'Software Development': 3, 'Project Management & Ops': 2, 'Virtual & Executive Assistance': 2 } },
+      { label: 'The offer is hard to explain', detail: 'Customers do not immediately understand what you do, why it matters, or why now.', scores: { 'Business Development & Strategy': 4, 'Writing & Content': 3, Design: 1 } },
+      { label: 'The online presence feels inconsistent', detail: 'The website, socials, content, and visuals are not working together.', scores: { 'Social Media & Marketing': 4, Design: 3, 'Writing & Content': 2 } },
+      { label: 'Leaders are buried in admin', detail: 'Calendars, follow-ups, CRM, reports, and coordination are consuming executive attention.', scores: { 'Virtual & Executive Assistance': 5, 'Project Management & Ops': 2 } },
+      { label: 'Growth activity is not converting', detail: 'There is effort, but not enough leads, replies, booked calls, sales, or retention.', scores: { 'Business Development & Strategy': 5, 'Social Media & Marketing': 3, 'Writing & Content': 1 } }
+    ]
+  },
+  {
+    id: 'maturity',
+    title: 'How mature is the current setup?',
+    subtitle: 'This helps separate build-from-scratch work from optimization and scale work.',
+    type: 'single',
+    options: [
+      { label: 'Idea only', detail: 'You have a direction, but the offer, scope, product, or assets still need definition.', scores: { 'Business Development & Strategy': 4, Design: 2, 'Writing & Content': 2 } },
+      { label: 'Partially built', detail: 'Some pieces exist, but the experience, system, or launch plan needs finishing.', scores: { 'Software Development': 3, 'Project Management & Ops': 3, Design: 2 } },
+      { label: 'Live but underperforming', detail: 'The current setup works, but results are below where they should be.', scores: { 'Social Media & Marketing': 3, 'Business Development & Strategy': 3, 'Software Development': 2 } },
+      { label: 'Running, but needs structure', detail: 'The business is active and needs better documentation, reporting, or operating cadence.', scores: { 'Project Management & Ops': 4, 'Virtual & Executive Assistance': 3 } }
+    ]
+  },
+  {
+    id: 'support',
+    title: 'What kind of support do you want?',
+    subtitle: 'Choose the working style that best fits your situation.',
+    type: 'single',
+    options: [
+      { label: 'Done-for-you execution', detail: 'You want someone to own the work and deliver the finished output.', scores: { 'Software Development': 2, Design: 2, 'Writing & Content': 2, 'Social Media & Marketing': 2 } },
+      { label: 'Project leadership', detail: 'You have people or vendors, but need a manager to drive delivery and accountability.', scores: { 'Project Management & Ops': 5, 'Business Development & Strategy': 1 } },
+      { label: 'Strategic diagnosis and roadmap', detail: 'You need clarity on what to do, what to prioritize, and how to sequence the work.', scores: { 'Business Development & Strategy': 5, 'Project Management & Ops': 2, 'Writing & Content': 1 } },
+      { label: 'Ongoing operational support', detail: 'You need reliable recurring help for admin, reporting, coordination, and workflows.', scores: { 'Virtual & Executive Assistance': 5, 'Project Management & Ops': 2 } }
     ]
   },
   {
     id: 'timeline',
-    title: 'How soon do you need movement?',
-    subtitle: 'This shapes the recommended engagement style.',
+    title: 'How urgent is this?',
+    subtitle: 'This shapes whether the recommendation is a sprint, build, retainer, or strategy engagement.',
     type: 'single',
     options: [
-      { label: 'Immediately: this week', scores: { 'Project Management & Ops': 2, 'Virtual & Executive Assistance': 2 } },
-      { label: 'Within 30 days', scores: { 'Software Development': 1, Design: 1, 'Social Media & Marketing': 1 } },
-      { label: 'This quarter', scores: { 'Business Development & Strategy': 2, 'Project Management & Ops': 1 } },
-      { label: 'I need clarity first', scores: { 'Business Development & Strategy': 2, 'Writing & Content': 1 } }
+      { label: 'This week', detail: 'There is a live deadline, stuck project, broken workflow, or urgent launch pressure.', scores: { 'Project Management & Ops': 3, 'Virtual & Executive Assistance': 2, 'Software Development': 1 } },
+      { label: 'Within 30 days', detail: 'You need visible progress quickly, but there is room for a focused sprint.', scores: { 'Software Development': 2, Design: 2, 'Social Media & Marketing': 2, 'Project Management & Ops': 1 } },
+      { label: 'This quarter', detail: 'You want the right roadmap, sequencing, and execution plan before scaling.', scores: { 'Business Development & Strategy': 3, 'Project Management & Ops': 2 } },
+      { label: 'I need clarity first', detail: 'You are not sure what service is best yet and want the right diagnosis before committing.', scores: { 'Business Development & Strategy': 4, 'Writing & Content': 2, Design: 1 } }
+    ]
+  },
+  {
+    id: 'budget',
+    title: 'What level of engagement feels realistic?',
+    subtitle: 'No exact pricing here. This helps recommend the right scope.',
+    type: 'single',
+    options: [
+      { label: 'Quick audit or advisory session', detail: 'Best for clarity, prioritization, and a practical next-step plan.', scores: { 'Business Development & Strategy': 3, 'Project Management & Ops': 1, 'Writing & Content': 1 } },
+      { label: 'Focused project sprint', detail: 'Best for landing pages, decks, workflows, campaigns, audits, or small builds.', scores: { Design: 2, 'Software Development': 2, 'Social Media & Marketing': 2, 'Writing & Content': 2 } },
+      { label: 'Full build or transformation', detail: 'Best for products, migrations, operational systems, brand systems, or multi-part projects.', scores: { 'Software Development': 3, 'Project Management & Ops': 3, Design: 2, 'Business Development & Strategy': 1 } },
+      { label: 'Ongoing monthly support', detail: 'Best for executive assistance, operations, marketing, reporting, and continuous optimization.', scores: { 'Virtual & Executive Assistance': 4, 'Social Media & Marketing': 3, 'Project Management & Ops': 2 } }
     ]
   }
 ];
 
 const serviceCopy = {
-  'Project Management & Ops': 'Best when work is moving but ownership, timelines, risk, or delivery rhythm need control.',
-  'Software Development': 'Best when you need a web app, mobile app, API, automation, Flutter build, Python workflow, or technical product taken from idea to usable release.',
-  Design: 'Best when the visual experience, UI, web design, logo, flyer, deck, brand system, or product presentation needs to feel premium and trustworthy.',
-  'Writing & Content': 'Best when proposals, documentation, copy, reports, or thought leadership need sharper structure and execution.',
-  'Social Media & Marketing': 'Best when audience growth, content consistency, platform strategy, or campaign analytics need a system.',
-  'Virtual & Executive Assistance': 'Best when leaders are overloaded with scheduling, reporting, CRM, coordination, or recurring admin work.',
-  'Business Development & Strategy': 'Best when the offer, market, pitch, growth plan, or revenue direction needs clear thinking and execution.'
+  'Project Management & Ops': {
+    summary: 'Best when work is moving but ownership, timelines, risk, reporting, or delivery rhythm need control.',
+    deliverables: ['Delivery roadmap', 'Sprint/task system', 'Risk and stakeholder tracking'],
+    firstMove: 'Start with a delivery audit, then build a clear operating cadence for priorities, owners, deadlines, and reporting.'
+  },
+  'Software Development': {
+    summary: 'Best when you need a web app, mobile app, API, automation, Flutter build, Python workflow, or technical product taken from idea to usable release.',
+    deliverables: ['Product scope', 'Frontend/backend build', 'Deployment and integrations'],
+    firstMove: 'Define the user flow and technical scope, then move into a focused build sprint with clear milestones.'
+  },
+  Design: {
+    summary: 'Best when the visual experience, UI, web design, logo, flyer, deck, brand system, or product presentation needs to feel premium and trustworthy.',
+    deliverables: ['Visual direction', 'UI/brand assets', 'Launch-ready design files'],
+    firstMove: 'Audit the current look and customer touchpoints, then create a sharper design system and priority assets.'
+  },
+  'Writing & Content': {
+    summary: 'Best when proposals, documentation, copy, reports, case studies, or thought leadership need sharper structure and execution.',
+    deliverables: ['Messaging framework', 'Conversion copy', 'Docs or proposal assets'],
+    firstMove: 'Clarify the audience, offer, and proof points, then turn them into usable copy and content assets.'
+  },
+  'Social Media & Marketing': {
+    summary: 'Best when audience growth, content consistency, platform strategy, campaigns, or analytics need a repeatable system.',
+    deliverables: ['Content strategy', 'Publishing calendar', 'Analytics and optimization loop'],
+    firstMove: 'Review current channels and offers, then build a 30-day content and campaign plan tied to measurable outcomes.'
+  },
+  'Virtual & Executive Assistance': {
+    summary: 'Best when leaders are overloaded with scheduling, reporting, CRM, coordination, stakeholder follow-up, or recurring admin work.',
+    deliverables: ['Executive workflow', 'Calendar/CRM support', 'Recurring reports and follow-ups'],
+    firstMove: 'Map the recurring admin load, then create a support system that removes bottlenecks from leadership.'
+  },
+  'Business Development & Strategy': {
+    summary: 'Best when the offer, market, pitch, growth plan, or revenue direction needs clear thinking and execution.',
+    deliverables: ['Market and offer audit', 'Growth roadmap', 'Pitch/proposal strategy'],
+    firstMove: 'Diagnose the offer, audience, and sales motion, then prioritize the highest-leverage growth path.'
+  }
 };
 
 function useReveal() {
@@ -721,11 +799,19 @@ function ServiceFinder() {
     return Object.entries(totals)
       .sort((a, b) => b[1] - a[1])
       .slice(0, 3)
-      .map(([service, score], index) => ({ service, score, rank: index + 1 }));
+      .map(([service, score], index, list) => ({
+        service,
+        score,
+        rank: index + 1,
+        match: Math.max(72, Math.round((score / Math.max(list[0][1], 1)) * 100))
+      }));
   }, [answers]);
 
   const selectedForStep = answers[activeStep.id] || [];
   const canAdvance = selectedForStep.length > 0;
+  const selectedBudget = answers.budget?.[0];
+  const selectedTimeline = answers.timeline?.[0];
+  const engagementStyle = selectedBudget || selectedTimeline || 'Answer the questionnaire to shape the engagement style.';
 
   const toggleAnswer = (option) => {
     setAnswers((current) => {
@@ -745,13 +831,17 @@ function ServiceFinder() {
     setStepIndex(0);
   };
 
+  const showRecommendations = () => {
+    document.getElementById('recommendations')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
   return (
     <section id="finder" className="finder-section">
       <div className="finder-inner">
         <div className="finder-copy">
           <div className="section-tag reveal">Service Finder</div>
           <h2 className="section-title reveal delay-1">Answer Fast.<br /><span>Get Matched.</span></h2>
-          <p className="section-sub reveal delay-2">A focused questionnaire that maps your situation to the most useful chwx projects services for individuals, founders, teams, and businesses.</p>
+          <p className="section-sub reveal delay-2">A sharper diagnostic that maps your goals, bottlenecks, assets, urgency, and budget style to the chwx projects services most likely to move the needle.</p>
           <div className="finder-pulse reveal delay-3">
             <span>{Math.round(progress)}%</span>
             <div><i style={{ width: `${progress}%` }} /></div>
@@ -775,7 +865,8 @@ function ServiceFinder() {
                   onClick={() => toggleAnswer(option)}
                 >
                   <span>{selected ? '✓' : activeStep.type === 'multi' ? '+' : '○'}</span>
-                  {option.label}
+                  <strong>{option.label}</strong>
+                  <em>{option.detail}</em>
                 </button>
               );
             })}
@@ -785,7 +876,7 @@ function ServiceFinder() {
             {stepIndex < questionnaireSteps.length - 1 ? (
               <button className="finder-btn" type="button" onClick={() => setStepIndex((value) => value + 1)} disabled={!canAdvance}>Next</button>
             ) : (
-              <a className="finder-btn" href="#recommendations">See Recommendations</a>
+              <button className="finder-btn" type="button" onClick={showRecommendations} disabled={!canAdvance}>See Recommendations</button>
             )}
           </div>
         </div>
@@ -796,6 +887,7 @@ function ServiceFinder() {
           <div>
             <div className="section-tag">Recommended Mix</div>
             <h3>Your likely service stack</h3>
+            <p>{recommendations.length ? `Suggested engagement: ${engagementStyle}` : 'Complete the diagnostic to generate a more useful recommendation mix.'}</p>
           </div>
           <button className="finder-btn ghost" type="button" onClick={reset}>Reset</button>
         </div>
@@ -804,10 +896,15 @@ function ServiceFinder() {
             {recommendations.map((item) => (
               <div className="recommendation-card" key={item.service}>
                 <div className="recommendation-rank">0{item.rank}</div>
+                <div className="recommendation-fit">{item.rank === 1 ? 'Primary fit' : item.rank === 2 ? 'Support service' : 'Useful add-on'}</div>
                 <h4>{item.service}</h4>
-                <p>{serviceCopy[item.service]}</p>
-                <div className="match-meter"><span style={{ width: `${Math.min(item.score * 12, 100)}%` }} /></div>
-                <small>{item.score} match signals</small>
+                <p>{serviceCopy[item.service].summary}</p>
+                <ul>
+                  {serviceCopy[item.service].deliverables.map((deliverable) => <li key={deliverable}>{deliverable}</li>)}
+                </ul>
+                <div className="recommendation-next">{serviceCopy[item.service].firstMove}</div>
+                <div className="match-meter"><span style={{ width: `${item.match}%` }} /></div>
+                <small>{item.match}% match · {item.score} weighted signals</small>
               </div>
             ))}
           </div>
