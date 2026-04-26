@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client';
 import './styles.css';
 import { checkContactRateLimit, contactFieldLimits, sanitizeContactForm, validateContactForm } from './security.js';
 
-const roles = ['Project Manager', 'Full-Stack Developer', 'UI/UX Designer', 'Content Writer', 'Social Media Strategist', 'Executive Assistant'];
+const roles = ['Project Manager', 'Full-Stack Developer', 'UI/UX Designer', 'Content Writer', 'Social Media Strategist', 'SEO & Analytics Specialist', 'Executive Assistant'];
 
 const marqueeItems = [
   'Project Management',
@@ -21,6 +21,10 @@ const marqueeItems = [
   'MongoDB',
   'Digital Transformation',
   'Social Media Strategy',
+  'SEO',
+  'Analytics & Reporting',
+  'Appointment Setting',
+  'Lead Generation',
   'Business Development',
   'Asana Certified',
   'Content Writing',
@@ -66,16 +70,16 @@ const services = [
     color: 'rgba(150,100,255,.1)',
     border: 'rgba(150,100,255,.2)',
     title: 'Social Media & Marketing',
-    desc: 'Platform strategy, content calendars, analytics-driven growth. 25% follower growth in 6 months.',
-    tags: ['Content Strategy', 'Analytics', 'A/B Testing']
+    desc: 'Platform strategy, content calendars, SEO, analytics, lead generation, appointment setting, and conversion-focused growth.',
+    tags: ['Content Strategy', 'SEO', 'Analytics', 'Appointment Setting', 'A/B Testing']
   },
   {
     icon: '📋',
     color: 'rgba(255,180,30,.1)',
     border: 'rgba(255,180,30,.2)',
     title: 'Virtual & Executive Assistance',
-    desc: 'C-suite support, calendar management, CRM, stakeholder liaison. 85% reduction in scheduling conflicts.',
-    tags: ['EA Support', 'CRM (Salesforce)', 'Operations']
+    desc: 'C-suite support, appointment setting, calendar management, CRM updates, stakeholder liaison, and operational follow-through.',
+    tags: ['EA Support', 'Appointment Setting', 'CRM (Salesforce)', 'Operations']
   }
 ];
 
@@ -118,10 +122,12 @@ const tools = [
   ['▲', 'Next.js'], ['💨', 'Tailwind CSS'], ['🔌', 'REST APIs'], ['🧬', 'GraphQL'],
   ['🐳', 'Docker'], ['☁️', 'Salesforce'], ['🧡', 'HubSpot'], ['🎧', 'Zendesk'],
   ['💬', 'Slack'], ['🤖', 'OpenAI'], ['🧠', 'ChatGPT'], ['⚙️', 'Zapier'],
-  ['🔁', 'Make'], ['📹', 'Zoom'], ['🔷', 'Miro'], ['🐙', 'GitHub'],
+  ['🔁', 'Make.com'], ['📹', 'Zoom'], ['🔷', 'Miro'], ['🐙', 'GitHub'],
   ['▲', 'Vercel'], ['🌍', 'Netlify'], ['🚀', 'Render'], ['🛤️', 'Railway'],
   ['🔑', 'Google Workspace'], ['📊', 'Google Analytics'], ['📣', 'Meta Business Suite'],
   ['✉️', 'Mailchimp'], ['🛒', 'Shopify'], ['💳', 'Stripe'], ['📝', 'WordPress'],
+  ['📈', 'Google Search Console'], ['🏷️', 'Google Tag Manager'], ['📉', 'Looker Studio'],
+  ['🔎', 'SEMrush'], ['🧭', 'Ahrefs'], ['📅', 'Calendly'], ['📞', 'Apollo'],
   ['🎭', 'Figma'], ['🖼️', 'Canva'], ['🪄', 'Photoshop'], ['✒️', 'Illustrator']
 ];
 
@@ -193,7 +199,7 @@ const questionnaireSteps = [
       { label: 'Website or landing page', detail: 'Web design, frontend build, conversion flow, copy, and launch polish.', scores: { 'Software Development': 3, Design: 3, 'Writing & Content': 1 } },
       { label: 'Mobile or web app', detail: 'React, Flutter, APIs, dashboards, portals, product flows, and deployment.', scores: { 'Software Development': 5, 'Project Management & Ops': 2, Design: 1 } },
       { label: 'Logo, brand, flyer, or pitch deck', detail: 'Identity, campaign visuals, print-ready collateral, and presentation design.', scores: { Design: 5, 'Writing & Content': 2 } },
-      { label: 'Content calendar or social channels', detail: 'Platform strategy, publishing rhythm, analytics, and growth loops.', scores: { 'Social Media & Marketing': 5, 'Writing & Content': 2 } },
+      { label: 'Content, SEO, analytics, or social channels', detail: 'Platform strategy, publishing rhythm, SEO, analytics, reporting, and growth loops.', scores: { 'Social Media & Marketing': 5, 'Writing & Content': 2, 'Business Development & Strategy': 1 } },
       { label: 'Workflow, SOP, CRM, or reporting system', detail: 'Operational documentation, dashboards, stakeholder reporting, and tool setup.', scores: { 'Project Management & Ops': 4, 'Virtual & Executive Assistance': 3 } },
       { label: 'AI chatbot, support agent, or automation', detail: 'AI-assisted support, Slack/Zendesk workflows, response automation, and integrations.', scores: { 'Software Development': 4, 'Project Management & Ops': 2, 'Virtual & Executive Assistance': 1 } }
     ]
@@ -210,7 +216,7 @@ const questionnaireSteps = [
       { label: 'The offer is hard to explain', detail: 'Customers do not immediately understand what you do, why it matters, or why now.', scores: { 'Business Development & Strategy': 4, 'Writing & Content': 3, Design: 1 } },
       { label: 'The online presence feels inconsistent', detail: 'The website, socials, content, and visuals are not working together.', scores: { 'Social Media & Marketing': 4, Design: 3, 'Writing & Content': 2 } },
       { label: 'Leaders are buried in admin', detail: 'Calendars, follow-ups, CRM, reports, and coordination are consuming executive attention.', scores: { 'Virtual & Executive Assistance': 5, 'Project Management & Ops': 2 } },
-      { label: 'Growth activity is not converting', detail: 'There is effort, but not enough leads, replies, booked calls, sales, or retention.', scores: { 'Business Development & Strategy': 5, 'Social Media & Marketing': 3, 'Writing & Content': 1 } }
+      { label: 'Growth activity is not converting', detail: 'There is effort, but not enough leads, replies, booked calls, sales, SEO visibility, or retention.', scores: { 'Business Development & Strategy': 5, 'Social Media & Marketing': 3, 'Writing & Content': 1 } }
     ]
   },
   {
@@ -236,7 +242,7 @@ const questionnaireSteps = [
       { label: 'Done-for-you execution', detail: 'You want someone to own the work and deliver the finished output.', scores: { 'Software Development': 2, Design: 2, 'Writing & Content': 2, 'Social Media & Marketing': 2 } },
       { label: 'Project leadership', detail: 'You have people or vendors, but need a manager to drive delivery and accountability.', scores: { 'Project Management & Ops': 5, 'Business Development & Strategy': 1 } },
       { label: 'Strategic diagnosis and roadmap', detail: 'You need clarity on what to do, what to prioritize, and how to sequence the work.', scores: { 'Business Development & Strategy': 5, 'Project Management & Ops': 2, 'Writing & Content': 1 } },
-      { label: 'Ongoing operational support', detail: 'You need reliable recurring help for admin, reporting, coordination, and workflows.', scores: { 'Virtual & Executive Assistance': 5, 'Project Management & Ops': 2 } }
+      { label: 'Ongoing operational support', detail: 'You need reliable recurring help for admin, reporting, appointment setting, coordination, and workflows.', scores: { 'Virtual & Executive Assistance': 5, 'Project Management & Ops': 2, 'Social Media & Marketing': 1 } }
     ]
   },
   {
@@ -287,14 +293,14 @@ const serviceCopy = {
     firstMove: 'Clarify the audience, offer, and proof points, then turn them into usable copy and content assets.'
   },
   'Social Media & Marketing': {
-    summary: 'Best when audience growth, content consistency, platform strategy, campaigns, or analytics need a repeatable system.',
-    deliverables: ['Content strategy', 'Publishing calendar', 'Analytics and optimization loop'],
-    firstMove: 'Review current channels and offers, then build a 30-day content and campaign plan tied to measurable outcomes.'
+    summary: 'Best when audience growth, SEO visibility, content consistency, appointment setting, campaigns, or analytics need a repeatable system.',
+    deliverables: ['Content and SEO strategy', 'Appointment-setting or lead flow', 'Analytics and optimization loop'],
+    firstMove: 'Review current channels, search visibility, offer, and tracking, then build a 30-day growth plan tied to measurable outcomes.'
   },
   'Virtual & Executive Assistance': {
-    summary: 'Best when leaders are overloaded with scheduling, reporting, CRM, coordination, stakeholder follow-up, or recurring admin work.',
-    deliverables: ['Executive workflow', 'Calendar/CRM support', 'Recurring reports and follow-ups'],
-    firstMove: 'Map the recurring admin load, then create a support system that removes bottlenecks from leadership.'
+    summary: 'Best when leaders are overloaded with appointment setting, scheduling, reporting, CRM, coordination, stakeholder follow-up, or recurring admin work.',
+    deliverables: ['Executive workflow', 'Calendar/CRM support', 'Appointment and follow-up system'],
+    firstMove: 'Map the recurring admin and follow-up load, then create a support system that removes bottlenecks from leadership.'
   },
   'Business Development & Strategy': {
     summary: 'Best when the offer, market, pitch, growth plan, or revenue direction needs clear thinking and execution.',
@@ -622,6 +628,10 @@ function About() {
             <div className="skill-item"><span className="skill-icon">✍️</span> Technical & Business Writing</div>
             <div className="skill-item"><span className="skill-icon">📣</span> Social Media Strategy</div>
             <div className="skill-item"><span className="skill-icon">📋</span> Executive Assistance</div>
+            <div className="skill-item"><span className="skill-icon">📅</span> Appointment Setting</div>
+            <div className="skill-item"><span className="skill-icon">🔎</span> SEO & Search Visibility</div>
+            <div className="skill-item"><span className="skill-icon">📊</span> Analytics & Reporting</div>
+            <div className="skill-item"><span className="skill-icon">🎯</span> Lead Generation</div>
             <div className="skill-item"><span className="skill-icon">🤖</span> AI/ML Implementation</div>
             <div className="skill-item"><span className="skill-icon">📈</span> Business Development</div>
           </div>
