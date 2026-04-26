@@ -932,8 +932,11 @@ function Portfolio() {
         </div>
         {activeProject && (
           <div className="portfolio-detail reveal visible" aria-live="polite">
+            <div className={`card-bg detail-bg ${activeProject.gradient}`} />
+            <div className="card-glow" />
+            <div className="card-scanline" />
             <div className="portfolio-detail-copy">
-              <div className="detail-eyebrow">Selected case study</div>
+              <div className="detail-eyebrow">{activeProject.category}</div>
               <h3>{activeProject.title}</h3>
               <p>{activeProject.summary}</p>
             </div>
