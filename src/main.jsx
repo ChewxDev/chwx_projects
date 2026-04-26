@@ -86,6 +86,7 @@ const socialLinks = [
   { label: 'LinkedIn', title: 'LinkedIn', text: 'in', href: 'https://www.linkedin.com/in/nicholas-njoku-897054223/' },
   { label: 'GitHub', title: 'GitHub', text: 'gh', href: 'https://github.com/ChewxDev' },
   { label: 'Twitter', title: 'Twitter', text: 'tw', href: 'https://twitter.com/cxxzy_zeus' },
+  { label: 'Telegram', title: 'Telegram', text: 'tg', href: 'https://t.me/Chewx001' },
   { label: 'Discord', title: 'Discord', text: 'dc', href: 'https://discord.gg/nzBWrFPz' }
 ];
 
