@@ -9,6 +9,8 @@ const marqueeItems = [
   'Project Management',
   'Node.js',
   'AI/ML Implementation',
+  'LLM Workflows',
+  'AI Agents',
   'UI/UX Design',
   'Agile / Scrum',
   'React',
@@ -121,7 +123,13 @@ const tools = [
   ['🗄️', 'MySQL'], ['🔥', 'Firebase'], ['⚡', 'Supabase'], ['🚂', 'Express.js'],
   ['▲', 'Next.js'], ['💨', 'Tailwind CSS'], ['🔌', 'REST APIs'], ['🧬', 'GraphQL'],
   ['🐳', 'Docker'], ['☁️', 'Salesforce'], ['🧡', 'HubSpot'], ['🎧', 'Zendesk'],
-  ['💬', 'Slack'], ['🤖', 'OpenAI'], ['🧠', 'ChatGPT'], ['⚙️', 'Zapier'],
+  ['💬', 'Slack'], ['🤖', 'OpenAI'], ['🧠', 'ChatGPT'], ['💎', 'Claude'],
+  ['✨', 'Gemini'], ['🦙', 'Meta Llama'], ['🔎', 'Perplexity'], ['🧪', 'Hugging Face'],
+  ['🚀', 'Mistral AI'], ['🟩', 'Cohere'], ['🧬', 'LangChain'], ['📚', 'LlamaIndex'],
+  ['🧠', 'Pinecone'], ['🌊', 'Flowise'], ['🧩', 'Botpress'], ['🛠️', 'Voiceflow'],
+  ['💻', 'GitHub Copilot'], ['🧑‍💻', 'Cursor'], ['📐', 'v0'], ['🎨', 'Midjourney'],
+  ['🖼️', 'DALL-E'], ['🎬', 'Runway'], ['🎞️', 'Pika'], ['🗣️', 'ElevenLabs'],
+  ['⚙️', 'Zapier'],
   ['🔁', 'Make.com'], ['📹', 'Zoom'], ['🔷', 'Miro'], ['🐙', 'GitHub'],
   ['✅', 'ClickUp'], ['📆', 'Monday.com'], ['📐', 'Linear'], ['🧮', 'Airtable'],
   ['▲', 'Vercel'], ['🌍', 'Netlify'], ['🚀', 'Render'], ['🛤️', 'Railway'],
@@ -206,7 +214,7 @@ const questionnaireSteps = [
       { label: 'Logo, brand, flyer, or pitch deck', detail: 'Identity, campaign visuals, print-ready collateral, and presentation design.', scores: { Design: 5, 'Writing & Content': 2 } },
       { label: 'Content, SEO, analytics, or social channels', detail: 'Platform strategy, publishing rhythm, SEO, analytics, reporting, and growth loops.', scores: { 'Social Media & Marketing': 5, 'Writing & Content': 2, 'Business Development & Strategy': 1 } },
       { label: 'Workflow, SOP, CRM, or reporting system', detail: 'Operational documentation, dashboards, stakeholder reporting, and tool setup.', scores: { 'Project Management & Ops': 4, 'Virtual & Executive Assistance': 3 } },
-      { label: 'AI chatbot, support agent, or automation', detail: 'AI-assisted support, Slack/Zendesk workflows, response automation, and integrations.', scores: { 'Software Development': 4, 'Project Management & Ops': 2, 'Virtual & Executive Assistance': 1 } }
+      { label: 'AI chatbot, agent, or automation', detail: 'AI-assisted support, LLM workflows, Slack/Zendesk agents, response automation, and integrations.', scores: { 'Software Development': 4, 'Project Management & Ops': 2, 'Virtual & Executive Assistance': 1 } }
     ]
   },
   {
@@ -625,7 +633,7 @@ function About() {
           <div className="section-tag reveal delay-1">About Ni</div>
           <h2 className="section-title reveal delay-2">One Pro.<br /><span>Every Capability.</span></h2>
           <p className="reveal delay-2">I'm <strong>Ni</strong>, the professional behind <strong>chwx projects</strong>. I build, manage, design, and deliver all under one roof. With a <strong>B.Sc. in Computer Science</strong> and 5+ years leading high-stakes projects for clients in the US, UK, Hong Kong, and Ukraine.</p>
-          <p className="reveal delay-3">From <strong>AI chatbots</strong> that slashed response times from 24 hours to under 5 minutes, to <strong>e-commerce migrations</strong> delivered 29% under budget I bring measurable outcomes to every engagement.</p>
+          <p className="reveal delay-3">From <strong>AI chatbots, agents, and LLM workflows</strong> that slashed response times from 24 hours to under 5 minutes, to <strong>e-commerce migrations</strong> delivered 29% under budget I bring measurable outcomes to every engagement.</p>
           <div className="skills-grid reveal delay-4">
             <div className="skill-item"><span className="skill-icon">⚙️</span> Agile Project Management</div>
             <div className="skill-item"><span className="skill-icon">💻</span> Full-Stack Development</div>
@@ -637,7 +645,8 @@ function About() {
             <div className="skill-item"><span className="skill-icon">🔎</span> SEO & Search Visibility</div>
             <div className="skill-item"><span className="skill-icon">📊</span> Analytics & Reporting</div>
             <div className="skill-item"><span className="skill-icon">🎯</span> Lead Generation</div>
-            <div className="skill-item"><span className="skill-icon">🤖</span> AI/ML Implementation</div>
+            <div className="skill-item"><span className="skill-icon">🤖</span> AI/ML & LLM Implementation</div>
+            <div className="skill-item"><span className="skill-icon">🧠</span> AI Agents & Automation</div>
             <div className="skill-item"><span className="skill-icon">📈</span> Business Development</div>
           </div>
         </div>
