@@ -297,6 +297,17 @@ const serviceCopy = {
   }
 };
 
+const contactServiceOptions = [
+  'Not sure yet',
+  'Project Management & Ops',
+  'Software Development',
+  'Design',
+  'Writing & Content',
+  'Social Media & Marketing',
+  'Virtual & Executive Assistance',
+  'Business Development & Strategy'
+];
+
 function useReveal() {
   useEffect(() => {
     const reveals = document.querySelectorAll('.reveal,.reveal-left,.reveal-right');
@@ -921,7 +932,7 @@ function CTA() {
     name: '',
     email: '',
     clientType: 'Individual / founder',
-    service: 'Not sure yet',
+    service: ['Not sure yet'],
     budget: '',
     timeline: '',
     message: ''
@@ -934,6 +945,24 @@ function CTA() {
     const limit = contactFieldLimits[name] || 120;
     setForm((current) => ({ ...current, [name]: value.slice(0, limit + 1) }));
     setErrors((current) => ({ ...current, [name]: '' }));
+    setStatus('');
+  };
+
+  const toggleService = (service) => {
+    setForm((current) => {
+      const existing = Array.isArray(current.service) ? current.service : [current.service].filter(Boolean);
+      let next;
+      if (service === 'Not sure yet') {
+        next = ['Not sure yet'];
+      } else {
+        const withoutUnsure = existing.filter((item) => item !== 'Not sure yet');
+        next = withoutUnsure.includes(service)
+          ? withoutUnsure.filter((item) => item !== service)
+          : [...withoutUnsure, service];
+      }
+      return { ...current, service: next.length ? next : ['Not sure yet'] };
+    });
+    setErrors((current) => ({ ...current, service: '' }));
     setStatus('');
   };
 
@@ -987,16 +1016,24 @@ function CTA() {
               </select>
             </label>
             <label>Service interest
-              <select name="service" value={form.service} onChange={update}>
-                <option>Not sure yet</option>
-                <option>Project Management & Ops</option>
-                <option>Software Development</option>
-                <option>Design</option>
-                <option>Writing & Content</option>
-                <option>Social Media & Marketing</option>
-                <option>Virtual & Executive Assistance</option>
-                <option>Business Development & Strategy</option>
-              </select>
+              <div className="multi-select" role="group" aria-label="Service interest">
+                {contactServiceOptions.map((service) => {
+                  const selected = form.service.includes(service);
+                  return (
+                    <button
+                      className={`multi-option ${selected ? 'selected' : ''}`}
+                      key={service}
+                      type="button"
+                      onClick={() => toggleService(service)}
+                      aria-pressed={selected}
+                    >
+                      <span>{selected ? '✓' : '+'}</span>
+                      {service}
+                    </button>
+                  );
+                })}
+              </div>
+              {errors.service && <span className="form-error">{errors.service}</span>}
             </label>
           </div>
           <div className="form-row">

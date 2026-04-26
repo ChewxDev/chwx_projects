@@ -302,6 +302,10 @@ section{padding:100px 48px}
 .contact-form textarea{resize:vertical;min-height:130px;line-height:1.6}
 .contact-form input:focus,.contact-form select:focus,.contact-form textarea:focus{border-color:rgba(200,150,30,.48);box-shadow:0 0 0 4px rgba(200,150,30,.08)}
 .contact-form input::placeholder,.contact-form textarea::placeholder{color:rgba(139,148,158,.62)}
+.multi-select{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.multi-option{border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.04);color:var(--muted);border-radius:13px;padding:10px 11px;font:700 12px 'Inter',sans-serif;text-align:left;display:flex;align-items:center;gap:8px;cursor:pointer;transition:all .2s}
+.multi-option span{width:20px;height:20px;border-radius:50%;border:1px solid rgba(200,150,30,.28);display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:11px;flex:0 0 auto}
+.multi-option:hover,.multi-option.selected{border-color:rgba(200,150,30,.42);background:rgba(200,150,30,.1);color:var(--white)}
 .contact-form .cta-actions{justify-content:flex-start;margin-top:10px}
 .contact-form button{border:0;cursor:pointer}
 .form-error{color:#ff8a8a;font-size:11px;text-transform:none;letter-spacing:0;font-weight:600}
@@ -355,6 +359,7 @@ footer{background:var(--navy2);border-top:1px solid var(--border);padding:40px 4
   .footer-inner{flex-direction:column;text-align:center}
   .testi-track{height:470px}
   .testi-card{padding:32px 28px}
+  .multi-select{grid-template-columns:1fr}
 }
 
 /* NOISE TEXTURE OVERLAY */

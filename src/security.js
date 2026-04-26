@@ -6,7 +6,7 @@ const FIELD_LIMITS = {
   name: 80,
   email: 120,
   clientType: 60,
-  service: 80,
+  service: 240,
   budget: 80,
   timeline: 80,
   message: 1200
@@ -25,7 +25,10 @@ export function sanitizeText(value, maxLength) {
 
 export function sanitizeContactForm(form) {
   return Object.fromEntries(
-    Object.entries(FIELD_LIMITS).map(([field, limit]) => [field, sanitizeText(form[field], limit)])
+    Object.entries(FIELD_LIMITS).map(([field, limit]) => {
+      const value = Array.isArray(form[field]) ? form[field].join(', ') : form[field];
+      return [field, sanitizeText(value, limit)];
+    })
   );
 }
 
