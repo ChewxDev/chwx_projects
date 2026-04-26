@@ -695,10 +695,10 @@ function Portfolio() {
         <div className="portfolio-grid" id="portfolio-grid">
           {filtered.map((item) => (
             <div
-              className="portfolio-card reveal delay-1"
+              className={`portfolio-card reveal delay-1 ${item.visible ? '' : 'is-muted'}`}
               data-cat={item.cat}
               key={item.title}
-              style={{ opacity: item.visible ? 1 : 0.15, transform: item.visible ? 'scale(1)' : 'scale(0.95)', pointerEvents: item.visible ? 'all' : 'none' }}
+              style={{ '--filter-scale': item.visible ? 1 : 0.95, pointerEvents: item.visible ? 'all' : 'none' }}
             >
               <div className={`card-bg ${item.gradient}`} />
               <div className="card-glow" />
@@ -1074,6 +1074,37 @@ function Effects() {
       cleanups.push(() => {
         button.removeEventListener('mousemove', move);
         button.removeEventListener('mouseleave', leave);
+      });
+    });
+
+    const interactiveCards = document.querySelectorAll('.portfolio-card,.about-img-wrap');
+    interactiveCards.forEach((card) => {
+      const move = (event) => {
+        const rect = card.getBoundingClientRect();
+        const px = (event.clientX - rect.left) / rect.width;
+        const py = (event.clientY - rect.top) / rect.height;
+        const x = px - 0.5;
+        const y = py - 0.5;
+        card.classList.add('is-interacting');
+        card.style.setProperty('--spot-x', `${px * 100}%`);
+        card.style.setProperty('--spot-y', `${py * 100}%`);
+        card.style.setProperty('--depth-x', `${x * 18}px`);
+        card.style.setProperty('--depth-y', `${y * 18}px`);
+        card.style.setProperty('--tilt-x', `${-y * 7}deg`);
+        card.style.setProperty('--tilt-y', `${x * 7}deg`);
+      };
+      const leave = () => {
+        card.classList.remove('is-interacting');
+        card.style.removeProperty('--depth-x');
+        card.style.removeProperty('--depth-y');
+        card.style.removeProperty('--tilt-x');
+        card.style.removeProperty('--tilt-y');
+      };
+      card.addEventListener('pointermove', move);
+      card.addEventListener('pointerleave', leave);
+      cleanups.push(() => {
+        card.removeEventListener('pointermove', move);
+        card.removeEventListener('pointerleave', leave);
       });
     });
 
