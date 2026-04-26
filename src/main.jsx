@@ -123,7 +123,7 @@ const tools = [
   ['🗄️', 'MySQL'], ['🔥', 'Firebase'], ['⚡', 'Supabase'], ['🚂', 'Express.js'],
   ['▲', 'Next.js'], ['💨', 'Tailwind CSS'], ['🔌', 'REST APIs'], ['🧬', 'GraphQL'],
   ['🐳', 'Docker'], ['☁️', 'Salesforce'], ['🧡', 'HubSpot'], ['🎧', 'Zendesk'],
-  ['💬', 'Slack'], ['🤖', 'OpenAI'], ['🧠', 'ChatGPT'], ['💎', 'Claude'],
+  ['💬', 'Slack'], ['🤖', 'OpenAI'], ['🧠', 'ChatGPT'], ['💎', 'Claude'], ['🔐', 'Anthropic'],
   ['✨', 'Gemini'], ['🦙', 'Meta Llama'], ['🔎', 'Perplexity'], ['🧪', 'Hugging Face'],
   ['🚀', 'Mistral AI'], ['🟩', 'Cohere'], ['🧬', 'LangChain'], ['📚', 'LlamaIndex'],
   ['🧠', 'Pinecone'], ['🌊', 'Flowise'], ['🧩', 'Botpress'], ['🛠️', 'Voiceflow'],
