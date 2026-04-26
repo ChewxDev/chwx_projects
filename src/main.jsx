@@ -112,9 +112,17 @@ const socialLinks = [
 const tools = [
   ['⚡', 'Asana'], ['🎯', 'Jira'], ['📋', 'Trello'], ['💡', 'Notion'],
   ['🟢', 'Node.js'], ['⚛️', 'React'], ['🦋', 'Flutter'], ['🎯', 'Dart'],
-  ['🐍', 'Python'], ['🌐', 'Web Dev'], ['🎨', 'Web Design'], ['🍃', 'MongoDB'],
-  ['☁️', 'Salesforce'], ['🧡', 'HubSpot'], ['🎧', 'Zendesk'], ['💬', 'Slack'],
-  ['📹', 'Zoom'], ['🔷', 'Miro'], ['🐙', 'GitHub'], ['▲', 'Vercel'], ['🔑', 'Google Workspace']
+  ['🐍', 'Python'], ['🟨', 'JavaScript'], ['🔷', 'TypeScript'], ['🧱', 'HTML/CSS'],
+  ['🌐', 'Web Dev'], ['🎨', 'Web Design'], ['🍃', 'MongoDB'], ['🐘', 'PostgreSQL'],
+  ['🗄️', 'MySQL'], ['🔥', 'Firebase'], ['⚡', 'Supabase'], ['🚂', 'Express.js'],
+  ['▲', 'Next.js'], ['💨', 'Tailwind CSS'], ['🔌', 'REST APIs'], ['🧬', 'GraphQL'],
+  ['🐳', 'Docker'], ['☁️', 'Salesforce'], ['🧡', 'HubSpot'], ['🎧', 'Zendesk'],
+  ['💬', 'Slack'], ['🤖', 'OpenAI'], ['🧠', 'ChatGPT'], ['⚙️', 'Zapier'],
+  ['🔁', 'Make'], ['📹', 'Zoom'], ['🔷', 'Miro'], ['🐙', 'GitHub'],
+  ['▲', 'Vercel'], ['🌍', 'Netlify'], ['🚀', 'Render'], ['🛤️', 'Railway'],
+  ['🔑', 'Google Workspace'], ['📊', 'Google Analytics'], ['📣', 'Meta Business Suite'],
+  ['✉️', 'Mailchimp'], ['🛒', 'Shopify'], ['💳', 'Stripe'], ['📝', 'WordPress'],
+  ['🎭', 'Figma'], ['🖼️', 'Canva'], ['🪄', 'Photoshop'], ['✒️', 'Illustrator']
 ];
 
 const testimonials = [
