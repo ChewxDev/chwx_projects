@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import './styles.css';
+import { checkContactRateLimit, contactFieldLimits, sanitizeContactForm, validateContactForm } from './security.js';
 
 const roles = ['Project Manager', 'Full-Stack Developer', 'UI/UX Designer', 'Content Writer', 'Social Media Strategist', 'Executive Assistant'];
 
@@ -771,16 +772,44 @@ function CTA() {
     timeline: '',
     message: ''
   });
+  const [errors, setErrors] = useState({});
+  const [status, setStatus] = useState('');
 
   const update = (event) => {
     const { name, value } = event.target;
-    setForm((current) => ({ ...current, [name]: value }));
+    const limit = contactFieldLimits[name] || 120;
+    setForm((current) => ({ ...current, [name]: value.slice(0, limit + 1) }));
+    setErrors((current) => ({ ...current, [name]: '' }));
+    setStatus('');
   };
 
-  const mailSubject = encodeURIComponent(`Project inquiry from ${form.name || 'website visitor'}`);
+  const sanitizedForm = sanitizeContactForm(form);
+  const mailSubject = encodeURIComponent(`Project inquiry from ${sanitizedForm.name || 'website visitor'}`);
   const mailBody = encodeURIComponent(
-    `Name: ${form.name}\nEmail: ${form.email}\nClient type: ${form.clientType}\nService interest: ${form.service}\nBudget: ${form.budget}\nTimeline: ${form.timeline}\n\nProject details:\n${form.message}`
+    `Name: ${sanitizedForm.name}\nEmail: ${sanitizedForm.email}\nClient type: ${sanitizedForm.clientType}\nService interest: ${sanitizedForm.service}\nBudget: ${sanitizedForm.budget}\nTimeline: ${sanitizedForm.timeline}\n\nProject details:\n${sanitizedForm.message}`
   );
+  const mailtoHref = `mailto:nicholascents77@gmail.com?subject=${mailSubject}&body=${mailBody}`;
+
+  const submitForm = (event) => {
+    event.preventDefault();
+    const validation = validateContactForm(form);
+    setErrors(validation.errors);
+
+    if (Object.keys(validation.errors).length) {
+      setStatus('Please fix the highlighted fields before sending.');
+      return;
+    }
+
+    const rateLimit = checkContactRateLimit();
+    if (!rateLimit.allowed) {
+      setStatus(`Too many attempts. Try again in about ${rateLimit.retryAfterMinutes} minute(s).`);
+      return;
+    }
+
+    setForm(validation.sanitized);
+    setStatus('Opening your email app with a sanitized project brief.');
+    window.location.href = mailtoHref;
+  };
 
   return (
     <section id="cta">
@@ -789,10 +818,10 @@ function CTA() {
         <div className="section-tag reveal" style={{ justifyContent: 'center', margin: '0 auto 24px' }}>Let's Work Together</div>
         <h2 className="cta-title reveal delay-1">Ready to<br /><span>Get Results?</span></h2>
         <p className="cta-sub reveal delay-2">Whether you know exactly what you need or want help choosing the right service mix, send the details and I’ll respond with the best next step.</p>
-        <form className="contact-form reveal delay-3" action={`mailto:nicholascents77@gmail.com?subject=${mailSubject}&body=${mailBody}`} method="post" encType="text/plain">
+        <form className="contact-form reveal delay-3" onSubmit={submitForm} noValidate>
           <div className="form-row">
-            <label>Name<input name="name" value={form.name} onChange={update} placeholder="Your name" required /></label>
-            <label>Email<input name="email" type="email" value={form.email} onChange={update} placeholder="you@example.com" required /></label>
+            <label>Name<input name="name" value={form.name} onChange={update} placeholder="Your name" maxLength={contactFieldLimits.name} required />{errors.name && <span className="form-error">{errors.name}</span>}</label>
+            <label>Email<input name="email" type="email" value={form.email} onChange={update} placeholder="you@example.com" maxLength={contactFieldLimits.email} required />{errors.email && <span className="form-error">{errors.email}</span>}</label>
           </div>
           <div className="form-row">
             <label>Client type
@@ -817,12 +846,15 @@ function CTA() {
             </label>
           </div>
           <div className="form-row">
-            <label>Budget range<input name="budget" value={form.budget} onChange={update} placeholder="$500 - $5,000 / flexible" /></label>
-            <label>Timeline<input name="timeline" value={form.timeline} onChange={update} placeholder="This week, 30 days, this quarter" /></label>
+            <label>Budget range<input name="budget" value={form.budget} onChange={update} placeholder="$500 - $5,000 / flexible" maxLength={contactFieldLimits.budget} />{errors.budget && <span className="form-error">{errors.budget}</span>}</label>
+            <label>Timeline<input name="timeline" value={form.timeline} onChange={update} placeholder="This week, 30 days, this quarter" maxLength={contactFieldLimits.timeline} />{errors.timeline && <span className="form-error">{errors.timeline}</span>}</label>
           </div>
           <label>What are you trying to achieve?
-            <textarea name="message" value={form.message} onChange={update} placeholder="Tell me the goal, current problem, deadline, and what success should look like." rows="5" required />
+            <textarea name="message" value={form.message} onChange={update} placeholder="Tell me the goal, current problem, deadline, and what success should look like." rows="5" maxLength={contactFieldLimits.message} required />
+            <span className="form-count">{form.message.length}/{contactFieldLimits.message}</span>
+            {errors.message && <span className="form-error">{errors.message}</span>}
           </label>
+          {status && <div className="form-status">{status}</div>}
           <div className="cta-actions">
             <button className="btn-primary magnetic" type="submit">Send Project Brief <span className="btn-arrow">→</span></button>
             <a href="tel:+17867448853" className="btn-secondary magnetic">+1 (786) 744-8853</a>

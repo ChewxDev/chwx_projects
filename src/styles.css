@@ -268,6 +268,9 @@ section{padding:100px 48px}
 .contact-form input::placeholder,.contact-form textarea::placeholder{color:rgba(139,148,158,.62)}
 .contact-form .cta-actions{justify-content:flex-start;margin-top:10px}
 .contact-form button{border:0;cursor:pointer}
+.form-error{color:#ff8a8a;font-size:11px;text-transform:none;letter-spacing:0;font-weight:600}
+.form-count{align-self:flex-end;color:rgba(139,148,158,.7);font-size:11px;text-transform:none;letter-spacing:0;font-weight:500}
+.form-status{border:1px solid rgba(200,150,30,.22);background:rgba(200,150,30,.08);color:var(--gold);border-radius:12px;padding:12px 14px;font-size:13px;line-height:1.5;margin:4px 0 14px}
 
 /* FOOTER */
 footer{background:var(--navy2);border-top:1px solid var(--border);padding:40px 48px}
