@@ -5,6 +5,44 @@ import { checkContactRateLimit, contactFieldLimits, sanitizeContactForm, validat
 
 const roles = ['Project Manager', 'Full-Stack Developer', 'UI/UX Designer', 'Content Writer', 'Social Media Strategist', 'SEO & Analytics Specialist', 'Executive Assistant'];
 
+const heroCapabilities = [
+  {
+    label: 'Build',
+    icon: '💻',
+    title: 'Software, web, and mobile products',
+    detail: 'React, Node.js, Flutter, APIs, dashboards, automations, and deployment-ready product work.',
+    metric: 'Product + engineering'
+  },
+  {
+    label: 'Manage',
+    icon: '📊',
+    title: 'Delivery control for busy teams',
+    detail: 'Agile planning, stakeholder rhythm, risk tracking, scope control, and clean execution systems.',
+    metric: '92% on-budget'
+  },
+  {
+    label: 'Design',
+    icon: '🎨',
+    title: 'Premium digital and brand assets',
+    detail: 'UI/UX, websites, logos, flyers, pitch decks, brand visuals, and conversion-focused presentation.',
+    metric: 'Brand-ready assets'
+  },
+  {
+    label: 'Automate',
+    icon: '🤖',
+    title: 'AI, agents, and workflow automation',
+    detail: 'Chatbots, Slack bots, Zendesk AI agents, LLM workflows, CRM automation, and support systems.',
+    metric: '60% efficiency gains'
+  },
+  {
+    label: 'Grow',
+    icon: '📈',
+    title: 'Marketing, SEO, and appointment setting',
+    detail: 'SMM, analytics, search visibility, lead generation, booked-call systems, and content strategy.',
+    metric: 'Demand systems'
+  }
+];
+
 const marqueeItems = [
   'Project Management',
   'Node.js',
@@ -621,6 +659,7 @@ function Hero() {
   const [roleIndex, setRoleIndex] = useState(0);
   const [charIndex, setCharIndex] = useState(0);
   const [deleting, setDeleting] = useState(false);
+  const [activeCapability, setActiveCapability] = useState(0);
 
   useEffect(() => {
     const current = roles[roleIndex];
@@ -642,9 +681,20 @@ function Hero() {
     return () => clearTimeout(timer);
   }, [charIndex, deleting, roleIndex]);
 
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveCapability((value) => (value + 1) % heroCapabilities.length);
+    }, 4200);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  const activeHeroCapability = heroCapabilities[activeCapability];
+
   return (
     <section id="hero" className="grid-bg">
       <ParticleCanvas />
+      <div className="hero-spotlight" />
       <div className="hero-tag"><span>Available for Projects Worldwide</span></div>
       <h1 className="hero-headline">
         <span className="hero-name-line">chwx<br />projects</span>
@@ -662,10 +712,34 @@ function Hero() {
         <a href="#portfolio" className="btn-primary magnetic">View My Work <span className="btn-arrow">→</span></a>
         <a href="#cta" className="btn-secondary magnetic">Book a Discovery Call</a>
       </div>
+      <div className="hero-capability-console reveal delay-4">
+        <div className="console-tabs" aria-label="Capability selector">
+          {heroCapabilities.map((capability, index) => (
+            <button
+              className={`console-tab ${activeCapability === index ? 'active' : ''}`}
+              type="button"
+              key={capability.label}
+              onClick={() => setActiveCapability(index)}
+              aria-pressed={activeCapability === index}
+            >
+              <span>{capability.icon}</span>
+              {capability.label}
+            </button>
+          ))}
+        </div>
+        <div className="console-readout">
+          <div>
+            <span className="console-kicker">{activeHeroCapability.metric}</span>
+            <h2>{activeHeroCapability.title}</h2>
+            <p>{activeHeroCapability.detail}</p>
+          </div>
+          <a href="#finder" className="console-link">Match my need ↗</a>
+        </div>
+      </div>
       <div className="hero-stats">
-        <div className="stat-card reveal-right"><div className="stat-num">92%</div><div className="stat-label">On-Budget Delivery</div></div>
-        <div className="stat-card reveal-right delay-1"><div className="stat-num">60%</div><div className="stat-label">Efficiency Gains</div></div>
-        <div className="stat-card reveal-right delay-2"><div className="stat-num">5+</div><div className="stat-label">Years Experience</div></div>
+        <div className="stat-card reveal-right"><div className="stat-num">92%</div><div className="stat-label">On-Budget Delivery</div><div className="stat-fill"><span style={{ width: '92%' }} /></div></div>
+        <div className="stat-card reveal-right delay-1"><div className="stat-num">60%</div><div className="stat-label">Efficiency Gains</div><div className="stat-fill"><span style={{ width: '60%' }} /></div></div>
+        <div className="stat-card reveal-right delay-2"><div className="stat-num">5+</div><div className="stat-label">Years Experience</div><div className="stat-fill"><span style={{ width: '84%' }} /></div></div>
       </div>
     </section>
   );
@@ -1311,6 +1385,27 @@ function Effects() {
         card.removeEventListener('pointerleave', leave);
       });
     });
+
+    const hero = document.getElementById('hero');
+    if (hero) {
+      const move = (event) => {
+        const rect = hero.getBoundingClientRect();
+        const px = Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width));
+        const py = Math.max(0, Math.min(1, (event.clientY - rect.top) / rect.height));
+        hero.style.setProperty('--hero-x', `${px * 100}%`);
+        hero.style.setProperty('--hero-y', `${py * 100}%`);
+      };
+      const leave = () => {
+        hero.style.removeProperty('--hero-x');
+        hero.style.removeProperty('--hero-y');
+      };
+      hero.addEventListener('pointermove', move);
+      hero.addEventListener('pointerleave', leave);
+      cleanups.push(() => {
+        hero.removeEventListener('pointermove', move);
+        hero.removeEventListener('pointerleave', leave);
+      });
+    }
 
     const parallax = () => {
       const scrolled = window.scrollY;
