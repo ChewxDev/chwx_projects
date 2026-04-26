@@ -31,7 +31,7 @@ export const services = [
     summary: 'Agile/Scrum delivery, AI/ML projects, and digital transformation.',
     description: 'Structured project delivery across planning, execution, risk control, stakeholder communication, and post-launch reporting.',
     tags: ['Agile/Scrum', 'Risk Management', 'Stakeholder Mgmt'],
-    proof: [{ value: '92%', label: 'On-budget rate' }, { value: '3+', label: 'Years experience' }]
+    proof: [{ value: '92%', label: 'On-budget rate' }, { value: '5+', label: 'Years experience' }]
   },
   {
     title: 'Software Development',

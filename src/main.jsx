@@ -427,7 +427,7 @@ function Hero() {
         </span>
       </h1>
       <p className="hero-sub">
-        Results-driven digital work by <strong>Njoku Nicholas C.</strong>, delivering <strong>AI/ML projects</strong>, <strong>software products</strong>, <strong>premium design</strong> and <strong>operational excellence</strong> — all from one trusted source.
+        Results-driven digital work by <strong>Njoku Nicholas C.</strong>, delivering <strong>AI/ML projects</strong>, <strong>software products</strong>, <strong>premium design</strong> and <strong>operational excellence</strong> all from one trusted source.
       </p>
       <div className="hero-actions">
         <a href="#portfolio" className="btn-primary magnetic">View My Work <span className="btn-arrow">→</span></a>
@@ -436,7 +436,7 @@ function Hero() {
       <div className="hero-stats">
         <div className="stat-card reveal-right"><div className="stat-num">92%</div><div className="stat-label">On-Budget Delivery</div></div>
         <div className="stat-card reveal-right delay-1"><div className="stat-num">60%</div><div className="stat-label">Efficiency Gains</div></div>
-        <div className="stat-card reveal-right delay-2"><div className="stat-num">3+</div><div className="stat-label">Years Experience</div></div>
+        <div className="stat-card reveal-right delay-2"><div className="stat-num">5+</div><div className="stat-label">Years Experience</div></div>
       </div>
     </section>
   );
@@ -472,8 +472,8 @@ function About() {
         <div className="about-content">
           <div className="section-tag reveal delay-1">About Nicholas</div>
           <h2 className="section-title reveal delay-2">One Pro.<br /><span>Every Capability.</span></h2>
-          <p className="reveal delay-2">I'm <strong>Njoku Nicholas C.</strong>, the professional behind <strong>chwx projects</strong>. I build, manage, design, and deliver — all under one roof. With a <strong>B.Sc. in Computer Science</strong> and 3+ years leading high-stakes projects for clients in the US, UK, Hong Kong, and Ukraine.</p>
-          <p className="reveal delay-3">From <strong>AI chatbots</strong> that slashed response times from 24 hours to under 5 minutes, to <strong>e-commerce migrations</strong> delivered 29% under budget — I bring measurable outcomes to every engagement.</p>
+          <p className="reveal delay-2">I'm <strong>Njoku Nicholas C.</strong>, the professional behind <strong>chwx projects</strong>. I build, manage, design, and deliver all under one roof. With a <strong>B.Sc. in Computer Science</strong> and 5+ years leading high-stakes projects for clients in the US, UK, Hong Kong, and Ukraine.</p>
+          <p className="reveal delay-3">From <strong>AI chatbots</strong> that slashed response times from 24 hours to under 5 minutes, to <strong>e-commerce migrations</strong> delivered 29% under budget I bring measurable outcomes to every engagement.</p>
           <div className="skills-grid reveal delay-4">
             <div className="skill-item"><span className="skill-icon">⚙️</span> Agile Project Management</div>
             <div className="skill-item"><span className="skill-icon">💻</span> Full-Stack Development</div>
