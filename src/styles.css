@@ -269,6 +269,7 @@ section{padding:100px 48px}
 .recommendation-head{display:flex;justify-content:space-between;gap:20px;align-items:flex-end;margin-bottom:24px}
 .recommendation-head h3{font-family:'Syne',sans-serif;font-size:34px;letter-spacing:-1px;margin-top:8px}
 .recommendation-head p{color:var(--muted);line-height:1.6;margin-top:8px;max-width:640px}
+.uncertain-note{border-left:2px solid var(--gold);padding-left:12px;color:rgba(240,246,255,.78)!important}
 .recommendation-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .recommendation-card{position:relative;background:var(--card-bg);border:1px solid var(--border);border-radius:18px;padding:24px;overflow:hidden;transition:all .3s}
 .recommendation-card::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at top left,var(--gold-glow),transparent 65%);opacity:.5;pointer-events:none}

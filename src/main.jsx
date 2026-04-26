@@ -163,6 +163,7 @@ const questionnaireSteps = [
     subtitle: 'This sets the context for the engagement and how hands-on the support should be.',
     type: 'single',
     options: [
+      { label: 'I am not sure yet', detail: 'You know something needs to improve, but you want help diagnosing the real problem first.', uncertain: true, scores: { 'Business Development & Strategy': 5, 'Project Management & Ops': 2, 'Writing & Content': 2, Design: 1 } },
       { label: 'Founder or solo operator', detail: 'You need someone who can think, build, write, and execute without heavy hand-holding.', scores: { 'Business Development & Strategy': 3, 'Software Development': 2, Design: 2, 'Writing & Content': 1 } },
       { label: 'Small business', detail: 'You need better systems, stronger presence, and practical execution that moves revenue.', scores: { 'Project Management & Ops': 2, 'Social Media & Marketing': 3, 'Business Development & Strategy': 2, Design: 1 } },
       { label: 'Growing team', detail: 'You need coordination, product/process structure, and clearer ownership across people and tools.', scores: { 'Project Management & Ops': 4, 'Virtual & Executive Assistance': 2, 'Software Development': 2 } },
@@ -175,6 +176,7 @@ const questionnaireSteps = [
     subtitle: 'Pick the result that would make the biggest difference in the next 30 to 90 days.',
     type: 'single',
     options: [
+      { label: 'I need help figuring that out', detail: 'You want a clear diagnosis of what is wrong, what matters most, and what to do first.', uncertain: true, scores: { 'Business Development & Strategy': 5, 'Project Management & Ops': 2, 'Writing & Content': 2 } },
       { label: 'Launch or rebuild a product', detail: 'A website, web app, mobile app, API, portal, dashboard, or automation needs to go live.', scores: { 'Software Development': 5, 'Project Management & Ops': 2, Design: 2 } },
       { label: 'Fix messy operations', detail: 'Work is happening, but deadlines, ownership, reporting, or communication are too loose.', scores: { 'Project Management & Ops': 5, 'Virtual & Executive Assistance': 3 } },
       { label: 'Look more premium and credible', detail: 'The brand, website, logo, flyers, deck, or customer-facing materials need to feel sharper.', scores: { Design: 5, 'Writing & Content': 2, 'Social Media & Marketing': 1 } },
@@ -187,6 +189,7 @@ const questionnaireSteps = [
     subtitle: 'Select every asset or system you need help with.',
     type: 'multi',
     options: [
+      { label: 'I do not know yet', detail: 'You need someone to inspect the situation and recommend the right asset or system before building.', uncertain: true, scores: { 'Business Development & Strategy': 4, 'Project Management & Ops': 2, 'Writing & Content': 1 } },
       { label: 'Website or landing page', detail: 'Web design, frontend build, conversion flow, copy, and launch polish.', scores: { 'Software Development': 3, Design: 3, 'Writing & Content': 1 } },
       { label: 'Mobile or web app', detail: 'React, Flutter, APIs, dashboards, portals, product flows, and deployment.', scores: { 'Software Development': 5, 'Project Management & Ops': 2, Design: 1 } },
       { label: 'Logo, brand, flyer, or pitch deck', detail: 'Identity, campaign visuals, print-ready collateral, and presentation design.', scores: { Design: 5, 'Writing & Content': 2 } },
@@ -201,6 +204,7 @@ const questionnaireSteps = [
     subtitle: 'Pick the friction points that are costing the most time, money, or momentum.',
     type: 'multi',
     options: [
+      { label: 'I can feel the problem, but cannot name it', detail: 'Something is off, but you need structured questioning and analysis to identify the root cause.', uncertain: true, scores: { 'Business Development & Strategy': 4, 'Project Management & Ops': 3, 'Writing & Content': 1 } },
       { label: 'Deadlines slip and ownership is unclear', detail: 'Tasks move, but nobody has a clean view of priorities, blockers, or accountability.', scores: { 'Project Management & Ops': 5, 'Virtual & Executive Assistance': 1 } },
       { label: 'Manual tasks are slowing the team down', detail: 'Support, reporting, admin, or handoffs need automation and cleaner systems.', scores: { 'Software Development': 3, 'Project Management & Ops': 2, 'Virtual & Executive Assistance': 2 } },
       { label: 'The offer is hard to explain', detail: 'Customers do not immediately understand what you do, why it matters, or why now.', scores: { 'Business Development & Strategy': 4, 'Writing & Content': 3, Design: 1 } },
@@ -215,6 +219,7 @@ const questionnaireSteps = [
     subtitle: 'This helps separate build-from-scratch work from optimization and scale work.',
     type: 'single',
     options: [
+      { label: 'I am not sure where we are', detail: 'You need a practical audit to understand what exists, what is missing, and what should happen next.', uncertain: true, scores: { 'Business Development & Strategy': 4, 'Project Management & Ops': 3, 'Writing & Content': 1 } },
       { label: 'Idea only', detail: 'You have a direction, but the offer, scope, product, or assets still need definition.', scores: { 'Business Development & Strategy': 4, Design: 2, 'Writing & Content': 2 } },
       { label: 'Partially built', detail: 'Some pieces exist, but the experience, system, or launch plan needs finishing.', scores: { 'Software Development': 3, 'Project Management & Ops': 3, Design: 2 } },
       { label: 'Live but underperforming', detail: 'The current setup works, but results are below where they should be.', scores: { 'Social Media & Marketing': 3, 'Business Development & Strategy': 3, 'Software Development': 2 } },
@@ -227,6 +232,7 @@ const questionnaireSteps = [
     subtitle: 'Choose the working style that best fits your situation.',
     type: 'single',
     options: [
+      { label: 'Help me decide first', detail: 'You want an expert to ask the right questions, review the context, and recommend a smart path.', uncertain: true, scores: { 'Business Development & Strategy': 5, 'Project Management & Ops': 2, 'Writing & Content': 1 } },
       { label: 'Done-for-you execution', detail: 'You want someone to own the work and deliver the finished output.', scores: { 'Software Development': 2, Design: 2, 'Writing & Content': 2, 'Social Media & Marketing': 2 } },
       { label: 'Project leadership', detail: 'You have people or vendors, but need a manager to drive delivery and accountability.', scores: { 'Project Management & Ops': 5, 'Business Development & Strategy': 1 } },
       { label: 'Strategic diagnosis and roadmap', detail: 'You need clarity on what to do, what to prioritize, and how to sequence the work.', scores: { 'Business Development & Strategy': 5, 'Project Management & Ops': 2, 'Writing & Content': 1 } },
@@ -820,9 +826,16 @@ function ServiceFinder() {
 
   const selectedForStep = answers[activeStep.id] || [];
   const canAdvance = selectedForStep.length > 0;
+  const uncertaintyCount = useMemo(() => questionnaireSteps.reduce((total, step) => {
+    const selected = answers[step.id] || [];
+    return total + selected.filter((label) => step.options.find((option) => option.label === label)?.uncertain).length;
+  }, 0), [answers]);
+  const isUncertainPath = uncertaintyCount >= 2;
   const selectedBudget = answers.budget?.[0];
   const selectedTimeline = answers.timeline?.[0];
-  const engagementStyle = selectedBudget || selectedTimeline || 'Answer the questionnaire to shape the engagement style.';
+  const engagementStyle = isUncertainPath
+    ? 'Discovery audit or advisory session'
+    : selectedBudget || selectedTimeline || 'Answer the questionnaire to shape the engagement style.';
 
   const toggleAnswer = (option) => {
     setAnswers((current) => {
@@ -852,7 +865,7 @@ function ServiceFinder() {
         <div className="finder-copy">
           <div className="section-tag reveal">Service Finder</div>
           <h2 className="section-title reveal delay-1">Answer Fast.<br /><span>Get Matched.</span></h2>
-          <p className="section-sub reveal delay-2">A sharper diagnostic that maps your goals, bottlenecks, assets, urgency, and budget style to the chwx projects services most likely to move the needle.</p>
+          <p className="section-sub reveal delay-2">A sharper diagnostic that works even if you are not sure what you need yet. It maps your context, uncertainty, bottlenecks, assets, urgency, and budget style to the best next move.</p>
           <div className="finder-pulse reveal delay-3">
             <span>{Math.round(progress)}%</span>
             <div><i style={{ width: `${progress}%` }} /></div>
@@ -897,8 +910,9 @@ function ServiceFinder() {
         <div className="recommendation-head">
           <div>
             <div className="section-tag">Recommended Mix</div>
-            <h3>Your likely service stack</h3>
+            <h3>{isUncertainPath ? 'Your clarity-first path' : 'Your likely service stack'}</h3>
             <p>{recommendations.length ? `Suggested engagement: ${engagementStyle}` : 'Complete the diagnostic to generate a more useful recommendation mix.'}</p>
+            {isUncertainPath && <p className="uncertain-note">You selected uncertainty more than once, so this recommendation prioritizes diagnosis, audit, and roadmap work before heavy execution.</p>}
           </div>
           <button className="finder-btn ghost" type="button" onClick={reset}>Reset</button>
         </div>
