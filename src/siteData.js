@@ -229,21 +229,31 @@ export const tools = [
 
 export const testimonials = [
   {
-    quote: "Nicholas delivered our AI chatbot project 25% under budget and reduced our support tickets by 60%. The level of organisation, communication, and technical insight he brought was extraordinary.",
-    initials: 'JM',
-    name: 'James M.',
-    role: 'CEO · Lean Geeks (Xagency)'
+    quote: "Nicholas brought structure, speed, and real technical judgment to our AI chatbot project. He kept the team aligned, protected the budget, and helped turn a complex support workflow into a practical system that improved response time and reduced repetitive support work.",
+    initials: 'AD',
+    name: 'Anton Dorofeev',
+    role: 'CEO · Lean Geeks',
+    rating: 5
   },
   {
-    quote: "Our e-commerce migration was one of the most complex projects we'd taken on. Nicholas managed the entire thing with a distributed team across three time zones and delivered 29% under budget.",
-    initials: 'SC',
-    name: 'Sarah C.',
-    role: 'Operations Director · Convertain Limited'
+    quote: "Nicholas handled our e-commerce migration with the calm of someone who understands both product delivery and business pressure. He coordinated the moving parts, improved performance, and kept the project disciplined from planning through execution.",
+    initials: 'CR',
+    name: 'Christian Rauchenwald',
+    role: 'Owner · Convertain Limited',
+    rating: 5
   },
   {
-    quote: 'Nicholas transformed how our executive team operates. He reduced scheduling conflicts by 85% and cut our report preparation time almost in half.',
-    initials: 'AO',
-    name: 'Adaeze O.',
-    role: 'COO · BeePawn Florida'
+    quote: "Nicholas helped bring order to busy multi-location operations. His project tracking, executive support, and communication systems made it easier for branch leadership to stay aligned, follow priorities, and move faster without losing visibility.",
+    initials: 'DN',
+    name: 'Daniil',
+    role: 'Branch Manager · BeePawn',
+    rating: 5
+  },
+  {
+    quote: "Nicholas translated the Sutton Legal Consulting brand into a polished web presence with strong positioning, clean user experience, and professional detail. He understood the trust and clarity a legal consulting site needed to communicate from the first screen.",
+    initials: 'OM',
+    name: 'Onyeka Momah',
+    role: 'Owner · Sutton Legal Consulting',
+    rating: 5
   }
 ];
