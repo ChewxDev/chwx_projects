@@ -659,7 +659,6 @@ function Hero() {
   const [roleIndex, setRoleIndex] = useState(0);
   const [charIndex, setCharIndex] = useState(0);
   const [deleting, setDeleting] = useState(false);
-  const [activeCapability, setActiveCapability] = useState(0);
 
   useEffect(() => {
     const current = roles[roleIndex];
@@ -680,16 +679,6 @@ function Hero() {
 
     return () => clearTimeout(timer);
   }, [charIndex, deleting, roleIndex]);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setActiveCapability((value) => (value + 1) % heroCapabilities.length);
-    }, 4200);
-
-    return () => clearInterval(timer);
-  }, []);
-
-  const activeHeroCapability = heroCapabilities[activeCapability];
 
   return (
     <section id="hero" className="grid-bg">
@@ -712,36 +701,53 @@ function Hero() {
         <a href="#portfolio" className="btn-primary magnetic">View My Work <span className="btn-arrow">→</span></a>
         <a href="#cta" className="btn-secondary magnetic">Book a Discovery Call</a>
       </div>
-      <div className="hero-capability-console reveal delay-4">
-        <div className="console-tabs" aria-label="Capability selector">
-          {heroCapabilities.map((capability, index) => (
-            <button
-              className={`console-tab ${activeCapability === index ? 'active' : ''}`}
-              type="button"
-              key={capability.label}
-              onClick={() => setActiveCapability(index)}
-              aria-pressed={activeCapability === index}
-            >
-              <span>{capability.icon}</span>
-              {capability.label}
-            </button>
-          ))}
-        </div>
-        <div className="console-readout">
-          <div>
-            <span className="console-kicker">{activeHeroCapability.metric}</span>
-            <h2>{activeHeroCapability.title}</h2>
-            <p>{activeHeroCapability.detail}</p>
-          </div>
-          <a href="#finder" className="console-link">Match my need ↗</a>
-        </div>
-      </div>
       <div className="hero-stats">
         <div className="stat-card reveal-right"><div className="stat-num">92%</div><div className="stat-label">On-Budget Delivery</div><div className="stat-fill"><span style={{ width: '92%' }} /></div></div>
         <div className="stat-card reveal-right delay-1"><div className="stat-num">60%</div><div className="stat-label">Efficiency Gains</div><div className="stat-fill"><span style={{ width: '60%' }} /></div></div>
         <div className="stat-card reveal-right delay-2"><div className="stat-num">5+</div><div className="stat-label">Years Experience</div><div className="stat-fill"><span style={{ width: '84%' }} /></div></div>
       </div>
     </section>
+  );
+}
+
+function CapabilityConsole() {
+  const [activeCapability, setActiveCapability] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveCapability((value) => (value + 1) % heroCapabilities.length);
+    }, 5200);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  const activeHeroCapability = heroCapabilities[activeCapability];
+
+  return (
+    <div className="capability-console">
+      <div className="console-tabs" aria-label="Capability selector">
+        {heroCapabilities.map((capability, index) => (
+          <button
+            className={`console-tab ${activeCapability === index ? 'active' : ''}`}
+            type="button"
+            key={capability.label}
+            onClick={() => setActiveCapability(index)}
+            aria-pressed={activeCapability === index}
+          >
+            <span>{capability.icon}</span>
+            {capability.label}
+          </button>
+        ))}
+      </div>
+      <div className="console-readout">
+        <div>
+          <span className="console-kicker">{activeHeroCapability.metric}</span>
+          <h2>{activeHeroCapability.title}</h2>
+          <p>{activeHeroCapability.detail}</p>
+        </div>
+        <a href="#cta" className="console-link">Start with this ↗</a>
+      </div>
+    </div>
   );
 }
 
@@ -1149,6 +1155,16 @@ function ServiceFinder() {
         ) : (
           <div className="empty-recommendation">Start the questionnaire to generate your recommendations.</div>
         )}
+      </div>
+      <div className="capability-board reveal">
+        <div className="capability-head">
+          <div>
+            <div className="section-tag">Capability Map</div>
+            <h3>Explore the execution lanes behind the recommendations</h3>
+          </div>
+          <p>Use this after the diagnostic to understand whether the next move is build, management, design, automation, or growth support.</p>
+        </div>
+        <CapabilityConsole />
       </div>
     </section>
   );
