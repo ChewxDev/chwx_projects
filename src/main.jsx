@@ -623,7 +623,7 @@ function About() {
             <div className="about-img-placeholder">chwx</div>
             <div className="about-img-overlay">
               <div className="about-badge">🌍 Open to Remote — Worldwide</div>
-              <div className="about-location">Nigeria · US · UK · EU Markets</div>
+              <div className="about-location">Nigeria · US · Canada · UK · EU Markets</div>
             </div>
           </div>
           <div className="float-card float-card-1"><div className="float-metric" id="count-projects">20+</div><div className="float-metric-label">Projects Delivered</div></div>
@@ -632,7 +632,7 @@ function About() {
         <div className="about-content">
           <div className="section-tag reveal delay-1">About Ni</div>
           <h2 className="section-title reveal delay-2">One Pro.<br /><span>Every Capability.</span></h2>
-          <p className="reveal delay-2">I'm <strong>Ni</strong>, the professional behind <strong>chwx projects</strong>. I build, manage, design, and deliver all under one roof. With a <strong>B.Sc. in Computer Science</strong> and 5+ years leading high-stakes projects for clients in the US, UK, Hong Kong, and Ukraine.</p>
+          <p className="reveal delay-2">I'm <strong>Ni</strong>, the professional behind <strong>chwx projects</strong>. I build, manage, design, and deliver all under one roof. With a <strong>B.Sc. in Computer Science</strong> and 5+ years leading high-stakes projects for clients in the US, Canada, UK, Hong Kong, and Ukraine.</p>
           <p className="reveal delay-3">From <strong>AI chatbots, agents, and LLM workflows</strong> that slashed response times from 24 hours to under 5 minutes, to <strong>e-commerce migrations</strong> delivered 29% under budget I bring measurable outcomes to every engagement.</p>
           <div className="skills-grid reveal delay-4">
             <div className="skill-item"><span className="skill-icon">⚙️</span> Agile Project Management</div>
