@@ -763,7 +763,7 @@ function Testimonials() {
   const [current, setCurrent] = useState(0);
 
   useEffect(() => {
-    const timer = setInterval(() => setCurrent((value) => (value + 1) % testimonials.length), 5000);
+    const timer = setInterval(() => setCurrent((value) => (value + 1) % testimonials.length), 9000);
     return () => clearInterval(timer);
   }, []);
 
