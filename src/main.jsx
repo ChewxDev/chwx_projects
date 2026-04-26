@@ -12,6 +12,11 @@ const marqueeItems = [
   'UI/UX Design',
   'Agile / Scrum',
   'React',
+  'Flutter',
+  'Dart',
+  'Python',
+  'Web Development',
+  'Web Design',
   'Executive Assistance',
   'MongoDB',
   'Digital Transformation',
@@ -37,16 +42,16 @@ const services = [
     color: 'rgba(200,150,30,.1)',
     border: 'rgba(200,150,30,.2)',
     title: 'Software Development',
-    desc: 'Web apps, mobile apps, APIs. Node.js, React, MongoDB. From concept to production-ready deployment.',
-    tags: ['Node.js / React', 'Mobile Apps', 'REST APIs']
+    desc: 'Web apps, mobile apps, APIs. Node.js, React, Flutter, Dart, Python, MongoDB. From concept to production-ready deployment.',
+    tags: ['Web Dev', 'Node.js / React', 'Flutter / Dart', 'Python', 'Mobile Apps', 'REST APIs']
   },
   {
     icon: '🎨',
     color: 'rgba(255,90,150,.1)',
     border: 'rgba(255,90,150,.2)',
     title: 'Design',
-    desc: 'Brand identity, UI/UX, graphic design, pitch decks, print. Every visual touchpoint crafted with intention.',
-    tags: ['UI/UX Design', 'Brand Identity', 'Pitch Decks']
+    desc: 'Brand identity, UI/UX, web design, logo design, flyers, graphic design, pitch decks, print. Every visual touchpoint crafted with intention.',
+    tags: ['UI/UX Design', 'Web Design', 'Logo Design', 'Flyers', 'Brand Identity', 'Pitch Decks']
   },
   {
     icon: '✍️',
@@ -106,9 +111,10 @@ const socialLinks = [
 
 const tools = [
   ['⚡', 'Asana'], ['🎯', 'Jira'], ['📋', 'Trello'], ['💡', 'Notion'],
-  ['🟢', 'Node.js'], ['⚛️', 'React'], ['🍃', 'MongoDB'], ['☁️', 'Salesforce'],
-  ['🧡', 'HubSpot'], ['🎧', 'Zendesk'], ['💬', 'Slack'], ['📹', 'Zoom'],
-  ['🔷', 'Miro'], ['🐙', 'GitHub'], ['▲', 'Vercel'], ['🔑', 'Google Workspace']
+  ['🟢', 'Node.js'], ['⚛️', 'React'], ['🦋', 'Flutter'], ['🎯', 'Dart'],
+  ['🐍', 'Python'], ['🌐', 'Web Dev'], ['🎨', 'Web Design'], ['🍃', 'MongoDB'],
+  ['☁️', 'Salesforce'], ['🧡', 'HubSpot'], ['🎧', 'Zendesk'], ['💬', 'Slack'],
+  ['📹', 'Zoom'], ['🔷', 'Miro'], ['🐙', 'GitHub'], ['▲', 'Vercel'], ['🔑', 'Google Workspace']
 ];
 
 const testimonials = [
@@ -187,8 +193,8 @@ const questionnaireSteps = [
 
 const serviceCopy = {
   'Project Management & Ops': 'Best when work is moving but ownership, timelines, risk, or delivery rhythm need control.',
-  'Software Development': 'Best when you need a web app, mobile app, API, automation, or technical build taken from idea to usable product.',
-  Design: 'Best when the visual experience, UI, deck, brand system, or product presentation needs to feel premium and trustworthy.',
+  'Software Development': 'Best when you need a web app, mobile app, API, automation, Flutter build, Python workflow, or technical product taken from idea to usable release.',
+  Design: 'Best when the visual experience, UI, web design, logo, flyer, deck, brand system, or product presentation needs to feel premium and trustworthy.',
   'Writing & Content': 'Best when proposals, documentation, copy, reports, or thought leadership need sharper structure and execution.',
   'Social Media & Marketing': 'Best when audience growth, content consistency, platform strategy, or campaign analytics need a system.',
   'Virtual & Executive Assistance': 'Best when leaders are overloaded with scheduling, reporting, CRM, coordination, or recurring admin work.',
