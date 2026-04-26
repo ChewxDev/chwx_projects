@@ -147,14 +147,14 @@ export const caseStudies = [
   },
   {
     id: 'sutton-legal',
-    title: 'Sutton Legal Website Repository',
+    title: 'Sutton Legal Consulting Website',
     type: 'Legal / Web Development',
     category: ['dev'],
     icon: '⚖️',
     gradient: 'grad-two',
     link: 'https://github.com/ChewxDev/sutton-legal',
-    description: 'Source repository for Sutton Legal web development work.',
-    results: [{ value: 'GitHub', label: 'Source code' }, { value: 'Legal', label: 'Website' }]
+    description: 'Created a polished legal consulting website with premium positioning, service navigation, consultation CTA, and compliance-check flow.',
+    results: [{ value: 'Legal', label: 'Consulting site' }, { value: 'Compliance', label: 'Check flow' }, { value: 'GitHub', label: 'Source code' }]
   },
   {
     id: 'creator',

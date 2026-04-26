@@ -80,7 +80,7 @@ const portfolio = [
   { cat: 'pm', gradient: 'card-gradient-3', decor: '🏢', category: 'Operations / Executive', title: 'BeePawn Operations Hub - PM & Executive Office', link: 'https://www.notion.so/BeePawn-Operations-Hub-PM-Executive-Office-34eb3df263db8104acb2e7af82f9f48c?source=copy_link', metrics: [['8+', 'Florida Locations'], ['PM', 'Executive Office'], ['Hub', 'Operations Records']] },
   { cat: 'pm dev', gradient: 'card-gradient-4', decor: '🤖', category: 'Automation / Slack Integration', title: 'Slack Bot Integration Project', link: 'https://www.notion.so/Slack-Bot-Integration-Project-25bb3df263db8094ab93ef7d91ca529b?source=copy_link', metrics: [['35%', 'Efficiency Improvement'], ['$7.2K', 'Budget Savings'], ['Q2-Q3', '2023']] },
   { cat: 'pm dev', gradient: 'card-gradient-1', decor: '🎧', category: 'Zendesk / AI Agent', title: 'Peter Sage Zendesk AI Agent Integration', link: 'https://www.notion.so/Peter-Sage-Zendesk-AI-Agent-Integration-25bb3df263db8190a76cd1b4ee283dc6?source=copy_link', metrics: [['95%', 'Accuracy'], ['24/7', 'Availability'], ['AI', 'Agent']] },
-  { cat: 'dev', gradient: 'card-gradient-2', decor: '⚖️', category: 'Legal / Web Development', title: 'Sutton Legal Website Repository', link: 'https://github.com/ChewxDev/sutton-legal', metrics: [['GitHub', 'Source Code'], ['Legal', 'Website']] },
+  { cat: 'dev', gradient: 'card-gradient-2', decor: '⚖️', category: 'Legal / Web Development', title: 'Sutton Legal Consulting Website', link: 'https://github.com/ChewxDev/sutton-legal', metrics: [['Legal', 'Consulting Site'], ['Compliance', 'Check Flow'], ['GitHub', 'Source Code']] },
   {
     cat: 'marketing',
     gradient: 'card-gradient-5',
