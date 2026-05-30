@@ -149,6 +149,7 @@ section{padding:100px 48px}
 .services-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:64px;max-width:1200px;margin-left:auto;margin-right:auto}
 .services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px;max-width:1200px;margin:0 auto}
 .service-card{background:var(--card-bg);border:1px solid var(--border);border-radius:24px;padding:36px;position:relative;overflow:hidden;transition:all .4s cubic-bezier(.22,1,.36,1);cursor:pointer;transform-style:preserve-3d}
+.service-card-wide{grid-column:span 2}
 .service-card::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at top left,var(--gold-glow),transparent 60%);opacity:0;transition:opacity .4s}
 .service-card::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:var(--grad-gold);transform:scaleX(0);transform-origin:left;transition:transform .4s cubic-bezier(.22,1,.36,1)}
 .service-card:hover{transform:translateY(-8px) rotateX(1deg) rotateY(-1deg);border-color:rgba(200,150,30,.25);box-shadow:0 24px 64px rgba(0,0,0,.4),0 0 40px var(--gold-glow)}
@@ -349,13 +350,14 @@ section{padding:100px 48px}
 .contact-form{background:var(--card-bg);border:1px solid var(--border);border-radius:24px;padding:28px;text-align:left;backdrop-filter:blur(20px);box-shadow:0 24px 64px rgba(0,0,0,.32)}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .contact-form label{display:flex;flex-direction:column;gap:8px;color:var(--muted);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;margin-bottom:14px}
+.form-row>label{min-width:0}
 .contact-form input,.contact-form select,.contact-form textarea{width:100%;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.04);color:var(--white);border-radius:14px;padding:14px 15px;font:500 14px 'Inter',sans-serif;outline:none;transition:all .2s}
 .contact-form select{appearance:none}
 .contact-form textarea{resize:vertical;min-height:130px;line-height:1.6}
 .contact-form input:focus,.contact-form select:focus,.contact-form textarea:focus{border-color:rgba(200,150,30,.48);box-shadow:0 0 0 4px rgba(200,150,30,.08)}
 .contact-form input::placeholder,.contact-form textarea::placeholder{color:rgba(139,148,158,.62)}
-.multi-dropdown{position:relative}
-.multi-trigger{width:100%;height:50px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.04);color:var(--white);border-radius:14px;padding:0 15px;font:500 14px 'Inter',sans-serif;text-align:left;display:flex;align-items:center;justify-content:space-between;gap:12px;cursor:pointer;transition:all .2s}
+.multi-dropdown{position:relative;width:100%;min-width:0}
+.multi-trigger{width:100%;max-width:100%;min-width:0;height:50px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.04);color:var(--white);border-radius:14px;padding:0 15px;font:500 14px 'Inter',sans-serif;text-align:left;display:flex;align-items:center;justify-content:space-between;gap:12px;cursor:pointer;transition:all .2s;overflow:hidden}
 .multi-trigger span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0;max-width:100%}
 .multi-trigger i{font-style:normal;color:var(--gold);font-size:16px;transition:transform .2s}
 .multi-trigger.open,.multi-trigger:focus{border-color:rgba(200,150,30,.48);box-shadow:0 0 0 4px rgba(200,150,30,.08)}
@@ -368,9 +370,23 @@ section{padding:100px 48px}
 .contact-form .cta-actions{justify-content:flex-start;margin-top:10px}
 .contact-form button{cursor:pointer}
 .contact-form button.btn-primary{border:0}
+.contact-form button:disabled{cursor:not-allowed;opacity:.62;transform:none;box-shadow:none}
 .form-error{color:#ff8a8a;font-size:11px;text-transform:none;letter-spacing:0;font-weight:600}
 .form-count{align-self:flex-end;color:rgba(139,148,158,.7);font-size:11px;text-transform:none;letter-spacing:0;font-weight:500}
 .form-status{border:1px solid rgba(200,150,30,.22);background:rgba(200,150,30,.08);color:var(--gold);border-radius:12px;padding:12px 14px;font-size:13px;line-height:1.5;margin:4px 0 14px}
+.form-status.success{border-color:rgba(60,220,130,.28);background:rgba(60,220,130,.09);color:#79e6a1}
+.form-status.error{border-color:rgba(255,138,138,.28);background:rgba(255,138,138,.08);color:#ff9f9f}
+
+/* POLICIES */
+.policies-section{background:#090D12;border-top:1px solid var(--border);padding:56px 48px}
+.policies-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:minmax(260px,340px) 1fr;gap:44px;align-items:start}
+.policies-copy h2{font-family:'Syne',sans-serif;font-size:clamp(28px,3vw,40px);line-height:1.04;letter-spacing:-1.1px;margin-bottom:14px}
+.policies-copy p{color:var(--muted);font-size:14px;line-height:1.65;max-width:320px}
+.policies-grid{display:grid;gap:12px}
+.policy-card{display:grid;grid-template-columns:180px 1fr;gap:24px;align-items:start;background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.055);border-radius:14px;padding:20px 22px;text-align:left}
+.policy-card h3{font-family:'Syne',sans-serif;font-size:18px;line-height:1.15;letter-spacing:-.3px;color:rgba(240,246,255,.92)}
+.policy-card p{color:rgba(139,148,158,.9);font-size:13px;line-height:1.65;margin-bottom:8px}
+.policy-card p:last-child{margin-bottom:0}
 
 /* FOOTER */
 footer{background:var(--navy2);border-top:1px solid var(--border);padding:40px 48px}
@@ -406,6 +422,9 @@ footer{background:var(--navy2);border-top:1px solid var(--border);padding:40px 4
   .detail-actions{justify-content:flex-start}
   .portfolio-card:nth-child(1),.portfolio-card:nth-child(4){grid-column:span 1}
   .stats-inner{grid-template-columns:repeat(2,1fr)}
+  .policies-inner{grid-template-columns:1fr}
+  .policies-copy p{max-width:560px}
+  .policy-card{grid-template-columns:1fr}
 }
 @media(max-width:768px){
   nav{padding:16px 24px}
@@ -419,11 +438,12 @@ footer{background:var(--navy2);border-top:1px solid var(--border);padding:40px 4
   .services-header .section-sub{text-align:left!important}
   .portfolio-grid{grid-template-columns:1fr}
   .stats-inner{grid-template-columns:1fr 1fr}
-  .service-card[style*="grid-column"]{grid-column:span 1!important}
+  .service-card-wide{grid-column:span 1}
   .finder-inner{grid-template-columns:1fr}
   .finder-copy{min-height:auto}
   .answer-grid,.recommendation-grid,.form-row{grid-template-columns:1fr}
   .recommendation-head{align-items:flex-start;flex-direction:column}
+  .policies-section{padding:48px 24px}
   footer{padding:32px 24px}
   .footer-inner{flex-direction:column;text-align:center}
   .testi-track{height:470px}

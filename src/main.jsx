@@ -1,453 +1,1150 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { createRoot } from 'react-dom/client';
-import './styles.css';
-import { checkContactRateLimit, contactFieldLimits, sanitizeContactForm, validateContactForm } from './security.js';
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import { createRoot } from "react-dom/client";
+import "./styles.css";
+import {
+  checkContactRateLimit,
+  contactFieldLimits,
+  sanitizeContactForm,
+  validateContactForm,
+} from "./security.js";
 
-const roles = ['Project Manager', 'Full-Stack Developer', 'UI/UX Designer', 'Content Writer', 'Social Media Strategist', 'SEO & Analytics Specialist', 'Executive Assistant'];
+const roles = [
+  "Project Manager",
+  "Full-Stack Developer",
+  "UI/UX Designer",
+  "Content Writer",
+  "Social Media Strategist",
+  "SEO & Analytics Specialist",
+  "Executive Assistant",
+];
 
 const heroCapabilities = [
   {
-    label: 'Build',
-    icon: '💻',
-    title: 'Software, web, and mobile products',
-    detail: 'React, Node.js, Flutter, APIs, dashboards, automations, and deployment-ready product work.',
-    metric: 'Product + engineering'
+    label: "Build",
+    icon: "💻",
+    title: "Software, web, and mobile products",
+    detail:
+      "React, Node.js, Flutter, APIs, dashboards, automations, and deployment-ready product work.",
+    metric: "Product + engineering",
   },
   {
-    label: 'Manage',
-    icon: '📊',
-    title: 'Delivery control for busy teams',
-    detail: 'Agile planning, stakeholder rhythm, risk tracking, scope control, and clean execution systems.',
-    metric: '92% on-budget'
+    label: "Manage",
+    icon: "📊",
+    title: "Delivery control for busy teams",
+    detail:
+      "Agile planning, stakeholder rhythm, risk tracking, scope control, and clean execution systems.",
+    metric: "92% on-budget",
   },
   {
-    label: 'Design',
-    icon: '🎨',
-    title: 'Premium digital and brand assets',
-    detail: 'UI/UX, websites, logos, flyers, pitch decks, brand visuals, and conversion-focused presentation.',
-    metric: 'Brand-ready assets'
+    label: "Design",
+    icon: "🎨",
+    title: "Premium digital and brand assets",
+    detail:
+      "UI/UX, websites, logos, flyers, pitch decks, brand visuals, and conversion-focused presentation.",
+    metric: "Brand-ready assets",
   },
   {
-    label: 'Automate',
-    icon: '🤖',
-    title: 'AI, agents, and workflow automation',
-    detail: 'Chatbots, Slack bots, Zendesk AI agents, LLM workflows, CRM automation, and support systems.',
-    metric: '60% efficiency gains'
+    label: "Automate",
+    icon: "🤖",
+    title: "AI, agents, and workflow automation",
+    detail:
+      "Chatbots, Slack bots, Zendesk AI agents, LLM workflows, CRM automation, and support systems.",
+    metric: "60% efficiency gains",
   },
   {
-    label: 'Grow',
-    icon: '📈',
-    title: 'Marketing, SEO, and appointment setting',
-    detail: 'SMM, analytics, search visibility, lead generation, booked-call systems, and content strategy.',
-    metric: 'Demand systems'
-  }
+    label: "Grow",
+    icon: "📈",
+    title: "Marketing, SEO, and appointment setting",
+    detail:
+      "SMM, analytics, search visibility, lead generation, booked-call systems, and content strategy.",
+    metric: "Demand systems",
+  },
 ];
 
 const marqueeItems = [
-  'Project Management',
-  'Node.js',
-  'AI/ML Implementation',
-  'LLM Workflows',
-  'AI Agents',
-  'UI/UX Design',
-  'Agile / Scrum',
-  'React',
-  'Flutter',
-  'Dart',
-  'Python',
-  'Web Development',
-  'Web Design',
-  'Executive Assistance',
-  'MongoDB',
-  'Digital Transformation',
-  'Social Media Strategy',
-  'SEO',
-  'Analytics & Reporting',
-  'Appointment Setting',
-  'Lead Generation',
-  'Business Development',
-  'Asana Certified',
-  'Content Writing',
-  'Mobile Apps',
-  'Stakeholder Management'
+  "Project Management",
+  "Node.js",
+  "AI/ML Implementation",
+  "LLM Workflows",
+  "AI Agents",
+  "UI/UX Design",
+  "Agile / Scrum",
+  "React",
+  "Flutter",
+  "Dart",
+  "Python",
+  "Web Development",
+  "Web Design",
+  "Executive Assistance",
+  "MongoDB",
+  "Digital Transformation",
+  "Social Media Strategy",
+  "SEO",
+  "Analytics & Reporting",
+  "Appointment Setting",
+  "Lead Generation",
+  "Business Development",
+  "Asana Certified",
+  "Content Writing",
+  "Mobile Apps",
+  "Stakeholder Management",
 ];
 
 const services = [
   {
-    icon: '📊',
-    color: 'rgba(58,134,255,.1)',
-    border: 'rgba(58,134,255,.2)',
-    title: 'Project Management & Ops',
-    desc: 'Agile/Scrum delivery, AI/ML projects, digital transformations. 92% on-budget across all engagements.',
-    tags: ['Agile/Scrum', 'Risk Management', 'Stakeholder Mgmt']
+    icon: "📊",
+    color: "rgba(58,134,255,.1)",
+    border: "rgba(58,134,255,.2)",
+    title: "Project Management & Ops",
+    desc: "Agile/Scrum delivery, AI/ML projects, digital transformations. 92% on-budget across all engagements.",
+    tags: ["Agile/Scrum", "Risk Management", "Stakeholder Mgmt"],
   },
   {
-    icon: '💻',
-    color: 'rgba(200,150,30,.1)',
-    border: 'rgba(200,150,30,.2)',
-    title: 'Software Development',
-    desc: 'Web apps, mobile apps, APIs. Node.js, React, Flutter, Dart, Python, MongoDB. From concept to production-ready deployment.',
-    tags: ['Web Dev', 'Node.js / React', 'Flutter / Dart', 'Python', 'Mobile Apps', 'REST APIs']
+    icon: "💻",
+    color: "rgba(200,150,30,.1)",
+    border: "rgba(200,150,30,.2)",
+    title: "Software Development",
+    desc: "Web apps, mobile apps, APIs. Node.js, React, Flutter, Dart, Python, MongoDB. From concept to production-ready deployment.",
+    tags: [
+      "Web Dev",
+      "Node.js / React",
+      "Flutter / Dart",
+      "Python",
+      "Mobile Apps",
+      "REST APIs",
+    ],
   },
   {
-    icon: '🎨',
-    color: 'rgba(255,90,150,.1)',
-    border: 'rgba(255,90,150,.2)',
-    title: 'Design',
-    desc: 'Brand identity, UI/UX, web design, logo design, flyers, graphic design, pitch decks, print. Every visual touchpoint crafted with intention.',
-    tags: ['UI/UX Design', 'Web Design', 'Logo Design', 'Flyers', 'Brand Identity', 'Pitch Decks']
+    icon: "🎨",
+    color: "rgba(255,90,150,.1)",
+    border: "rgba(255,90,150,.2)",
+    title: "Design",
+    desc: "Brand identity, UI/UX, web design, logo design, flyers, graphic design, pitch decks, print. Every visual touchpoint crafted with intention.",
+    tags: [
+      "UI/UX Design",
+      "Web Design",
+      "Logo Design",
+      "Flyers",
+      "Brand Identity",
+      "Pitch Decks",
+    ],
   },
   {
-    icon: '✍️',
-    color: 'rgba(60,220,130,.1)',
-    border: 'rgba(60,220,130,.2)',
-    title: 'Writing & Content',
-    desc: 'Technical docs, copywriting, business proposals, ghostwriting. 60% win rate on proposals drafted.',
-    tags: ['Copywriting', 'Tech Writing', 'Proposals']
+    icon: "✍️",
+    color: "rgba(60,220,130,.1)",
+    border: "rgba(60,220,130,.2)",
+    title: "Writing & Content",
+    desc: "Technical docs, copywriting, business proposals, ghostwriting. 60% win rate on proposals drafted.",
+    tags: ["Copywriting", "Tech Writing", "Proposals"],
   },
   {
-    icon: '📣',
-    color: 'rgba(150,100,255,.1)',
-    border: 'rgba(150,100,255,.2)',
-    title: 'Social Media & Marketing',
-    desc: 'Platform strategy, content calendars, SEO, analytics, lead generation, appointment setting, and conversion-focused growth.',
-    tags: ['Content Strategy', 'SEO', 'Analytics', 'Appointment Setting', 'A/B Testing']
+    icon: "📣",
+    color: "rgba(150,100,255,.1)",
+    border: "rgba(150,100,255,.2)",
+    title: "Social Media & Marketing",
+    desc: "Platform strategy, content calendars, SEO, analytics, lead generation, appointment setting, and conversion-focused growth.",
+    tags: [
+      "Content Strategy",
+      "SEO",
+      "Analytics",
+      "Appointment Setting",
+      "A/B Testing",
+    ],
   },
   {
-    icon: '📋',
-    color: 'rgba(255,180,30,.1)',
-    border: 'rgba(255,180,30,.2)',
-    title: 'Virtual & Executive Assistance',
-    desc: 'C-suite support, appointment setting, calendar management, CRM updates, stakeholder liaison, and operational follow-through.',
-    tags: ['EA Support', 'Appointment Setting', 'CRM (Salesforce)', 'Operations']
-  }
+    icon: "📋",
+    color: "rgba(255,180,30,.1)",
+    border: "rgba(255,180,30,.2)",
+    title: "Virtual & Executive Assistance",
+    desc: "C-suite support, appointment setting, calendar management, CRM updates, stakeholder liaison, and operational follow-through.",
+    tags: [
+      "EA Support",
+      "Appointment Setting",
+      "CRM (Salesforce)",
+      "Operations",
+    ],
+  },
 ];
 
 const portfolio = [
   {
-    cat: 'pm dev',
-    gradient: 'card-gradient-1',
-    decor: '🤖',
-    category: 'AI / Project Management',
-    title: 'AI Chatbot Project - Lean Geeks',
-    link: 'https://www.notion.so/AI-Chatbot-Project-Lean-Geeks-258b3df263db804fb5eef083a9468b42?source=copy_link',
-    metrics: [['60%', 'Ticket Reduction'], ['25%', 'Under Budget'], ['85%', 'Accuracy Rate']],
-    summary: 'Managed the delivery of an AI customer support chatbot that reduced repetitive support load, tightened response handling, and kept implementation under budget.',
-    stack: ['AI chatbot', 'Sprint planning', 'Risk register', 'Stakeholder comms'],
-    signal: 'Fast support automation'
-  },
-  {
-    cat: 'dev pm',
-    gradient: 'card-gradient-2',
-    decor: '🛒',
-    category: 'E-Commerce / Development',
-    title: 'E-commerce Platform Migration - Convertain Limited',
-    link: 'https://www.notion.so/E-commerce-Platform-Migration-Convertain-Limited-258b3df263db807dae26f534b013f3d0?source=copy_link',
-    metrics: [['68%', 'Complete'], ['29%', 'Under Budget'], ['40%', 'Performance Gain']],
-    summary: 'Coordinated a legacy e-commerce migration into a cleaner, faster platform path with measurable performance gains and budget discipline.',
-    stack: ['Migration planning', 'Performance', 'Product delivery', 'Distributed team'],
-    signal: 'Commerce modernization'
-  },
-  {
-    cat: 'pm',
-    gradient: 'card-gradient-3',
-    decor: '🏢',
-    category: 'Operations / Executive',
-    title: 'Pawn Shop Operations Hub - PM & Executive Office',
-    link: 'https://www.notion.so/BeePawn-Operations-Hub-PM-Executive-Office-34eb3df263db8104acb2e7af82f9f48c?source=copy_link',
-    metrics: [['8+', 'Florida Locations'], ['PM', 'Executive Office'], ['Hub', 'Operations Records']],
-    summary: 'Built an operating hub for multi-location pawn shop leadership, centralizing project plans, communications, performance records, and executive support workflows.',
-    stack: ['Operations hub', 'Executive office', 'Reporting', 'Documentation'],
-    signal: 'Multi-location control'
-  },
-  {
-    cat: 'pm dev',
-    gradient: 'card-gradient-4',
-    decor: '🤖',
-    category: 'Automation / Slack Integration',
-    title: 'Slack Bot Integration Project',
-    link: 'https://www.notion.so/Slack-Bot-Integration-Project-25bb3df263db8094ab93ef7d91ca529b?source=copy_link',
-    metrics: [['35%', 'Efficiency Improvement'], ['$7.2K', 'Budget Savings'], ['Q2-Q3', '2023']],
-    summary: 'Integrated six critical business bots into a Slack workspace to reduce manual coordination, improve routing, and save recurring operating time.',
-    stack: ['Slack bots', 'Workflow automation', 'Tool integration', 'Ops design'],
-    signal: 'Team automation layer'
-  },
-  {
-    cat: 'pm dev',
-    gradient: 'card-gradient-1',
-    decor: '🎧',
-    category: 'Zendesk / AI Agent',
-    title: 'Peter Sage Zendesk AI Agent Integration',
-    link: 'https://www.notion.so/Peter-Sage-Zendesk-AI-Agent-Integration-25bb3df263db8190a76cd1b4ee283dc6?source=copy_link',
-    metrics: [['95%', 'Accuracy'], ['24/7', 'Availability'], ['AI', 'Agent']],
-    summary: 'Integrated an intelligent Zendesk AI agent for customer support coverage, improving consistency, availability, and response accuracy.',
-    stack: ['Zendesk', 'AI agent', 'Support automation', 'QA'],
-    signal: 'Always-on support'
-  },
-  {
-    cat: 'dev',
-    gradient: 'card-gradient-2',
-    decor: '⚖️',
-    category: 'Legal / Web Development',
-    title: 'Sutton Legal Consulting Website',
-    link: 'https://sutton-legal.vercel.app/',
-    metrics: [['Live', 'Vercel Site'], ['Compliance', 'Check Flow'], ['Legal', 'Consulting Site']],
-    summary: 'Designed and built a premium legal consulting website with a polished first impression, compliance check flow, and clear service positioning.',
-    stack: ['Web design', 'Frontend', 'Compliance flow', 'Vercel'],
-    signal: 'Premium legal presence'
-  },
-  {
-    cat: 'marketing',
-    gradient: 'card-gradient-5',
-    decor: '📺',
-    category: 'Social Media / Content',
-    title: 'Gaming Creator Network Growth',
-    links: [
-      { label: 'Gaming YouTube', href: 'https://www.youtube.com/@christianrauchenwald-gaming' },
-      { label: 'Main YouTube', href: 'https://www.youtube.com/@ChristianRauchenwald' },
-      { label: 'Twitch', href: 'https://m.twitch.tv/ChristianRauchenwald/home' }
+    cat: "pm dev",
+    gradient: "card-gradient-1",
+    decor: "🤖",
+    category: "AI / Project Management",
+    title: "AI Chatbot Project - Lean Geeks",
+    link: "https://www.notion.so/AI-Chatbot-Project-Lean-Geeks-258b3df263db804fb5eef083a9468b42?source=copy_link",
+    metrics: [
+      ["60%", "Ticket Reduction"],
+      ["25%", "Under Budget"],
+      ["85%", "Accuracy Rate"],
     ],
-    metrics: [['20%', 'Sub Growth'], ['30%', 'More Views']],
-    summary: 'Supported creator-channel growth through content structure, channel consistency, platform awareness, and performance-driven social media work.',
-    stack: ['YouTube', 'Twitch', 'SMM', 'Analytics'],
-    signal: 'Creator growth system'
-  }
+    summary:
+      "Managed the delivery of an AI customer support chatbot that reduced repetitive support load, tightened response handling, and kept implementation under budget.",
+    stack: [
+      "AI chatbot",
+      "Sprint planning",
+      "Risk register",
+      "Stakeholder comms",
+    ],
+    signal: "Fast support automation",
+  },
+  {
+    cat: "dev pm",
+    gradient: "card-gradient-2",
+    decor: "🛒",
+    category: "E-Commerce / Development",
+    title: "E-commerce Platform Migration - Convertain Limited",
+    link: "https://www.notion.so/E-commerce-Platform-Migration-Convertain-Limited-258b3df263db807dae26f534b013f3d0?source=copy_link",
+    metrics: [
+      ["68%", "Complete"],
+      ["29%", "Under Budget"],
+      ["40%", "Performance Gain"],
+    ],
+    summary:
+      "Coordinated a legacy e-commerce migration into a cleaner, faster platform path with measurable performance gains and budget discipline.",
+    stack: [
+      "Migration planning",
+      "Performance",
+      "Product delivery",
+      "Distributed team",
+    ],
+    signal: "Commerce modernization",
+  },
+  {
+    cat: "pm",
+    gradient: "card-gradient-3",
+    decor: "🏢",
+    category: "Operations / Executive",
+    title: "Pawn Shop Operations Hub - PM & Executive Office",
+    link: "https://www.notion.so/BeePawn-Operations-Hub-PM-Executive-Office-34eb3df263db8104acb2e7af82f9f48c?source=copy_link",
+    metrics: [
+      ["8+", "Florida Locations"],
+      ["PM", "Executive Office"],
+      ["Hub", "Operations Records"],
+    ],
+    summary:
+      "Built an operating hub for multi-location pawn shop leadership, centralizing project plans, communications, performance records, and executive support workflows.",
+    stack: ["Operations hub", "Executive office", "Reporting", "Documentation"],
+    signal: "Multi-location control",
+  },
+  {
+    cat: "pm dev",
+    gradient: "card-gradient-4",
+    decor: "🤖",
+    category: "Automation / Slack Integration",
+    title: "Slack Bot Integration Project",
+    link: "https://www.notion.so/Slack-Bot-Integration-Project-25bb3df263db8094ab93ef7d91ca529b?source=copy_link",
+    metrics: [
+      ["35%", "Efficiency Improvement"],
+      ["$7.2K", "Budget Savings"],
+      ["Q2-Q3", "2023"],
+    ],
+    summary:
+      "Integrated six critical business bots into a Slack workspace to reduce manual coordination, improve routing, and save recurring operating time.",
+    stack: [
+      "Slack bots",
+      "Workflow automation",
+      "Tool integration",
+      "Ops design",
+    ],
+    signal: "Team automation layer",
+  },
+  {
+    cat: "pm dev",
+    gradient: "card-gradient-1",
+    decor: "🎧",
+    category: "Zendesk / AI Agent",
+    title: "Peter Sage Zendesk AI Agent Integration",
+    link: "https://www.notion.so/Peter-Sage-Zendesk-AI-Agent-Integration-25bb3df263db8190a76cd1b4ee283dc6?source=copy_link",
+    metrics: [
+      ["95%", "Accuracy"],
+      ["24/7", "Availability"],
+      ["AI", "Agent"],
+    ],
+    summary:
+      "Integrated an intelligent Zendesk AI agent for customer support coverage, improving consistency, availability, and response accuracy.",
+    stack: ["Zendesk", "AI agent", "Support automation", "QA"],
+    signal: "Always-on support",
+  },
+  {
+    cat: "dev",
+    gradient: "card-gradient-2",
+    decor: "⚖️",
+    category: "Legal / Web Development",
+    title: "Sutton Legal Consulting Website",
+    link: "https://sutton-legal.vercel.app/",
+    metrics: [
+      ["Live", "Vercel Site"],
+      ["Compliance", "Check Flow"],
+      ["Legal", "Consulting Site"],
+    ],
+    summary:
+      "Designed and built a premium legal consulting website with a polished first impression, compliance check flow, and clear service positioning.",
+    stack: ["Web design", "Frontend", "Compliance flow", "Vercel"],
+    signal: "Premium legal presence",
+  },
+  {
+    cat: "marketing",
+    gradient: "card-gradient-5",
+    decor: "📺",
+    category: "Social Media / Content",
+    title: "Gaming Creator Network Growth",
+    links: [
+      {
+        label: "Gaming YouTube",
+        href: "https://www.youtube.com/@christianrauchenwald-gaming",
+      },
+      {
+        label: "Main YouTube",
+        href: "https://www.youtube.com/@ChristianRauchenwald",
+      },
+      {
+        label: "Twitch",
+        href: "https://m.twitch.tv/ChristianRauchenwald/home",
+      },
+    ],
+    metrics: [
+      ["20%", "Sub Growth"],
+      ["30%", "More Views"],
+    ],
+    summary:
+      "Supported creator-channel growth through content structure, channel consistency, platform awareness, and performance-driven social media work.",
+    stack: ["YouTube", "Twitch", "SMM", "Analytics"],
+    signal: "Creator growth system",
+  },
 ];
 
 const socialLinks = [
-  { label: 'LinkedIn', title: 'LinkedIn', text: 'in', href: 'https://www.linkedin.com/in/nicholas-njoku-897054223/' },
-  { label: 'GitHub', title: 'GitHub', text: 'gh', href: 'https://github.com/ChewxDev' },
-  { label: 'Twitter', title: 'Twitter', text: 'tw', href: 'https://twitter.com/cxxzy_zeus' },
-  { label: 'Telegram', title: 'Telegram', text: 'tg', href: 'https://t.me/Chewx001' },
-  { label: 'Discord', title: 'Discord', text: 'dc', href: 'https://discord.gg/nzBWrFPz' }
+  {
+    label: "LinkedIn",
+    title: "LinkedIn",
+    text: "in",
+    href: "https://www.linkedin.com/in/nicholas-njoku-897054223/",
+  },
+  {
+    label: "GitHub",
+    title: "GitHub",
+    text: "gh",
+    href: "https://github.com/ChewxDev",
+  },
+  {
+    label: "Twitter",
+    title: "Twitter",
+    text: "tw",
+    href: "https://twitter.com/cxxzy_zeus",
+  },
+  {
+    label: "Telegram",
+    title: "Telegram",
+    text: "tg",
+    href: "https://t.me/Chewx001",
+  },
+  {
+    label: "Discord",
+    title: "Discord",
+    text: "dc",
+    href: "https://discord.gg/nzBWrFPz",
+  },
 ];
 
 const tools = [
-  ['⚡', 'Asana'], ['🎯', 'Jira'], ['📋', 'Trello'], ['💡', 'Notion'],
-  ['🟢', 'Node.js'], ['⚛️', 'React'], ['🦋', 'Flutter'], ['🎯', 'Dart'],
-  ['🐍', 'Python'], ['🟨', 'JavaScript'], ['🔷', 'TypeScript'], ['🧱', 'HTML/CSS'],
-  ['🌐', 'Web Dev'], ['🎨', 'Web Design'], ['🍃', 'MongoDB'], ['🐘', 'PostgreSQL'],
-  ['🗄️', 'MySQL'], ['🔥', 'Firebase'], ['⚡', 'Supabase'], ['🚂', 'Express.js'],
-  ['▲', 'Next.js'], ['💨', 'Tailwind CSS'], ['🔌', 'REST APIs'], ['🧬', 'GraphQL'],
-  ['🐳', 'Docker'], ['☁️', 'Salesforce'], ['🧡', 'HubSpot'], ['🎧', 'Zendesk'],
-  ['💬', 'Slack'], ['🤖', 'OpenAI'], ['🧠', 'ChatGPT'], ['💎', 'Claude'], ['🔐', 'Anthropic'],
-  ['✨', 'Gemini'], ['🦙', 'Meta Llama'], ['🔎', 'Perplexity'], ['🧪', 'Hugging Face'],
-  ['🚀', 'Mistral AI'], ['🟩', 'Cohere'], ['🧬', 'LangChain'], ['📚', 'LlamaIndex'],
-  ['🧠', 'Pinecone'], ['🌊', 'Flowise'], ['🧩', 'Botpress'], ['🛠️', 'Voiceflow'],
-  ['💻', 'GitHub Copilot'], ['🧑‍💻', 'Cursor'], ['📐', 'v0'], ['🎨', 'Midjourney'],
-  ['🖼️', 'DALL-E'], ['🎬', 'Runway'], ['🎞️', 'Pika'], ['🗣️', 'ElevenLabs'],
-  ['⚙️', 'Zapier'],
-  ['🔁', 'Make.com'], ['📹', 'Zoom'], ['🔷', 'Miro'], ['🐙', 'GitHub'],
-  ['✅', 'ClickUp'], ['📆', 'Monday.com'], ['📐', 'Linear'], ['🧮', 'Airtable'],
-  ['▲', 'Vercel'], ['🌍', 'Netlify'], ['🚀', 'Render'], ['🛤️', 'Railway'],
-  ['🧩', 'Webflow'], ['🖥️', 'Framer'], ['🟦', 'Wix'], ['🛍️', 'WooCommerce'],
-  ['🔑', 'Google Workspace'], ['📊', 'Google Analytics'], ['📣', 'Meta Business Suite'],
-  ['📌', 'Buffer'], ['🗓️', 'Later'], ['🌱', 'Hootsuite'], ['🎬', 'YouTube Studio'],
-  ['✉️', 'Mailchimp'], ['🛒', 'Shopify'], ['💳', 'Stripe'], ['📝', 'WordPress'],
-  ['📈', 'Google Search Console'], ['🏷️', 'Google Tag Manager'], ['📉', 'Looker Studio'],
-  ['🔎', 'SEMrush'], ['🧭', 'Ahrefs'], ['🕷️', 'Screaming Frog'], ['🟠', 'Moz'],
-  ['🌡️', 'Hotjar'], ['🔍', 'Microsoft Clarity'], ['📅', 'Calendly'], ['🗓️', 'Cal.com'],
-  ['📞', 'Apollo'], ['📇', 'Pipedrive'], ['🟣', 'Zoho CRM'], ['🔄', 'n8n'],
-  ['🎭', 'Figma'], ['🖼️', 'Canva'], ['🪄', 'Photoshop'], ['✒️', 'Illustrator']
+  ["⚡", "Asana"],
+  ["🎯", "Jira"],
+  ["📋", "Trello"],
+  ["💡", "Notion"],
+  ["🟢", "Node.js"],
+  ["⚛️", "React"],
+  ["🦋", "Flutter"],
+  ["🎯", "Dart"],
+  ["🐍", "Python"],
+  ["🟨", "JavaScript"],
+  ["🔷", "TypeScript"],
+  ["🧱", "HTML/CSS"],
+  ["🌐", "Web Dev"],
+  ["🎨", "Web Design"],
+  ["🍃", "MongoDB"],
+  ["🐘", "PostgreSQL"],
+  ["🗄️", "MySQL"],
+  ["🔥", "Firebase"],
+  ["⚡", "Supabase"],
+  ["🚂", "Express.js"],
+  ["▲", "Next.js"],
+  ["💨", "Tailwind CSS"],
+  ["🔌", "REST APIs"],
+  ["🧬", "GraphQL"],
+  ["🐳", "Docker"],
+  ["☁️", "Salesforce"],
+  ["🧡", "HubSpot"],
+  ["🎧", "Zendesk"],
+  ["💬", "Slack"],
+  ["🤖", "OpenAI"],
+  ["🧠", "ChatGPT"],
+  ["💎", "Claude"],
+  ["🔐", "Anthropic"],
+  ["✨", "Gemini"],
+  ["🦙", "Meta Llama"],
+  ["🔎", "Perplexity"],
+  ["🧪", "Hugging Face"],
+  ["🚀", "Mistral AI"],
+  ["🟩", "Cohere"],
+  ["🧬", "LangChain"],
+  ["📚", "LlamaIndex"],
+  ["🧠", "Pinecone"],
+  ["🌊", "Flowise"],
+  ["🧩", "Botpress"],
+  ["🛠️", "Voiceflow"],
+  ["💻", "GitHub Copilot"],
+  ["🧑‍💻", "Cursor"],
+  ["📐", "v0"],
+  ["🎨", "Midjourney"],
+  ["🖼️", "DALL-E"],
+  ["🎬", "Runway"],
+  ["🎞️", "Pika"],
+  ["🗣️", "ElevenLabs"],
+  ["⚙️", "Zapier"],
+  ["🔁", "Make.com"],
+  ["📹", "Zoom"],
+  ["🔷", "Miro"],
+  ["🐙", "GitHub"],
+  ["✅", "ClickUp"],
+  ["📆", "Monday.com"],
+  ["📐", "Linear"],
+  ["🧮", "Airtable"],
+  ["▲", "Vercel"],
+  ["🌍", "Netlify"],
+  ["🚀", "Render"],
+  ["🛤️", "Railway"],
+  ["🧩", "Webflow"],
+  ["🖥️", "Framer"],
+  ["🟦", "Wix"],
+  ["🛍️", "WooCommerce"],
+  ["🔑", "Google Workspace"],
+  ["📊", "Google Analytics"],
+  ["📣", "Meta Business Suite"],
+  ["📌", "Buffer"],
+  ["🗓️", "Later"],
+  ["🌱", "Hootsuite"],
+  ["🎬", "YouTube Studio"],
+  ["✉️", "Mailchimp"],
+  ["🛒", "Shopify"],
+  ["💳", "Stripe"],
+  ["📝", "WordPress"],
+  ["📈", "Google Search Console"],
+  ["🏷️", "Google Tag Manager"],
+  ["📉", "Looker Studio"],
+  ["🔎", "SEMrush"],
+  ["🧭", "Ahrefs"],
+  ["🕷️", "Screaming Frog"],
+  ["🟠", "Moz"],
+  ["🌡️", "Hotjar"],
+  ["🔍", "Microsoft Clarity"],
+  ["📅", "Calendly"],
+  ["🗓️", "Cal.com"],
+  ["📞", "Apollo"],
+  ["📇", "Pipedrive"],
+  ["🟣", "Zoho CRM"],
+  ["🔄", "n8n"],
+  ["🎭", "Figma"],
+  ["🖼️", "Canva"],
+  ["🪄", "Photoshop"],
+  ["✒️", "Illustrator"],
 ];
 
 const testimonials = [
   {
-    quote: "Ni brought structure, speed, and real technical judgment to our AI chatbot project. He kept the team aligned, protected the budget, and helped turn a complex support workflow into a practical system that improved response time and reduced repetitive support work.",
-    initials: 'AD',
-    name: 'Anton Dorofeev',
-    role: 'CEO · Lean Geeks',
-    rating: 5
+    quote:
+      "Ni brought structure, speed, and real technical judgment to our AI chatbot project. He kept the team aligned, protected the budget, and helped turn a complex support workflow into a practical system that improved response time and reduced repetitive support work.",
+    initials: "AD",
+    name: "Anton Dorofeev",
+    role: "CEO · Lean Geeks",
+    rating: 5,
   },
   {
-    quote: "Ni handled our e-commerce migration with the calm of someone who understands both product delivery and business pressure. He coordinated the moving parts, improved performance, and kept the project disciplined from planning through execution.",
-    initials: 'CR',
-    name: 'Christian Rauchenwald',
-    role: 'Owner · Convertain Limited',
-    rating: 5
+    quote:
+      "Ni handled our e-commerce migration with the calm of someone who understands both product delivery and business pressure. He coordinated the moving parts, improved performance, and kept the project disciplined from planning through execution.",
+    initials: "CR",
+    name: "Christian Rauchenwald",
+    role: "Owner · Convertain Limited",
+    rating: 5,
   },
   {
-    quote: "Ni helped bring order to busy multi-location operations. His project tracking, executive support, and communication systems made it easier for branch leadership to stay aligned, follow priorities, and move faster without losing visibility.",
-    initials: 'DN',
-    name: 'Daniil',
-    role: 'Branch Manager · BeePawn',
-    rating: 5
+    quote:
+      "Ni helped bring order to busy multi-location operations. His project tracking, executive support, and communication systems made it easier for branch leadership to stay aligned, follow priorities, and move faster without losing visibility.",
+    initials: "DN",
+    name: "Daniil",
+    role: "Branch Manager · BeePawn",
+    rating: 5,
   },
   {
-    quote: "Ni translated the Sutton Legal Consulting brand into a polished web presence with strong positioning, clean user experience, and professional detail. He understood the trust and clarity a legal consulting site needed to communicate from the first screen.",
-    initials: 'OM',
-    name: 'Onyeka Momah',
-    role: 'Owner · Sutton Legal Consulting',
-    rating: 5
-  }
+    quote:
+      "Ni translated the Sutton Legal Consulting brand into a polished web presence with strong positioning, clean user experience, and professional detail. He understood the trust and clarity a legal consulting site needed to communicate from the first screen.",
+    initials: "OM",
+    name: "Onyeka Momah",
+    role: "Owner · Sutton Legal Consulting",
+    rating: 5,
+  },
 ];
 
 const questionnaireSteps = [
   {
-    id: 'profile',
-    title: 'What best describes you?',
-    subtitle: 'This sets the context for the engagement and how hands-on the support should be.',
-    type: 'single',
+    id: "profile",
+    title: "What best describes you?",
+    subtitle:
+      "This sets the context for the engagement and how hands-on the support should be.",
+    type: "single",
     options: [
-      { label: 'I am not sure yet', detail: 'You know something needs to improve, but you want help diagnosing the real problem first.', uncertain: true, scores: { 'Business Development & Strategy': 5, 'Project Management & Ops': 2, 'Writing & Content': 2, Design: 1 } },
-      { label: 'Founder or solo operator', detail: 'You need someone who can think, build, write, and execute without heavy hand-holding.', scores: { 'Business Development & Strategy': 3, 'Software Development': 2, Design: 2, 'Writing & Content': 1 } },
-      { label: 'Small business', detail: 'You need better systems, stronger presence, and practical execution that moves revenue.', scores: { 'Project Management & Ops': 2, 'Social Media & Marketing': 3, 'Business Development & Strategy': 2, Design: 1 } },
-      { label: 'Growing team', detail: 'You need coordination, product/process structure, and clearer ownership across people and tools.', scores: { 'Project Management & Ops': 4, 'Virtual & Executive Assistance': 2, 'Software Development': 2 } },
-      { label: 'Executive office or enterprise team', detail: 'You need trusted support around operations, reporting, admin, stakeholders, and execution rhythm.', scores: { 'Virtual & Executive Assistance': 4, 'Project Management & Ops': 3, 'Writing & Content': 2 } }
-    ]
+      {
+        label: "I am not sure yet",
+        detail:
+          "You know something needs to improve, but you want help diagnosing the real problem first.",
+        uncertain: true,
+        scores: {
+          "Business Development & Strategy": 5,
+          "Project Management & Ops": 2,
+          "Writing & Content": 2,
+          Design: 1,
+        },
+      },
+      {
+        label: "Founder or solo operator",
+        detail:
+          "You need someone who can think, build, write, and execute without heavy hand-holding.",
+        scores: {
+          "Business Development & Strategy": 3,
+          "Software Development": 2,
+          Design: 2,
+          "Writing & Content": 1,
+        },
+      },
+      {
+        label: "Small business",
+        detail:
+          "You need better systems, stronger presence, and practical execution that moves revenue.",
+        scores: {
+          "Project Management & Ops": 2,
+          "Social Media & Marketing": 3,
+          "Business Development & Strategy": 2,
+          Design: 1,
+        },
+      },
+      {
+        label: "Growing team",
+        detail:
+          "You need coordination, product/process structure, and clearer ownership across people and tools.",
+        scores: {
+          "Project Management & Ops": 4,
+          "Virtual & Executive Assistance": 2,
+          "Software Development": 2,
+        },
+      },
+      {
+        label: "Executive office or enterprise team",
+        detail:
+          "You need trusted support around operations, reporting, admin, stakeholders, and execution rhythm.",
+        scores: {
+          "Virtual & Executive Assistance": 4,
+          "Project Management & Ops": 3,
+          "Writing & Content": 2,
+        },
+      },
+    ],
   },
   {
-    id: 'goal',
-    title: 'What outcome would make this a win?',
-    subtitle: 'Pick the result that would make the biggest difference in the next 30 to 90 days.',
-    type: 'single',
+    id: "goal",
+    title: "What outcome would make this a win?",
+    subtitle:
+      "Pick the result that would make the biggest difference in the next 30 to 90 days.",
+    type: "single",
     options: [
-      { label: 'I need help figuring that out', detail: 'You want a clear diagnosis of what is wrong, what matters most, and what to do first.', uncertain: true, scores: { 'Business Development & Strategy': 5, 'Project Management & Ops': 2, 'Writing & Content': 2 } },
-      { label: 'Launch or rebuild a product', detail: 'A website, web app, mobile app, API, portal, dashboard, or automation needs to go live.', scores: { 'Software Development': 5, 'Project Management & Ops': 2, Design: 2 } },
-      { label: 'Fix messy operations', detail: 'Work is happening, but deadlines, ownership, reporting, or communication are too loose.', scores: { 'Project Management & Ops': 5, 'Virtual & Executive Assistance': 3 } },
-      { label: 'Look more premium and credible', detail: 'The brand, website, logo, flyers, deck, or customer-facing materials need to feel sharper.', scores: { Design: 5, 'Writing & Content': 2, 'Social Media & Marketing': 1 } },
-      { label: 'Generate more demand', detail: 'You need stronger content, better campaigns, clearer offers, or a repeatable growth engine.', scores: { 'Social Media & Marketing': 4, 'Business Development & Strategy': 4, 'Writing & Content': 2 } }
-    ]
+      {
+        label: "I need help figuring that out",
+        detail:
+          "You want a clear diagnosis of what is wrong, what matters most, and what to do first.",
+        uncertain: true,
+        scores: {
+          "Business Development & Strategy": 5,
+          "Project Management & Ops": 2,
+          "Writing & Content": 2,
+        },
+      },
+      {
+        label: "Launch or rebuild a product",
+        detail:
+          "A website, web app, mobile app, API, portal, dashboard, or automation needs to go live.",
+        scores: {
+          "Software Development": 5,
+          "Project Management & Ops": 2,
+          Design: 2,
+        },
+      },
+      {
+        label: "Fix messy operations",
+        detail:
+          "Work is happening, but deadlines, ownership, reporting, or communication are too loose.",
+        scores: {
+          "Project Management & Ops": 5,
+          "Virtual & Executive Assistance": 3,
+        },
+      },
+      {
+        label: "Look more premium and credible",
+        detail:
+          "The brand, website, logo, flyers, deck, or customer-facing materials need to feel sharper.",
+        scores: {
+          Design: 5,
+          "Writing & Content": 2,
+          "Social Media & Marketing": 1,
+        },
+      },
+      {
+        label: "Generate more demand",
+        detail:
+          "You need stronger content, better campaigns, clearer offers, or a repeatable growth engine.",
+        scores: {
+          "Social Media & Marketing": 4,
+          "Business Development & Strategy": 4,
+          "Writing & Content": 2,
+        },
+      },
+    ],
   },
   {
-    id: 'assets',
-    title: 'What needs to be created or improved?',
-    subtitle: 'Select every asset or system you need help with.',
-    type: 'multi',
+    id: "assets",
+    title: "What needs to be created or improved?",
+    subtitle: "Select every asset or system you need help with.",
+    type: "multi",
     options: [
-      { label: 'I do not know yet', detail: 'You need someone to inspect the situation and recommend the right asset or system before building.', uncertain: true, scores: { 'Business Development & Strategy': 4, 'Project Management & Ops': 2, 'Writing & Content': 1 } },
-      { label: 'Website or landing page', detail: 'Web design, frontend build, conversion flow, copy, and launch polish.', scores: { 'Software Development': 3, Design: 3, 'Writing & Content': 1 } },
-      { label: 'Mobile or web app', detail: 'React, Flutter, APIs, dashboards, portals, product flows, and deployment.', scores: { 'Software Development': 5, 'Project Management & Ops': 2, Design: 1 } },
-      { label: 'Logo, brand, flyer, or pitch deck', detail: 'Identity, campaign visuals, print-ready collateral, and presentation design.', scores: { Design: 5, 'Writing & Content': 2 } },
-      { label: 'Content, SEO, analytics, or social channels', detail: 'Platform strategy, publishing rhythm, SEO, analytics, reporting, and growth loops.', scores: { 'Social Media & Marketing': 5, 'Writing & Content': 2, 'Business Development & Strategy': 1 } },
-      { label: 'Workflow, SOP, CRM, or reporting system', detail: 'Operational documentation, dashboards, stakeholder reporting, and tool setup.', scores: { 'Project Management & Ops': 4, 'Virtual & Executive Assistance': 3 } },
-      { label: 'AI chatbot, agent, or automation', detail: 'AI-assisted support, LLM workflows, Slack/Zendesk agents, response automation, and integrations.', scores: { 'Software Development': 4, 'Project Management & Ops': 2, 'Virtual & Executive Assistance': 1 } }
-    ]
+      {
+        label: "I do not know yet",
+        detail:
+          "You need someone to inspect the situation and recommend the right asset or system before building.",
+        uncertain: true,
+        scores: {
+          "Business Development & Strategy": 4,
+          "Project Management & Ops": 2,
+          "Writing & Content": 1,
+        },
+      },
+      {
+        label: "Website or landing page",
+        detail:
+          "Web design, frontend build, conversion flow, copy, and launch polish.",
+        scores: {
+          "Software Development": 3,
+          Design: 3,
+          "Writing & Content": 1,
+        },
+      },
+      {
+        label: "Mobile or web app",
+        detail:
+          "React, Flutter, APIs, dashboards, portals, product flows, and deployment.",
+        scores: {
+          "Software Development": 5,
+          "Project Management & Ops": 2,
+          Design: 1,
+        },
+      },
+      {
+        label: "Logo, brand, flyer, or pitch deck",
+        detail:
+          "Identity, campaign visuals, print-ready collateral, and presentation design.",
+        scores: { Design: 5, "Writing & Content": 2 },
+      },
+      {
+        label: "Content, SEO, analytics, or social channels",
+        detail:
+          "Platform strategy, publishing rhythm, SEO, analytics, reporting, and growth loops.",
+        scores: {
+          "Social Media & Marketing": 5,
+          "Writing & Content": 2,
+          "Business Development & Strategy": 1,
+        },
+      },
+      {
+        label: "Workflow, SOP, CRM, or reporting system",
+        detail:
+          "Operational documentation, dashboards, stakeholder reporting, and tool setup.",
+        scores: {
+          "Project Management & Ops": 4,
+          "Virtual & Executive Assistance": 3,
+        },
+      },
+      {
+        label: "AI chatbot, agent, or automation",
+        detail:
+          "AI-assisted support, LLM workflows, Slack/Zendesk agents, response automation, and integrations.",
+        scores: {
+          "Software Development": 4,
+          "Project Management & Ops": 2,
+          "Virtual & Executive Assistance": 1,
+        },
+      },
+    ],
   },
   {
-    id: 'friction',
-    title: 'Where are things breaking down?',
-    subtitle: 'Pick the friction points that are costing the most time, money, or momentum.',
-    type: 'multi',
+    id: "friction",
+    title: "Where are things breaking down?",
+    subtitle:
+      "Pick the friction points that are costing the most time, money, or momentum.",
+    type: "multi",
     options: [
-      { label: 'I can feel the problem, but cannot name it', detail: 'Something is off, but you need structured questioning and analysis to identify the root cause.', uncertain: true, scores: { 'Business Development & Strategy': 4, 'Project Management & Ops': 3, 'Writing & Content': 1 } },
-      { label: 'Deadlines slip and ownership is unclear', detail: 'Tasks move, but nobody has a clean view of priorities, blockers, or accountability.', scores: { 'Project Management & Ops': 5, 'Virtual & Executive Assistance': 1 } },
-      { label: 'Manual tasks are slowing the team down', detail: 'Support, reporting, admin, or handoffs need automation and cleaner systems.', scores: { 'Software Development': 3, 'Project Management & Ops': 2, 'Virtual & Executive Assistance': 2 } },
-      { label: 'The offer is hard to explain', detail: 'Customers do not immediately understand what you do, why it matters, or why now.', scores: { 'Business Development & Strategy': 4, 'Writing & Content': 3, Design: 1 } },
-      { label: 'The online presence feels inconsistent', detail: 'The website, socials, content, and visuals are not working together.', scores: { 'Social Media & Marketing': 4, Design: 3, 'Writing & Content': 2 } },
-      { label: 'Leaders are buried in admin', detail: 'Calendars, follow-ups, CRM, reports, and coordination are consuming executive attention.', scores: { 'Virtual & Executive Assistance': 5, 'Project Management & Ops': 2 } },
-      { label: 'Growth activity is not converting', detail: 'There is effort, but not enough leads, replies, booked calls, sales, SEO visibility, or retention.', scores: { 'Business Development & Strategy': 5, 'Social Media & Marketing': 3, 'Writing & Content': 1 } }
-    ]
+      {
+        label: "I can feel the problem, but cannot name it",
+        detail:
+          "Something is off, but you need structured questioning and analysis to identify the root cause.",
+        uncertain: true,
+        scores: {
+          "Business Development & Strategy": 4,
+          "Project Management & Ops": 3,
+          "Writing & Content": 1,
+        },
+      },
+      {
+        label: "Deadlines slip and ownership is unclear",
+        detail:
+          "Tasks move, but nobody has a clean view of priorities, blockers, or accountability.",
+        scores: {
+          "Project Management & Ops": 5,
+          "Virtual & Executive Assistance": 1,
+        },
+      },
+      {
+        label: "Manual tasks are slowing the team down",
+        detail:
+          "Support, reporting, admin, or handoffs need automation and cleaner systems.",
+        scores: {
+          "Software Development": 3,
+          "Project Management & Ops": 2,
+          "Virtual & Executive Assistance": 2,
+        },
+      },
+      {
+        label: "The offer is hard to explain",
+        detail:
+          "Customers do not immediately understand what you do, why it matters, or why now.",
+        scores: {
+          "Business Development & Strategy": 4,
+          "Writing & Content": 3,
+          Design: 1,
+        },
+      },
+      {
+        label: "The online presence feels inconsistent",
+        detail:
+          "The website, socials, content, and visuals are not working together.",
+        scores: {
+          "Social Media & Marketing": 4,
+          Design: 3,
+          "Writing & Content": 2,
+        },
+      },
+      {
+        label: "Leaders are buried in admin",
+        detail:
+          "Calendars, follow-ups, CRM, reports, and coordination are consuming executive attention.",
+        scores: {
+          "Virtual & Executive Assistance": 5,
+          "Project Management & Ops": 2,
+        },
+      },
+      {
+        label: "Growth activity is not converting",
+        detail:
+          "There is effort, but not enough leads, replies, booked calls, sales, SEO visibility, or retention.",
+        scores: {
+          "Business Development & Strategy": 5,
+          "Social Media & Marketing": 3,
+          "Writing & Content": 1,
+        },
+      },
+    ],
   },
   {
-    id: 'maturity',
-    title: 'How mature is the current setup?',
-    subtitle: 'This helps separate build-from-scratch work from optimization and scale work.',
-    type: 'single',
+    id: "maturity",
+    title: "How mature is the current setup?",
+    subtitle:
+      "This helps separate build-from-scratch work from optimization and scale work.",
+    type: "single",
     options: [
-      { label: 'I am not sure where we are', detail: 'You need a practical audit to understand what exists, what is missing, and what should happen next.', uncertain: true, scores: { 'Business Development & Strategy': 4, 'Project Management & Ops': 3, 'Writing & Content': 1 } },
-      { label: 'Idea only', detail: 'You have a direction, but the offer, scope, product, or assets still need definition.', scores: { 'Business Development & Strategy': 4, Design: 2, 'Writing & Content': 2 } },
-      { label: 'Partially built', detail: 'Some pieces exist, but the experience, system, or launch plan needs finishing.', scores: { 'Software Development': 3, 'Project Management & Ops': 3, Design: 2 } },
-      { label: 'Live but underperforming', detail: 'The current setup works, but results are below where they should be.', scores: { 'Social Media & Marketing': 3, 'Business Development & Strategy': 3, 'Software Development': 2 } },
-      { label: 'Running, but needs structure', detail: 'The business is active and needs better documentation, reporting, or operating cadence.', scores: { 'Project Management & Ops': 4, 'Virtual & Executive Assistance': 3 } }
-    ]
+      {
+        label: "I am not sure where we are",
+        detail:
+          "You need a practical audit to understand what exists, what is missing, and what should happen next.",
+        uncertain: true,
+        scores: {
+          "Business Development & Strategy": 4,
+          "Project Management & Ops": 3,
+          "Writing & Content": 1,
+        },
+      },
+      {
+        label: "Idea only",
+        detail:
+          "You have a direction, but the offer, scope, product, or assets still need definition.",
+        scores: {
+          "Business Development & Strategy": 4,
+          Design: 2,
+          "Writing & Content": 2,
+        },
+      },
+      {
+        label: "Partially built",
+        detail:
+          "Some pieces exist, but the experience, system, or launch plan needs finishing.",
+        scores: {
+          "Software Development": 3,
+          "Project Management & Ops": 3,
+          Design: 2,
+        },
+      },
+      {
+        label: "Live but underperforming",
+        detail:
+          "The current setup works, but results are below where they should be.",
+        scores: {
+          "Social Media & Marketing": 3,
+          "Business Development & Strategy": 3,
+          "Software Development": 2,
+        },
+      },
+      {
+        label: "Running, but needs structure",
+        detail:
+          "The business is active and needs better documentation, reporting, or operating cadence.",
+        scores: {
+          "Project Management & Ops": 4,
+          "Virtual & Executive Assistance": 3,
+        },
+      },
+    ],
   },
   {
-    id: 'support',
-    title: 'What kind of support do you want?',
-    subtitle: 'Choose the working style that best fits your situation.',
-    type: 'single',
+    id: "support",
+    title: "What kind of support do you want?",
+    subtitle: "Choose the working style that best fits your situation.",
+    type: "single",
     options: [
-      { label: 'Help me decide first', detail: 'You want an expert to ask the right questions, review the context, and recommend a smart path.', uncertain: true, scores: { 'Business Development & Strategy': 5, 'Project Management & Ops': 2, 'Writing & Content': 1 } },
-      { label: 'Done-for-you execution', detail: 'You want someone to own the work and deliver the finished output.', scores: { 'Software Development': 2, Design: 2, 'Writing & Content': 2, 'Social Media & Marketing': 2 } },
-      { label: 'Project leadership', detail: 'You have people or vendors, but need a manager to drive delivery and accountability.', scores: { 'Project Management & Ops': 5, 'Business Development & Strategy': 1 } },
-      { label: 'Strategic diagnosis and roadmap', detail: 'You need clarity on what to do, what to prioritize, and how to sequence the work.', scores: { 'Business Development & Strategy': 5, 'Project Management & Ops': 2, 'Writing & Content': 1 } },
-      { label: 'Ongoing operational support', detail: 'You need reliable recurring help for admin, reporting, appointment setting, coordination, and workflows.', scores: { 'Virtual & Executive Assistance': 5, 'Project Management & Ops': 2, 'Social Media & Marketing': 1 } }
-    ]
+      {
+        label: "Help me decide first",
+        detail:
+          "You want an expert to ask the right questions, review the context, and recommend a smart path.",
+        uncertain: true,
+        scores: {
+          "Business Development & Strategy": 5,
+          "Project Management & Ops": 2,
+          "Writing & Content": 1,
+        },
+      },
+      {
+        label: "Done-for-you execution",
+        detail:
+          "You want someone to own the work and deliver the finished output.",
+        scores: {
+          "Software Development": 2,
+          Design: 2,
+          "Writing & Content": 2,
+          "Social Media & Marketing": 2,
+        },
+      },
+      {
+        label: "Project leadership",
+        detail:
+          "You have people or vendors, but need a manager to drive delivery and accountability.",
+        scores: {
+          "Project Management & Ops": 5,
+          "Business Development & Strategy": 1,
+        },
+      },
+      {
+        label: "Strategic diagnosis and roadmap",
+        detail:
+          "You need clarity on what to do, what to prioritize, and how to sequence the work.",
+        scores: {
+          "Business Development & Strategy": 5,
+          "Project Management & Ops": 2,
+          "Writing & Content": 1,
+        },
+      },
+      {
+        label: "Ongoing operational support",
+        detail:
+          "You need reliable recurring help for admin, reporting, appointment setting, coordination, and workflows.",
+        scores: {
+          "Virtual & Executive Assistance": 5,
+          "Project Management & Ops": 2,
+          "Social Media & Marketing": 1,
+        },
+      },
+    ],
   },
   {
-    id: 'timeline',
-    title: 'How urgent is this?',
-    subtitle: 'This shapes whether the recommendation is a sprint, build, retainer, or strategy engagement.',
-    type: 'single',
+    id: "timeline",
+    title: "How urgent is this?",
+    subtitle:
+      "This shapes whether the recommendation is a sprint, build, retainer, or strategy engagement.",
+    type: "single",
     options: [
-      { label: 'This week', detail: 'There is a live deadline, stuck project, broken workflow, or urgent launch pressure.', scores: { 'Project Management & Ops': 3, 'Virtual & Executive Assistance': 2, 'Software Development': 1 } },
-      { label: 'Within 30 days', detail: 'You need visible progress quickly, but there is room for a focused sprint.', scores: { 'Software Development': 2, Design: 2, 'Social Media & Marketing': 2, 'Project Management & Ops': 1 } },
-      { label: 'This quarter', detail: 'You want the right roadmap, sequencing, and execution plan before scaling.', scores: { 'Business Development & Strategy': 3, 'Project Management & Ops': 2 } },
-      { label: 'I need clarity first', detail: 'You are not sure what service is best yet and want the right diagnosis before committing.', scores: { 'Business Development & Strategy': 4, 'Writing & Content': 2, Design: 1 } }
-    ]
+      {
+        label: "This week",
+        detail:
+          "There is a live deadline, stuck project, broken workflow, or urgent launch pressure.",
+        scores: {
+          "Project Management & Ops": 3,
+          "Virtual & Executive Assistance": 2,
+          "Software Development": 1,
+        },
+      },
+      {
+        label: "Within 30 days",
+        detail:
+          "You need visible progress quickly, but there is room for a focused sprint.",
+        scores: {
+          "Software Development": 2,
+          Design: 2,
+          "Social Media & Marketing": 2,
+          "Project Management & Ops": 1,
+        },
+      },
+      {
+        label: "This quarter",
+        detail:
+          "You want the right roadmap, sequencing, and execution plan before scaling.",
+        scores: {
+          "Business Development & Strategy": 3,
+          "Project Management & Ops": 2,
+        },
+      },
+      {
+        label: "I need clarity first",
+        detail:
+          "You are not sure what service is best yet and want the right diagnosis before committing.",
+        scores: {
+          "Business Development & Strategy": 4,
+          "Writing & Content": 2,
+          Design: 1,
+        },
+      },
+    ],
   },
   {
-    id: 'budget',
-    title: 'What level of engagement feels realistic?',
-    subtitle: 'No exact pricing here. This helps recommend the right scope.',
-    type: 'single',
+    id: "budget",
+    title: "What level of engagement feels realistic?",
+    subtitle: "No exact pricing here. This helps recommend the right scope.",
+    type: "single",
     options: [
-      { label: 'Quick audit or advisory session', detail: 'Best for clarity, prioritization, and a practical next-step plan.', scores: { 'Business Development & Strategy': 3, 'Project Management & Ops': 1, 'Writing & Content': 1 } },
-      { label: 'Focused project sprint', detail: 'Best for landing pages, decks, workflows, campaigns, audits, or small builds.', scores: { Design: 2, 'Software Development': 2, 'Social Media & Marketing': 2, 'Writing & Content': 2 } },
-      { label: 'Full build or transformation', detail: 'Best for products, migrations, operational systems, brand systems, or multi-part projects.', scores: { 'Software Development': 3, 'Project Management & Ops': 3, Design: 2, 'Business Development & Strategy': 1 } },
-      { label: 'Ongoing monthly support', detail: 'Best for executive assistance, operations, marketing, reporting, and continuous optimization.', scores: { 'Virtual & Executive Assistance': 4, 'Social Media & Marketing': 3, 'Project Management & Ops': 2 } }
-    ]
-  }
+      {
+        label: "Quick audit or advisory session",
+        detail:
+          "Best for clarity, prioritization, and a practical next-step plan.",
+        scores: {
+          "Business Development & Strategy": 3,
+          "Project Management & Ops": 1,
+          "Writing & Content": 1,
+        },
+      },
+      {
+        label: "Focused project sprint",
+        detail:
+          "Best for landing pages, decks, workflows, campaigns, audits, or small builds.",
+        scores: {
+          Design: 2,
+          "Software Development": 2,
+          "Social Media & Marketing": 2,
+          "Writing & Content": 2,
+        },
+      },
+      {
+        label: "Full build or transformation",
+        detail:
+          "Best for products, migrations, operational systems, brand systems, or multi-part projects.",
+        scores: {
+          "Software Development": 3,
+          "Project Management & Ops": 3,
+          Design: 2,
+          "Business Development & Strategy": 1,
+        },
+      },
+      {
+        label: "Ongoing monthly support",
+        detail:
+          "Best for executive assistance, operations, marketing, reporting, and continuous optimization.",
+        scores: {
+          "Virtual & Executive Assistance": 4,
+          "Social Media & Marketing": 3,
+          "Project Management & Ops": 2,
+        },
+      },
+    ],
+  },
 ];
 
 const serviceCopy = {
-  'Project Management & Ops': {
-    summary: 'Best when work is moving but ownership, timelines, risk, reporting, or delivery rhythm need control.',
-    deliverables: ['Delivery roadmap', 'Sprint/task system', 'Risk and stakeholder tracking'],
-    firstMove: 'Start with a delivery audit, then build a clear operating cadence for priorities, owners, deadlines, and reporting.'
+  "Project Management & Ops": {
+    summary:
+      "Best when work is moving but ownership, timelines, risk, reporting, or delivery rhythm need control.",
+    deliverables: [
+      "Delivery roadmap",
+      "Sprint/task system",
+      "Risk and stakeholder tracking",
+    ],
+    firstMove:
+      "Start with a delivery audit, then build a clear operating cadence for priorities, owners, deadlines, and reporting.",
   },
-  'Software Development': {
-    summary: 'Best when you need a web app, mobile app, API, automation, Flutter build, Python workflow, or technical product taken from idea to usable release.',
-    deliverables: ['Product scope', 'Frontend/backend build', 'Deployment and integrations'],
-    firstMove: 'Define the user flow and technical scope, then move into a focused build sprint with clear milestones.'
+  "Software Development": {
+    summary:
+      "Best when you need a web app, mobile app, API, automation, Flutter build, Python workflow, or technical product taken from idea to usable release.",
+    deliverables: [
+      "Product scope",
+      "Frontend/backend build",
+      "Deployment and integrations",
+    ],
+    firstMove:
+      "Define the user flow and technical scope, then move into a focused build sprint with clear milestones.",
   },
   Design: {
-    summary: 'Best when the visual experience, UI, web design, logo, flyer, deck, brand system, or product presentation needs to feel premium and trustworthy.',
-    deliverables: ['Visual direction', 'UI/brand assets', 'Launch-ready design files'],
-    firstMove: 'Audit the current look and customer touchpoints, then create a sharper design system and priority assets.'
+    summary:
+      "Best when the visual experience, UI, web design, logo, flyer, deck, brand system, or product presentation needs to feel premium and trustworthy.",
+    deliverables: [
+      "Visual direction",
+      "UI/brand assets",
+      "Launch-ready design files",
+    ],
+    firstMove:
+      "Audit the current look and customer touchpoints, then create a sharper design system and priority assets.",
   },
-  'Writing & Content': {
-    summary: 'Best when proposals, documentation, copy, reports, case studies, or thought leadership need sharper structure and execution.',
-    deliverables: ['Messaging framework', 'Conversion copy', 'Docs or proposal assets'],
-    firstMove: 'Clarify the audience, offer, and proof points, then turn them into usable copy and content assets.'
+  "Writing & Content": {
+    summary:
+      "Best when proposals, documentation, copy, reports, case studies, or thought leadership need sharper structure and execution.",
+    deliverables: [
+      "Messaging framework",
+      "Conversion copy",
+      "Docs or proposal assets",
+    ],
+    firstMove:
+      "Clarify the audience, offer, and proof points, then turn them into usable copy and content assets.",
   },
-  'Social Media & Marketing': {
-    summary: 'Best when audience growth, SEO visibility, content consistency, appointment setting, campaigns, or analytics need a repeatable system.',
-    deliverables: ['Content and SEO strategy', 'Appointment-setting or lead flow', 'Analytics and optimization loop'],
-    firstMove: 'Review current channels, search visibility, offer, and tracking, then build a 30-day growth plan tied to measurable outcomes.'
+  "Social Media & Marketing": {
+    summary:
+      "Best when audience growth, SEO visibility, content consistency, appointment setting, campaigns, or analytics need a repeatable system.",
+    deliverables: [
+      "Content and SEO strategy",
+      "Appointment-setting or lead flow",
+      "Analytics and optimization loop",
+    ],
+    firstMove:
+      "Review current channels, search visibility, offer, and tracking, then build a 30-day growth plan tied to measurable outcomes.",
   },
-  'Virtual & Executive Assistance': {
-    summary: 'Best when leaders are overloaded with appointment setting, scheduling, reporting, CRM, coordination, stakeholder follow-up, or recurring admin work.',
-    deliverables: ['Executive workflow', 'Calendar/CRM support', 'Appointment and follow-up system'],
-    firstMove: 'Map the recurring admin and follow-up load, then create a support system that removes bottlenecks from leadership.'
+  "Virtual & Executive Assistance": {
+    summary:
+      "Best when leaders are overloaded with appointment setting, scheduling, reporting, CRM, coordination, stakeholder follow-up, or recurring admin work.",
+    deliverables: [
+      "Executive workflow",
+      "Calendar/CRM support",
+      "Appointment and follow-up system",
+    ],
+    firstMove:
+      "Map the recurring admin and follow-up load, then create a support system that removes bottlenecks from leadership.",
   },
-  'Business Development & Strategy': {
-    summary: 'Best when the offer, market, pitch, growth plan, or revenue direction needs clear thinking and execution.',
-    deliverables: ['Market and offer audit', 'Growth roadmap', 'Pitch/proposal strategy'],
-    firstMove: 'Diagnose the offer, audience, and sales motion, then prioritize the highest-leverage growth path.'
-  }
+  "Business Development & Strategy": {
+    summary:
+      "Best when the offer, market, pitch, growth plan, or revenue direction needs clear thinking and execution.",
+    deliverables: [
+      "Market and offer audit",
+      "Growth roadmap",
+      "Pitch/proposal strategy",
+    ],
+    firstMove:
+      "Diagnose the offer, audience, and sales motion, then prioritize the highest-leverage growth path.",
+  },
 };
 
 const contactServiceOptions = [
-  'Not sure yet',
-  'Project Management & Ops',
-  'Software Development',
-  'Design',
-  'Writing & Content',
-  'Social Media & Marketing',
-  'Virtual & Executive Assistance',
-  'Business Development & Strategy'
+  "Not sure yet",
+  "Project Management & Ops",
+  "Software Development",
+  "Design",
+  "Writing & Content",
+  "Social Media & Marketing",
+  "Virtual & Executive Assistance",
+  "Business Development & Strategy",
 ];
+
+const CONTACT_EMAIL =
+  import.meta.env.VITE_CONTACT_EMAIL?.trim() || "nicholascents77@gmail.com";
+const CONTACT_ENDPOINT = import.meta.env.VITE_CONTACT_ENDPOINT?.trim() || "";
+const EMAILJS_ENDPOINT = "https://api.emailjs.com/api/v1.0/email/send";
+const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID?.trim() || "";
+const EMAILJS_TEMPLATE_ID =
+  import.meta.env.VITE_EMAILJS_TEMPLATE_ID?.trim() || "";
+const EMAILJS_PUBLIC_KEY =
+  import.meta.env.VITE_EMAILJS_PUBLIC_KEY?.trim() || "";
+const initialContactForm = {
+  name: "",
+  email: "",
+  clientType: "Individual / founder",
+  service: ["Not sure yet"],
+  budget: "",
+  timeline: "",
+  message: "",
+};
+
+function getContactMailto(form) {
+  const mailSubject = encodeURIComponent(
+    `Project inquiry from ${form.name || "website visitor"}`,
+  );
+  const mailBody = encodeURIComponent(
+    `Name: ${form.name}\nEmail: ${form.email}\nClient type: ${form.clientType}\nService interest: ${form.service}\nBudget: ${form.budget}\nTimeline: ${form.timeline}\n\nProject details:\n${form.message}`,
+  );
+  return `mailto:${CONTACT_EMAIL}?subject=${mailSubject}&body=${mailBody}`;
+}
+
+async function sendEmailJsContact(form) {
+  const response = await fetch(EMAILJS_ENDPOINT, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      service_id: EMAILJS_SERVICE_ID,
+      template_id: EMAILJS_TEMPLATE_ID,
+      user_id: EMAILJS_PUBLIC_KEY,
+      template_params: {
+        name: form.name,
+        email: form.email,
+        reply_to: form.email,
+        client_type: form.clientType,
+        service: form.service,
+        budget: form.budget,
+        timeline: form.timeline,
+        message: form.message,
+        source: window.location.href,
+        submitted_at: new Date().toISOString(),
+      },
+    }),
+  });
+
+  if (!response.ok) {
+    const message = await response.text();
+    throw new Error(message || `EmailJS returned ${response.status}`);
+  }
+}
 
 function useReveal() {
   useEffect(() => {
-    const reveals = document.querySelectorAll('.reveal,.reveal-left,.reveal-right');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) entry.target.classList.add('visible');
-      });
-    }, { threshold: 0.12 });
+    const reveals = document.querySelectorAll(
+      ".reveal,.reveal-left,.reveal-right",
+    );
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) entry.target.classList.add("visible");
+        });
+      },
+      { threshold: 0.12 },
+    );
 
     reveals.forEach((element) => observer.observe(element));
     return () => observer.disconnect();
@@ -484,10 +1181,10 @@ function Cursor() {
       frame = requestAnimationFrame(animate);
     };
 
-    document.addEventListener('mousemove', move);
+    document.addEventListener("mousemove", move);
     frame = requestAnimationFrame(animate);
     return () => {
-      document.removeEventListener('mousemove', move);
+      document.removeEventListener("mousemove", move);
       cancelAnimationFrame(frame);
     };
   }, []);
@@ -505,7 +1202,7 @@ function ParticleCanvas() {
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
     let particles = [];
     let W = 0;
     let H = 0;
@@ -560,7 +1257,8 @@ function ParticleCanvas() {
 
     const seed = () => {
       particles = [];
-      for (let index = 0; index < 120; index += 1) particles.push(new Particle());
+      for (let index = 0; index < 120; index += 1)
+        particles.push(new Particle());
     };
 
     const drawConnections = () => {
@@ -600,15 +1298,15 @@ function ParticleCanvas() {
     resize();
     seed();
     animate();
-    window.addEventListener('resize', resize);
-    canvas.addEventListener('mousemove', mouseMove);
-    canvas.addEventListener('mouseleave', () => {
+    window.addEventListener("resize", resize);
+    canvas.addEventListener("mousemove", mouseMove);
+    canvas.addEventListener("mouseleave", () => {
       mouse.x = null;
       mouse.y = null;
     });
 
     return () => {
-      window.removeEventListener('resize', resize);
+      window.removeEventListener("resize", resize);
       cancelAnimationFrame(frame);
     };
   }, []);
@@ -623,33 +1321,72 @@ function Header() {
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
     onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   return (
     <>
-      <nav id="navbar" className={scrolled ? 'scrolled' : ''}>
-        <a href="#" className="nav-logo"><span className="nav-logo-dot" />chwx projects</a>
+      <nav id="navbar" className={scrolled ? "scrolled" : ""}>
+        <a href="#" className="nav-logo">
+          <span className="nav-logo-dot" />
+          chwx projects
+        </a>
         <div className="nav-links">
-          <a href="#about" className="nav-link">About</a>
-          <a href="#services" className="nav-link">Services</a>
-          <a href="#portfolio" className="nav-link">Portfolio</a>
-          <a href="#tools" className="nav-link">Tools</a>
-          <a href="#finder" className="nav-link">Finder</a>
-          <a href="#cta" className="nav-cta">Book a Call ↗</a>
+          <a href="#about" className="nav-link">
+            About
+          </a>
+          <a href="#services" className="nav-link">
+            Services
+          </a>
+          <a href="#portfolio" className="nav-link">
+            Portfolio
+          </a>
+          <a href="#tools" className="nav-link">
+            Tools
+          </a>
+          <a href="#finder" className="nav-link">
+            Finder
+          </a>
+          <a href="#cta" className="nav-cta">
+            Book a Call ↗
+          </a>
         </div>
-        <div className="hamburger" id="hamburger" onClick={() => setOpen(true)} role="button" tabIndex={0}>
-          <span /><span /><span />
+        <div
+          className="hamburger"
+          id="hamburger"
+          onClick={() => setOpen(true)}
+          role="button"
+          tabIndex={0}
+        >
+          <span />
+          <span />
+          <span />
         </div>
       </nav>
-      <div className={`mobile-menu ${open ? 'open' : ''}`} id="mobile-menu">
-        <a href="#about" className="nav-link" onClick={() => setOpen(false)}>About</a>
-        <a href="#services" className="nav-link" onClick={() => setOpen(false)}>Services</a>
-        <a href="#portfolio" className="nav-link" onClick={() => setOpen(false)}>Portfolio</a>
-        <a href="#tools" className="nav-link" onClick={() => setOpen(false)}>Tools</a>
-        <a href="#finder" className="nav-link" onClick={() => setOpen(false)}>Finder</a>
-        <a href="#cta" className="nav-cta" onClick={() => setOpen(false)}>Book a Call ↗</a>
+      <div className={`mobile-menu ${open ? "open" : ""}`} id="mobile-menu">
+        <a href="#about" className="nav-link" onClick={() => setOpen(false)}>
+          About
+        </a>
+        <a href="#services" className="nav-link" onClick={() => setOpen(false)}>
+          Services
+        </a>
+        <a
+          href="#portfolio"
+          className="nav-link"
+          onClick={() => setOpen(false)}
+        >
+          Portfolio
+        </a>
+        <a href="#tools" className="nav-link" onClick={() => setOpen(false)}>
+          Tools
+        </a>
+        <a href="#finder" className="nav-link" onClick={() => setOpen(false)}>
+          Finder
+        </a>
+        <a href="#cta" className="nav-cta" onClick={() => setOpen(false)}>
+          Book a Call ↗
+        </a>
       </div>
     </>
   );
@@ -662,20 +1399,23 @@ function Hero() {
 
   useEffect(() => {
     const current = roles[roleIndex];
-    const timer = setTimeout(() => {
-      if (!deleting) {
-        setCharIndex((value) => value + 1);
-        if (charIndex + 1 === current.length) {
-          setDeleting(true);
+    const timer = setTimeout(
+      () => {
+        if (!deleting) {
+          setCharIndex((value) => value + 1);
+          if (charIndex + 1 === current.length) {
+            setDeleting(true);
+          }
+        } else {
+          setCharIndex((value) => value - 1);
+          if (charIndex - 1 === 0) {
+            setDeleting(false);
+            setRoleIndex((value) => (value + 1) % roles.length);
+          }
         }
-      } else {
-        setCharIndex((value) => value - 1);
-        if (charIndex - 1 === 0) {
-          setDeleting(false);
-          setRoleIndex((value) => (value + 1) % roles.length);
-        }
-      }
-    }, !deleting && charIndex === current.length ? 1800 : deleting ? 60 : 90);
+      },
+      !deleting && charIndex === current.length ? 1800 : deleting ? 60 : 90,
+    );
 
     return () => clearTimeout(timer);
   }, [charIndex, deleting, roleIndex]);
@@ -684,27 +1424,60 @@ function Hero() {
     <section id="hero" className="grid-bg">
       <ParticleCanvas />
       <div className="hero-spotlight" />
-      <div className="hero-tag"><span>Available for Projects Worldwide</span></div>
+      <div className="hero-tag">
+        <span>Available for Projects Worldwide</span>
+      </div>
       <h1 className="hero-headline">
-        <span className="hero-name-line">chwx<br />projects</span>
+        <span className="hero-name-line">
+          chwx
+          <br />
+          projects
+        </span>
         <span className="hero-role-line">
           <span className="typing-wrapper">
-            <span className="typing-text" id="typing-text">{roles[roleIndex].slice(0, charIndex)}</span>
+            <span className="typing-text" id="typing-text">
+              {roles[roleIndex].slice(0, charIndex)}
+            </span>
             <span className="typing-cursor" />
           </span>
         </span>
       </h1>
       <p className="hero-sub">
-        Results-driven digital work by <strong>Ni</strong>, delivering <strong>AI/ML projects</strong>, <strong>software products</strong>, <strong>premium design</strong> and <strong>operational excellence</strong> all from one trusted source.
+        Results-driven digital work by <strong>Ni</strong>, delivering{" "}
+        <strong>AI/ML projects</strong>, <strong>software products</strong>,{" "}
+        <strong>premium design</strong> and{" "}
+        <strong>operational excellence</strong> all from one trusted source.
       </p>
       <div className="hero-actions">
-        <a href="#portfolio" className="btn-primary magnetic">View My Work <span className="btn-arrow">→</span></a>
-        <a href="#cta" className="btn-secondary magnetic">Book a Discovery Call</a>
+        <a href="#portfolio" className="btn-primary magnetic">
+          View My Work <span className="btn-arrow">→</span>
+        </a>
+        <a href="#cta" className="btn-secondary magnetic">
+          Book a Discovery Call
+        </a>
       </div>
       <div className="hero-stats">
-        <div className="stat-card reveal-right"><div className="stat-num">92%</div><div className="stat-label">On-Budget Delivery</div><div className="stat-fill"><span style={{ width: '92%' }} /></div></div>
-        <div className="stat-card reveal-right delay-1"><div className="stat-num">60%</div><div className="stat-label">Efficiency Gains</div><div className="stat-fill"><span style={{ width: '60%' }} /></div></div>
-        <div className="stat-card reveal-right delay-2"><div className="stat-num">5+</div><div className="stat-label">Years Experience</div><div className="stat-fill"><span style={{ width: '84%' }} /></div></div>
+        <div className="stat-card reveal-right">
+          <div className="stat-num">92%</div>
+          <div className="stat-label">On-Budget Delivery</div>
+          <div className="stat-fill">
+            <span style={{ width: "92%" }} />
+          </div>
+        </div>
+        <div className="stat-card reveal-right delay-1">
+          <div className="stat-num">60%</div>
+          <div className="stat-label">Efficiency Gains</div>
+          <div className="stat-fill">
+            <span style={{ width: "60%" }} />
+          </div>
+        </div>
+        <div className="stat-card reveal-right delay-2">
+          <div className="stat-num">5+</div>
+          <div className="stat-label">Years Experience</div>
+          <div className="stat-fill">
+            <span style={{ width: "84%" }} />
+          </div>
+        </div>
       </div>
     </section>
   );
@@ -728,7 +1501,7 @@ function CapabilityConsole() {
       <div className="console-tabs" aria-label="Capability selector">
         {heroCapabilities.map((capability, index) => (
           <button
-            className={`console-tab ${activeCapability === index ? 'active' : ''}`}
+            className={`console-tab ${activeCapability === index ? "active" : ""}`}
             type="button"
             key={capability.label}
             onClick={() => setActiveCapability(index)}
@@ -745,7 +1518,9 @@ function CapabilityConsole() {
           <h2>{activeHeroCapability.title}</h2>
           <p>{activeHeroCapability.detail}</p>
         </div>
-        <a href="#cta" className="console-link">Start with this ↗</a>
+        <a href="#cta" className="console-link">
+          Start with this ↗
+        </a>
       </div>
     </div>
   );
@@ -756,7 +1531,9 @@ function Marquee() {
     <div className="marquee-section">
       <div className="marquee-track" id="marquee">
         {[...marqueeItems, ...marqueeItems].map((item, index) => (
-          <span className="marquee-item" key={`${item}-${index}`}>{item} <span className="marquee-dot" /></span>
+          <span className="marquee-item" key={`${item}-${index}`}>
+            {item} <span className="marquee-dot" />
+          </span>
         ))}
       </div>
     </div>
@@ -772,31 +1549,86 @@ function About() {
             <div className="about-img-placeholder">chwx</div>
             <div className="about-img-overlay">
               <div className="about-badge">🌍 Open to Remote — Worldwide</div>
-              <div className="about-location">Nigeria · US · Canada · UK · EU Markets</div>
+              <div className="about-location">
+                Nigeria · US · Canada · UK · EU Markets
+              </div>
             </div>
           </div>
-          <div className="float-card float-card-1"><div className="float-metric" id="count-projects">20+</div><div className="float-metric-label">Projects Delivered</div></div>
-          <div className="float-card float-card-2"><div className="float-metric">4+</div><div className="float-metric-label">Countries Served</div></div>
+          <div className="float-card float-card-1">
+            <div className="float-metric" id="count-projects">
+              20+
+            </div>
+            <div className="float-metric-label">Projects Delivered</div>
+          </div>
+          <div className="float-card float-card-2">
+            <div className="float-metric">4+</div>
+            <div className="float-metric-label">Countries Served</div>
+          </div>
         </div>
         <div className="about-content">
           <div className="section-tag reveal delay-1">About Ni</div>
-          <h2 className="section-title reveal delay-2">One Pro.<br /><span>Every Capability.</span></h2>
-          <p className="reveal delay-2">I'm <strong>Ni</strong>, the professional behind <strong>chwx projects</strong>. I build, manage, design, and deliver all under one roof. With a <strong>B.Sc. in Computer Science</strong> and 5+ years leading high-stakes projects for clients in the US, Canada, UK, Hong Kong, and Ukraine.</p>
-          <p className="reveal delay-3">From <strong>AI chatbots, agents, and LLM workflows</strong> that slashed response times from 24 hours to under 5 minutes, to <strong>e-commerce migrations</strong> delivered 29% under budget I bring measurable outcomes to every engagement.</p>
+          <h2 className="section-title reveal delay-2">
+            One Pro.
+            <br />
+            <span>Every Capability.</span>
+          </h2>
+          <p className="reveal delay-2">
+            I'm <strong>Ni</strong>, the professional behind{" "}
+            <strong>chwx projects</strong>. I build, manage, design, and deliver
+            all under one roof.{" "}
+            <strong>
+              I have a degree in Computer Science & Information Technology
+            </strong>{" "}
+            and 5+ years leading high-stakes projects for clients in the US,
+            Canada, UK, Hong Kong, and Ukraine.
+          </p>
+          <p className="reveal delay-3">
+            From <strong>AI chatbots, agents, and LLM workflows</strong> that
+            slashed response times from 24 hours to under 5 minutes, to{" "}
+            <strong>e-commerce migrations</strong> delivered 29% under budget I
+            bring measurable outcomes to every engagement.
+          </p>
           <div className="skills-grid reveal delay-4">
-            <div className="skill-item"><span className="skill-icon">⚙️</span> Agile Project Management</div>
-            <div className="skill-item"><span className="skill-icon">💻</span> Full-Stack Development</div>
-            <div className="skill-item"><span className="skill-icon">🎨</span> UI/UX & Brand Design</div>
-            <div className="skill-item"><span className="skill-icon">✍️</span> Technical & Business Writing</div>
-            <div className="skill-item"><span className="skill-icon">📣</span> Social Media Strategy</div>
-            <div className="skill-item"><span className="skill-icon">📋</span> Executive Assistance</div>
-            <div className="skill-item"><span className="skill-icon">📅</span> Appointment Setting</div>
-            <div className="skill-item"><span className="skill-icon">🔎</span> SEO & Search Visibility</div>
-            <div className="skill-item"><span className="skill-icon">📊</span> Analytics & Reporting</div>
-            <div className="skill-item"><span className="skill-icon">🎯</span> Lead Generation</div>
-            <div className="skill-item"><span className="skill-icon">🤖</span> AI/ML & LLM Implementation</div>
-            <div className="skill-item"><span className="skill-icon">🧠</span> AI Agents & Automation</div>
-            <div className="skill-item"><span className="skill-icon">📈</span> Business Development</div>
+            <div className="skill-item">
+              <span className="skill-icon">⚙️</span> Agile Project Management
+            </div>
+            <div className="skill-item">
+              <span className="skill-icon">💻</span> Full-Stack Development
+            </div>
+            <div className="skill-item">
+              <span className="skill-icon">🎨</span> UI/UX & Brand Design
+            </div>
+            <div className="skill-item">
+              <span className="skill-icon">✍️</span> Technical & Business
+              Writing
+            </div>
+            <div className="skill-item">
+              <span className="skill-icon">📣</span> Social Media Strategy
+            </div>
+            <div className="skill-item">
+              <span className="skill-icon">📋</span> Executive Assistance
+            </div>
+            <div className="skill-item">
+              <span className="skill-icon">📅</span> Appointment Setting
+            </div>
+            <div className="skill-item">
+              <span className="skill-icon">🔎</span> SEO & Search Visibility
+            </div>
+            <div className="skill-item">
+              <span className="skill-icon">📊</span> Analytics & Reporting
+            </div>
+            <div className="skill-item">
+              <span className="skill-icon">🎯</span> Lead Generation
+            </div>
+            <div className="skill-item">
+              <span className="skill-icon">🤖</span> AI/ML & LLM Implementation
+            </div>
+            <div className="skill-item">
+              <span className="skill-icon">🧠</span> AI Agents & Automation
+            </div>
+            <div className="skill-item">
+              <span className="skill-icon">📈</span> Business Development
+            </div>
           </div>
         </div>
       </div>
@@ -809,13 +1641,16 @@ function Stats() {
     <section id="stats" style={{ padding: 0 }}>
       <div className="stats-inner">
         {[
-          ['92', '%', 'On-Budget Rate', 'Across all client engagements'],
-          ['60', '%', 'Efficiency Gains', 'Via AI/ML automation'],
-          ['29', '%', 'Under Budget', 'Best project delivery'],
-          ['95', '%', 'Client Satisfaction', 'Post-project surveys']
+          ["92", "%", "On-Budget Rate", "Across all client engagements"],
+          ["60", "%", "Efficiency Gains", "Via AI/ML automation"],
+          ["29", "%", "Under Budget", "Best project delivery"],
+          ["95", "%", "Client Satisfaction", "Post-project surveys"],
         ].map(([value, suffix, title, line]) => (
           <div className="stat-block" key={title}>
-            <div className="stat-big"><span className="counter">{value}</span><span className="stat-suffix">{suffix}</span></div>
+            <div className="stat-big">
+              <span className="counter">{value}</span>
+              <span className="stat-suffix">{suffix}</span>
+            </div>
             <div className="stat-desc">{title}</div>
             <div className="stat-line">{line}</div>
           </div>
@@ -828,34 +1663,97 @@ function Stats() {
 function Services() {
   return (
     <section id="services">
-      <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+      <div style={{ maxWidth: 1200, margin: "0 auto" }}>
         <div className="services-header">
           <div>
             <div className="section-tag reveal">What I Do</div>
-            <h2 className="section-title reveal delay-1">7 Verticals.<br /><span>Zero Gaps.</span></h2>
+            <h2 className="section-title reveal delay-1">
+              7 Verticals.
+              <br />
+              <span>Zero Gaps.</span>
+            </h2>
           </div>
-          <p className="section-sub reveal-right" style={{ textAlign: 'right' }}>Every service backed by real delivery, measurable outcomes, and deep domain expertise.</p>
+          <p
+            className="section-sub reveal-right"
+            style={{ textAlign: "right" }}
+          >
+            Every service backed by real delivery, measurable outcomes, and deep
+            domain expertise.
+          </p>
         </div>
         <div className="services-grid">
           {services.map((service, index) => (
-            <a className={`service-card reveal delay-${Math.min(index + 1, 4)}`} data-tilt key={service.title} href="#finder" aria-label={`Find out if ${service.title} is right for you`}>
-              <div className="service-icon" style={{ background: service.color, border: `1px solid ${service.border}` }}>{service.icon}</div>
+            <a
+              className={`service-card${service.title === "Social Media & Marketing" ? " service-card-wide" : ""} reveal delay-${Math.min(index + 1, 4)}`}
+              data-tilt
+              key={service.title}
+              href="#finder"
+              aria-label={`Find out if ${service.title} is right for you`}
+            >
+              <div
+                className="service-icon"
+                style={{
+                  background: service.color,
+                  border: `1px solid ${service.border}`,
+                }}
+              >
+                {service.icon}
+              </div>
               <div className="service-title">{service.title}</div>
               <div className="service-desc">{service.desc}</div>
-              <div className="service-tags">{service.tags.map((tag) => <span className="service-tag" key={tag}>{tag}</span>)}</div>
+              <div className="service-tags">
+                {service.tags.map((tag) => (
+                  <span className="service-tag" key={tag}>
+                    {tag}
+                  </span>
+                ))}
+              </div>
               <div className="service-arrow">→</div>
             </a>
           ))}
-          <a className="service-card reveal delay-3" data-tilt style={{ gridColumn: 'span 2' }} href="#finder" aria-label="Find out if Business Development and Strategy is right for you">
-            <div style={{ display: 'flex', gap: 32, alignItems: 'center', flexWrap: 'wrap' }}>
+          <a
+            className="service-card service-card-wide reveal delay-3"
+            data-tilt
+            href="#finder"
+            aria-label="Find out if Business Development and Strategy is right for you"
+          >
+            <div
+              style={{
+                display: "flex",
+                gap: 32,
+                alignItems: "center",
+                flexWrap: "wrap",
+              }}
+            >
               <div style={{ flex: 1, minWidth: 240 }}>
-                <div className="service-icon" style={{ background: 'rgba(30,200,200,.1)', border: '1px solid rgba(30,200,200,.2)' }}>📈</div>
-                <div className="service-title">Business Development & Strategy</div>
-                <div className="service-desc">Market research, competitive analysis, go-to-market strategy, sales proposals. 20% revenue growth for clients in 3 months.</div>
+                <div
+                  className="service-icon"
+                  style={{
+                    background: "rgba(30,200,200,.1)",
+                    border: "1px solid rgba(30,200,200,.2)",
+                  }}
+                >
+                  📈
+                </div>
+                <div className="service-title">
+                  Business Development & Strategy
+                </div>
+                <div className="service-desc">
+                  Market research, competitive analysis, go-to-market strategy,
+                  sales proposals. 20% revenue growth for clients in 3 months.
+                </div>
               </div>
-              <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', flex: 1 }}>
-                <div className="inline-metric"><div>60%</div><span>Proposal Win Rate</span></div>
-                <div className="inline-metric"><div>15+</div><span>Proposals Developed</span></div>
+              <div
+                style={{ display: "flex", gap: 16, flexWrap: "wrap", flex: 1 }}
+              >
+                <div className="inline-metric">
+                  <div>60%</div>
+                  <span>Proposal Win Rate</span>
+                </div>
+                <div className="inline-metric">
+                  <div>15+</div>
+                  <span>Proposals Developed</span>
+                </div>
               </div>
             </div>
             <div className="service-arrow">→</div>
@@ -867,10 +1765,20 @@ function Services() {
 }
 
 function Portfolio() {
-  const [filter, setFilter] = useState('all');
+  const [filter, setFilter] = useState("all");
   const [activeTitle, setActiveTitle] = useState(portfolio[0].title);
-  const filtered = useMemo(() => portfolio.map((item) => ({ ...item, visible: filter === 'all' || item.cat.includes(filter) })), [filter]);
-  const activeProject = filtered.find((item) => item.title === activeTitle && item.visible) || filtered.find((item) => item.visible) || filtered[0];
+  const filtered = useMemo(
+    () =>
+      portfolio.map((item) => ({
+        ...item,
+        visible: filter === "all" || item.cat.includes(filter),
+      })),
+    [filter],
+  );
+  const activeProject =
+    filtered.find((item) => item.title === activeTitle && item.visible) ||
+    filtered.find((item) => item.visible) ||
+    filtered[0];
 
   useEffect(() => {
     if (!activeProject || activeProject.title === activeTitle) return;
@@ -882,27 +1790,55 @@ function Portfolio() {
   };
 
   const selectProjectFromKeyboard = (event, item) => {
-    if (event.key !== 'Enter' && event.key !== ' ') return;
+    if (event.key !== "Enter" && event.key !== " ") return;
     event.preventDefault();
     selectProject(item);
   };
 
   return (
     <section id="portfolio">
-      <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+      <div style={{ maxWidth: 1200, margin: "0 auto" }}>
         <div className="section-tag reveal">Work</div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: 24, marginBottom: 48 }}>
-          <h2 className="section-title reveal delay-1" style={{ marginBottom: 0 }}>Real Projects.<br /><span>Real Outcomes.</span></h2>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "flex-end",
+            flexWrap: "wrap",
+            gap: 24,
+            marginBottom: 48,
+          }}
+        >
+          <h2
+            className="section-title reveal delay-1"
+            style={{ marginBottom: 0 }}
+          >
+            Real Projects.
+            <br />
+            <span>Real Outcomes.</span>
+          </h2>
           <div className="portfolio-tabs reveal delay-2">
-            {['all', 'pm', 'dev', 'marketing'].map((tab) => (
-              <div className={`ptab ${filter === tab ? 'active' : ''}`} onClick={() => setFilter(tab)} key={tab}>{tab === 'all' ? 'All' : tab === 'pm' ? 'PM' : tab === 'dev' ? 'Dev' : 'Marketing'}</div>
+            {["all", "pm", "dev", "marketing"].map((tab) => (
+              <div
+                className={`ptab ${filter === tab ? "active" : ""}`}
+                onClick={() => setFilter(tab)}
+                key={tab}
+              >
+                {tab === "all"
+                  ? "All"
+                  : tab === "pm"
+                    ? "PM"
+                    : tab === "dev"
+                      ? "Dev"
+                      : "Marketing"}
+              </div>
             ))}
           </div>
         </div>
         <div className="portfolio-grid" id="portfolio-grid">
           {filtered.map((item) => (
             <div
-              className={`portfolio-card reveal delay-1 ${item.visible ? '' : 'is-muted'} ${activeProject?.title === item.title ? 'active' : ''}`}
+              className={`portfolio-card reveal delay-1 ${item.visible ? "" : "is-muted"} ${activeProject?.title === item.title ? "active" : ""}`}
               data-cat={item.cat}
               key={item.title}
               role="button"
@@ -911,7 +1847,10 @@ function Portfolio() {
               onClick={() => selectProject(item)}
               onFocus={() => selectProject(item)}
               onKeyDown={(event) => selectProjectFromKeyboard(event, item)}
-              style={{ '--filter-scale': item.visible ? 1 : 0.95, pointerEvents: item.visible ? 'all' : 'none' }}
+              style={{
+                "--filter-scale": item.visible ? 1 : 0.95,
+                pointerEvents: item.visible ? "all" : "none",
+              }}
             >
               <div className={`card-bg ${item.gradient}`} />
               <div className="card-glow" />
@@ -922,13 +1861,37 @@ function Portfolio() {
                 <div className="card-category">{item.category}</div>
                 <div className="card-title">{item.title}</div>
                 <div className="card-metrics">
-                  {item.metrics.map(([value, label]) => <div className="card-metric" key={label}><strong>{value}</strong>{label}</div>)}
+                  {item.metrics.map(([value, label]) => (
+                    <div className="card-metric" key={label}>
+                      <strong>{value}</strong>
+                      {label}
+                    </div>
+                  ))}
                 </div>
-                {item.link && <a className="card-link" href={item.link} target="_blank" rel="noreferrer" onClick={(event) => event.stopPropagation()}>View case study ↗</a>}
+                {item.link && (
+                  <a
+                    className="card-link"
+                    href={item.link}
+                    target="_blank"
+                    rel="noreferrer"
+                    onClick={(event) => event.stopPropagation()}
+                  >
+                    View case study ↗
+                  </a>
+                )}
                 {item.links && (
                   <div className="card-link-group">
                     {item.links.map((link) => (
-                      <a className="card-link" href={link.href} target="_blank" rel="noreferrer" key={link.href} onClick={(event) => event.stopPropagation()}>{link.label} ↗</a>
+                      <a
+                        className="card-link"
+                        href={link.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        key={link.href}
+                        onClick={(event) => event.stopPropagation()}
+                      >
+                        {link.label} ↗
+                      </a>
                     ))}
                   </div>
                 )}
@@ -947,12 +1910,31 @@ function Portfolio() {
               <p>{activeProject.summary}</p>
             </div>
             <div className="detail-stack">
-              {activeProject.stack.map((item) => <span key={item}>{item}</span>)}
+              {activeProject.stack.map((item) => (
+                <span key={item}>{item}</span>
+              ))}
             </div>
             <div className="detail-actions">
-              {activeProject.link && <a className="finder-btn" href={activeProject.link} target="_blank" rel="noreferrer">Open case study ↗</a>}
+              {activeProject.link && (
+                <a
+                  className="finder-btn"
+                  href={activeProject.link}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Open case study ↗
+                </a>
+              )}
               {activeProject.links?.map((link) => (
-                <a className="finder-btn ghost" href={link.href} target="_blank" rel="noreferrer" key={link.href}>{link.label} ↗</a>
+                <a
+                  className="finder-btn ghost"
+                  href={link.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  key={link.href}
+                >
+                  {link.label} ↗
+                </a>
               ))}
             </div>
           </div>
@@ -967,10 +1949,18 @@ function Tools() {
     <section id="tools">
       <div className="tools-inner">
         <div className="section-tag reveal">Tech Stack</div>
-        <h2 className="section-title reveal delay-1">Tools &amp; <span>Platforms</span></h2>
+        <h2 className="section-title reveal delay-1">
+          Tools &amp; <span>Platforms</span>
+        </h2>
         <div className="tools-grid">
           {tools.map(([icon, name], index) => (
-            <div className={`tool-chip reveal delay-${(index % 3) + 1}`} key={name}><span className="tool-icon">{icon}</span><div className="tool-name">{name}</div></div>
+            <div
+              className={`tool-chip reveal delay-${(index % 3) + 1}`}
+              key={name}
+            >
+              <span className="tool-icon">{icon}</span>
+              <div className="tool-name">{name}</div>
+            </div>
           ))}
         </div>
       </div>
@@ -982,7 +1972,10 @@ function Testimonials() {
   const [current, setCurrent] = useState(0);
 
   useEffect(() => {
-    const timer = setInterval(() => setCurrent((value) => (value + 1) % testimonials.length), 9000);
+    const timer = setInterval(
+      () => setCurrent((value) => (value + 1) % testimonials.length),
+      9000,
+    );
     return () => clearInterval(timer);
   }, []);
 
@@ -990,23 +1983,43 @@ function Testimonials() {
     <section id="testimonials">
       <div className="testimonials-inner">
         <div className="section-tag reveal">Social Proof</div>
-        <h2 className="section-title reveal delay-1">What Clients <span>Say</span></h2>
+        <h2 className="section-title reveal delay-1">
+          What Clients <span>Say</span>
+        </h2>
         <div className="testi-track">
           {testimonials.map((testimonial, index) => (
-            <div className={`testi-card ${current === index ? 'active' : ''}`} data-index={index} key={testimonial.name}>
-              <div className="testi-stars" aria-label={`${testimonial.rating} out of 5 stars`}>
-                {Array.from({ length: testimonial.rating }, (_, starIndex) => <span key={starIndex}>★</span>)}
+            <div
+              className={`testi-card ${current === index ? "active" : ""}`}
+              data-index={index}
+              key={testimonial.name}
+            >
+              <div
+                className="testi-stars"
+                aria-label={`${testimonial.rating} out of 5 stars`}
+              >
+                {Array.from({ length: testimonial.rating }, (_, starIndex) => (
+                  <span key={starIndex}>★</span>
+                ))}
               </div>
               <div className="testi-quote">{testimonial.quote}</div>
               <div className="testi-author">
                 <div className="testi-avatar">{testimonial.initials}</div>
-                <div><div className="testi-name">{testimonial.name}</div><div className="testi-role">{testimonial.role}</div></div>
+                <div>
+                  <div className="testi-name">{testimonial.name}</div>
+                  <div className="testi-role">{testimonial.role}</div>
+                </div>
               </div>
             </div>
           ))}
         </div>
         <div className="testi-controls">
-          {testimonials.map((testimonial, index) => <div className={`testi-dot ${current === index ? 'active' : ''}`} onClick={() => setCurrent(index)} key={testimonial.name} />)}
+          {testimonials.map((testimonial, index) => (
+            <div
+              className={`testi-dot ${current === index ? "active" : ""}`}
+              onClick={() => setCurrent(index)}
+              key={testimonial.name}
+            />
+          ))}
         </div>
       </div>
     </section>
@@ -1039,27 +2052,42 @@ function ServiceFinder() {
         service,
         score,
         rank: index + 1,
-        match: Math.max(72, Math.round((score / Math.max(list[0][1], 1)) * 100))
+        match: Math.max(
+          72,
+          Math.round((score / Math.max(list[0][1], 1)) * 100),
+        ),
       }));
   }, [answers]);
 
   const selectedForStep = answers[activeStep.id] || [];
   const canAdvance = selectedForStep.length > 0;
-  const uncertaintyCount = useMemo(() => questionnaireSteps.reduce((total, step) => {
-    const selected = answers[step.id] || [];
-    return total + selected.filter((label) => step.options.find((option) => option.label === label)?.uncertain).length;
-  }, 0), [answers]);
+  const uncertaintyCount = useMemo(
+    () =>
+      questionnaireSteps.reduce((total, step) => {
+        const selected = answers[step.id] || [];
+        return (
+          total +
+          selected.filter(
+            (label) =>
+              step.options.find((option) => option.label === label)?.uncertain,
+          ).length
+        );
+      }, 0),
+    [answers],
+  );
   const isUncertainPath = uncertaintyCount >= 2;
   const selectedBudget = answers.budget?.[0];
   const selectedTimeline = answers.timeline?.[0];
   const engagementStyle = isUncertainPath
-    ? 'Discovery audit or advisory session'
-    : selectedBudget || selectedTimeline || 'Answer the questionnaire to shape the engagement style.';
+    ? "Discovery audit or advisory session"
+    : selectedBudget ||
+      selectedTimeline ||
+      "Answer the questionnaire to shape the engagement style.";
 
   const toggleAnswer = (option) => {
     setAnswers((current) => {
       const existing = current[activeStep.id] || [];
-      if (activeStep.type === 'single') {
+      if (activeStep.type === "single") {
         return { ...current, [activeStep.id]: [option.label] };
       }
       const next = existing.includes(option.label)
@@ -1075,7 +2103,9 @@ function ServiceFinder() {
   };
 
   const showRecommendations = () => {
-    document.getElementById('recommendations')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document
+      .getElementById("recommendations")
+      ?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   return (
@@ -1083,17 +2113,29 @@ function ServiceFinder() {
       <div className="finder-inner">
         <div className="finder-copy">
           <div className="section-tag reveal">Service Finder</div>
-          <h2 className="section-title reveal delay-1">Answer Fast.<br /><span>Get Matched.</span></h2>
-          <p className="section-sub reveal delay-2">A sharper diagnostic that works even if you are not sure what you need yet. It maps your context, uncertainty, bottlenecks, assets, urgency, and budget style to the best next move.</p>
+          <h2 className="section-title reveal delay-1">
+            Answer Fast.
+            <br />
+            <span>Get Matched.</span>
+          </h2>
+          <p className="section-sub reveal delay-2">
+            A sharper diagnostic that works even if you are not sure what you
+            need yet. It maps your context, uncertainty, bottlenecks, assets,
+            urgency, and budget style to the best next move.
+          </p>
           <div className="finder-pulse reveal delay-3">
             <span>{Math.round(progress)}%</span>
-            <div><i style={{ width: `${progress}%` }} /></div>
+            <div>
+              <i style={{ width: `${progress}%` }} />
+            </div>
           </div>
         </div>
 
         <div className="finder-panel reveal-right">
           <div className="finder-step">
-            <span>Step {stepIndex + 1} / {questionnaireSteps.length}</span>
+            <span>
+              Step {stepIndex + 1} / {questionnaireSteps.length}
+            </span>
             <h3>{activeStep.title}</h3>
             <p>{activeStep.subtitle}</p>
           </div>
@@ -1102,12 +2144,14 @@ function ServiceFinder() {
               const selected = selectedForStep.includes(option.label);
               return (
                 <button
-                  className={`answer-card ${selected ? 'selected' : ''}`}
+                  className={`answer-card ${selected ? "selected" : ""}`}
                   key={option.label}
                   type="button"
                   onClick={() => toggleAnswer(option)}
                 >
-                  <span>{selected ? '✓' : activeStep.type === 'multi' ? '+' : '○'}</span>
+                  <span>
+                    {selected ? "✓" : activeStep.type === "multi" ? "+" : "○"}
+                  </span>
                   <strong>{option.label}</strong>
                   <em>{option.detail}</em>
                 </button>
@@ -1115,11 +2159,32 @@ function ServiceFinder() {
             })}
           </div>
           <div className="finder-controls">
-            <button className="finder-btn ghost" type="button" onClick={() => setStepIndex((value) => Math.max(value - 1, 0))} disabled={stepIndex === 0}>Back</button>
+            <button
+              className="finder-btn ghost"
+              type="button"
+              onClick={() => setStepIndex((value) => Math.max(value - 1, 0))}
+              disabled={stepIndex === 0}
+            >
+              Back
+            </button>
             {stepIndex < questionnaireSteps.length - 1 ? (
-              <button className="finder-btn" type="button" onClick={() => setStepIndex((value) => value + 1)} disabled={!canAdvance}>Next</button>
+              <button
+                className="finder-btn"
+                type="button"
+                onClick={() => setStepIndex((value) => value + 1)}
+                disabled={!canAdvance}
+              >
+                Next
+              </button>
             ) : (
-              <button className="finder-btn" type="button" onClick={showRecommendations} disabled={!canAdvance}>See Recommendations</button>
+              <button
+                className="finder-btn"
+                type="button"
+                onClick={showRecommendations}
+                disabled={!canAdvance}
+              >
+                See Recommendations
+              </button>
             )}
           </div>
         </div>
@@ -1129,31 +2194,63 @@ function ServiceFinder() {
         <div className="recommendation-head">
           <div>
             <div className="section-tag">Recommended Mix</div>
-            <h3>{isUncertainPath ? 'Your clarity-first path' : 'Your likely service stack'}</h3>
-            <p>{recommendations.length ? `Suggested engagement: ${engagementStyle}` : 'Complete the diagnostic to generate a more useful recommendation mix.'}</p>
-            {isUncertainPath && <p className="uncertain-note">You selected uncertainty more than once, so this recommendation prioritizes diagnosis, audit, and roadmap work before heavy execution.</p>}
+            <h3>
+              {isUncertainPath
+                ? "Your clarity-first path"
+                : "Your likely service stack"}
+            </h3>
+            <p>
+              {recommendations.length
+                ? `Suggested engagement: ${engagementStyle}`
+                : "Complete the diagnostic to generate a more useful recommendation mix."}
+            </p>
+            {isUncertainPath && (
+              <p className="uncertain-note">
+                You selected uncertainty more than once, so this recommendation
+                prioritizes diagnosis, audit, and roadmap work before heavy
+                execution.
+              </p>
+            )}
           </div>
-          <button className="finder-btn ghost" type="button" onClick={reset}>Reset</button>
+          <button className="finder-btn ghost" type="button" onClick={reset}>
+            Reset
+          </button>
         </div>
         {recommendations.length ? (
           <div className="recommendation-grid">
             {recommendations.map((item) => (
               <div className="recommendation-card" key={item.service}>
                 <div className="recommendation-rank">0{item.rank}</div>
-                <div className="recommendation-fit">{item.rank === 1 ? 'Primary fit' : item.rank === 2 ? 'Support service' : 'Useful add-on'}</div>
+                <div className="recommendation-fit">
+                  {item.rank === 1
+                    ? "Primary fit"
+                    : item.rank === 2
+                      ? "Support service"
+                      : "Useful add-on"}
+                </div>
                 <h4>{item.service}</h4>
                 <p>{serviceCopy[item.service].summary}</p>
                 <ul>
-                  {serviceCopy[item.service].deliverables.map((deliverable) => <li key={deliverable}>{deliverable}</li>)}
+                  {serviceCopy[item.service].deliverables.map((deliverable) => (
+                    <li key={deliverable}>{deliverable}</li>
+                  ))}
                 </ul>
-                <div className="recommendation-next">{serviceCopy[item.service].firstMove}</div>
-                <div className="match-meter"><span style={{ width: `${item.match}%` }} /></div>
-                <small>{item.match}% match · {item.score} weighted signals</small>
+                <div className="recommendation-next">
+                  {serviceCopy[item.service].firstMove}
+                </div>
+                <div className="match-meter">
+                  <span style={{ width: `${item.match}%` }} />
+                </div>
+                <small>
+                  {item.match}% match · {item.score} weighted signals
+                </small>
               </div>
             ))}
           </div>
         ) : (
-          <div className="empty-recommendation">Start the questionnaire to generate your recommendations.</div>
+          <div className="empty-recommendation">
+            Start the questionnaire to generate your recommendations.
+          </div>
         )}
       </div>
       <div className="capability-board reveal">
@@ -1162,7 +2259,10 @@ function ServiceFinder() {
             <div className="section-tag">Capability Map</div>
             <h3>Explore the execution lanes behind the recommendations</h3>
           </div>
-          <p>Use this after the diagnostic to understand whether the next move is build, management, design, automation, or growth support.</p>
+          <p>
+            Use this after the diagnostic to understand whether the next move is
+            build, management, design, automation, or growth support.
+          </p>
         </div>
         <CapabilityConsole />
       </div>
@@ -1173,76 +2273,134 @@ function ServiceFinder() {
 function CTA() {
   const [serviceMenuOpen, setServiceMenuOpen] = useState(false);
   const serviceDropdownRef = useRef(null);
-  const [form, setForm] = useState({
-    name: '',
-    email: '',
-    clientType: 'Individual / founder',
-    service: ['Not sure yet'],
-    budget: '',
-    timeline: '',
-    message: ''
-  });
+  const [form, setForm] = useState(() => ({
+    ...initialContactForm,
+    service: [...initialContactForm.service],
+  }));
   const [errors, setErrors] = useState({});
-  const [status, setStatus] = useState('');
+  const [status, setStatus] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const update = (event) => {
     const { name, value } = event.target;
     const limit = contactFieldLimits[name] || 120;
     setForm((current) => ({ ...current, [name]: value.slice(0, limit + 1) }));
-    setErrors((current) => ({ ...current, [name]: '' }));
-    setStatus('');
+    setErrors((current) => ({ ...current, [name]: "" }));
+    setStatus(null);
   };
 
   const toggleService = (service) => {
     setForm((current) => {
-      const existing = Array.isArray(current.service) ? current.service : [current.service].filter(Boolean);
+      const existing = Array.isArray(current.service)
+        ? current.service
+        : [current.service].filter(Boolean);
       let next;
-      if (service === 'Not sure yet') {
-        next = ['Not sure yet'];
+      if (service === "Not sure yet") {
+        next = ["Not sure yet"];
       } else {
-        const withoutUnsure = existing.filter((item) => item !== 'Not sure yet');
+        const withoutUnsure = existing.filter(
+          (item) => item !== "Not sure yet",
+        );
         next = withoutUnsure.includes(service)
           ? withoutUnsure.filter((item) => item !== service)
           : [...withoutUnsure, service];
       }
-      return { ...current, service: next.length ? next : ['Not sure yet'] };
+      return { ...current, service: next.length ? next : ["Not sure yet"] };
     });
-    setErrors((current) => ({ ...current, service: '' }));
-    setStatus('');
+    setErrors((current) => ({ ...current, service: "" }));
+    setStatus(null);
   };
 
   const sanitizedForm = sanitizeContactForm(form);
+  const selectedServices = Array.isArray(form.service)
+    ? form.service
+    : [form.service].filter(Boolean);
   const serviceSummary = (() => {
-    if (form.service.includes('Not sure yet')) return 'Not sure yet';
-    if (form.service.length <= 2) return form.service.join(', ');
-    return `${form.service.slice(0, 2).join(', ')} ... +${form.service.length - 2} more`;
+    if (selectedServices.includes("Not sure yet")) return "Not sure yet";
+    if (selectedServices.length <= 2) return selectedServices.join(", ");
+    return `${selectedServices.slice(0, 2).join(", ")} ... +${selectedServices.length - 2} more`;
   })();
-  const fullServiceSummary = form.service.join(', ');
-  const mailSubject = encodeURIComponent(`Project inquiry from ${sanitizedForm.name || 'website visitor'}`);
-  const mailBody = encodeURIComponent(
-    `Name: ${sanitizedForm.name}\nEmail: ${sanitizedForm.email}\nClient type: ${sanitizedForm.clientType}\nService interest: ${sanitizedForm.service}\nBudget: ${sanitizedForm.budget}\nTimeline: ${sanitizedForm.timeline}\n\nProject details:\n${sanitizedForm.message}`
-  );
-  const mailtoHref = `mailto:nicholascents77@gmail.com?subject=${mailSubject}&body=${mailBody}`;
+  const fullServiceSummary = selectedServices.join(", ");
+  const mailtoHref = getContactMailto(sanitizedForm);
 
-  const submitForm = (event) => {
+  const submitForm = async (event) => {
     event.preventDefault();
+    if (isSubmitting) return;
+
     const validation = validateContactForm(form);
     setErrors(validation.errors);
 
     if (Object.keys(validation.errors).length) {
-      setStatus('Please fix the highlighted fields before sending.');
+      setStatus({
+        type: "error",
+        message: "Please fix the highlighted fields before sending.",
+      });
       return;
     }
 
     const rateLimit = checkContactRateLimit();
     if (!rateLimit.allowed) {
-      setStatus(`Too many attempts. Try again in about ${rateLimit.retryAfterMinutes} minute(s).`);
+      setStatus({
+        type: "error",
+        message: `Too many attempts. Try again in about ${rateLimit.retryAfterMinutes} minute(s).`,
+      });
       return;
     }
 
-    setForm(validation.sanitized);
-    setStatus('Opening your email app with a sanitized project brief.');
-    window.location.href = mailtoHref;
+    const canSendWithEmailJs =
+      EMAILJS_SERVICE_ID && EMAILJS_TEMPLATE_ID && EMAILJS_PUBLIC_KEY;
+    if (!canSendWithEmailJs && !CONTACT_ENDPOINT) {
+      setStatus({
+        type: "info",
+        message: "Opening your email app with a sanitized project brief.",
+      });
+      window.location.href = getContactMailto(validation.sanitized);
+      return;
+    }
+
+    setIsSubmitting(true);
+    setStatus({ type: "info", message: "Sending your project brief..." });
+
+    try {
+      if (canSendWithEmailJs) {
+        await sendEmailJsContact(validation.sanitized);
+      } else {
+        const response = await fetch(CONTACT_ENDPOINT, {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            ...validation.sanitized,
+            source: window.location.href,
+            submittedAt: new Date().toISOString(),
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`Contact endpoint returned ${response.status}`);
+        }
+      }
+
+      setForm({
+        ...initialContactForm,
+        service: [...initialContactForm.service],
+      });
+      setStatus({
+        type: "success",
+        message: "Sent. I’ll respond with the best next step.",
+      });
+    } catch (error) {
+      console.error(error);
+      setStatus({
+        type: "error",
+        message:
+          "Something blocked the send. Use the email fallback below and your brief will stay prefilled.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   useEffect(() => {
@@ -1255,17 +2413,17 @@ function CTA() {
     };
 
     const closeOnEscape = (event) => {
-      if (event.key === 'Escape') setServiceMenuOpen(false);
+      if (event.key === "Escape") setServiceMenuOpen(false);
     };
 
-    document.addEventListener('pointerdown', closeOnOutsideInteraction);
-    document.addEventListener('focusin', closeOnOutsideInteraction);
-    document.addEventListener('keydown', closeOnEscape);
+    document.addEventListener("pointerdown", closeOnOutsideInteraction);
+    document.addEventListener("focusin", closeOnOutsideInteraction);
+    document.addEventListener("keydown", closeOnEscape);
 
     return () => {
-      document.removeEventListener('pointerdown', closeOnOutsideInteraction);
-      document.removeEventListener('focusin', closeOnOutsideInteraction);
-      document.removeEventListener('keydown', closeOnEscape);
+      document.removeEventListener("pointerdown", closeOnOutsideInteraction);
+      document.removeEventListener("focusin", closeOnOutsideInteraction);
+      document.removeEventListener("keydown", closeOnEscape);
     };
   }, [serviceMenuOpen]);
 
@@ -1273,27 +2431,75 @@ function CTA() {
     <section id="cta">
       <div className="cta-bg" />
       <div className="cta-inner">
-        <div className="section-tag reveal" style={{ justifyContent: 'center', margin: '0 auto 24px' }}>Let's Work Together</div>
-        <h2 className="cta-title reveal delay-1">Ready to<br /><span>Get Results?</span></h2>
-        <p className="cta-sub reveal delay-2">Whether you know exactly what you need or want help choosing the right service mix, send the details and I’ll respond with the best next step.</p>
-        <form className="contact-form reveal delay-3" onSubmit={submitForm} noValidate>
+        <div
+          className="section-tag reveal"
+          style={{ justifyContent: "center", margin: "0 auto 24px" }}
+        >
+          Let's Work Together
+        </div>
+        <h2 className="cta-title reveal delay-1">
+          Ready to
+          <br />
+          <span>Get Results?</span>
+        </h2>
+        <p className="cta-sub reveal delay-2">
+          Whether you know exactly what you need or want help choosing the right
+          service mix, send the details and I’ll respond with the best next
+          step.
+        </p>
+        <form
+          className="contact-form reveal delay-3"
+          onSubmit={submitForm}
+          noValidate
+        >
           <div className="form-row">
-            <label>Name<input name="name" value={form.name} onChange={update} placeholder="Your name" maxLength={contactFieldLimits.name} required />{errors.name && <span className="form-error">{errors.name}</span>}</label>
-            <label>Email<input name="email" type="email" value={form.email} onChange={update} placeholder="you@example.com" maxLength={contactFieldLimits.email} required />{errors.email && <span className="form-error">{errors.email}</span>}</label>
+            <label>
+              Name
+              <input
+                name="name"
+                value={form.name}
+                onChange={update}
+                placeholder="Your name"
+                maxLength={contactFieldLimits.name}
+                required
+              />
+              {errors.name && <span className="form-error">{errors.name}</span>}
+            </label>
+            <label>
+              Email
+              <input
+                name="email"
+                type="email"
+                value={form.email}
+                onChange={update}
+                placeholder="you@example.com"
+                maxLength={contactFieldLimits.email}
+                required
+              />
+              {errors.email && (
+                <span className="form-error">{errors.email}</span>
+              )}
+            </label>
           </div>
           <div className="form-row">
-            <label>Client type
-              <select name="clientType" value={form.clientType} onChange={update}>
+            <label>
+              Client type
+              <select
+                name="clientType"
+                value={form.clientType}
+                onChange={update}
+              >
                 <option>Individual / founder</option>
                 <option>Small business</option>
                 <option>Growing team</option>
                 <option>Enterprise / executive office</option>
               </select>
             </label>
-            <label>Service interest
+            <label>
+              Service interest
               <div className="multi-dropdown" ref={serviceDropdownRef}>
                 <button
-                  className={`multi-trigger ${serviceMenuOpen ? 'open' : ''}`}
+                  className={`multi-trigger ${serviceMenuOpen ? "open" : ""}`}
                   type="button"
                   onClick={() => setServiceMenuOpen((open) => !open)}
                   aria-expanded={serviceMenuOpen}
@@ -1303,19 +2509,24 @@ function CTA() {
                   <i>⌄</i>
                 </button>
                 {serviceMenuOpen && (
-                  <div className="multi-menu" role="listbox" aria-label="Service interest" aria-multiselectable="true">
+                  <div
+                    className="multi-menu"
+                    role="listbox"
+                    aria-label="Service interest"
+                    aria-multiselectable="true"
+                  >
                     {contactServiceOptions.map((service) => {
                       const selected = form.service.includes(service);
                       return (
                         <button
-                          className={`multi-option ${selected ? 'selected' : ''}`}
+                          className={`multi-option ${selected ? "selected" : ""}`}
                           key={service}
                           type="button"
                           onClick={() => toggleService(service)}
                           role="option"
                           aria-selected={selected}
                         >
-                          <span>{selected ? '✓' : ''}</span>
+                          <span>{selected ? "✓" : ""}</span>
                           {service}
                         </button>
                       );
@@ -1323,24 +2534,142 @@ function CTA() {
                   </div>
                 )}
               </div>
-              {errors.service && <span className="form-error">{errors.service}</span>}
+              {errors.service && (
+                <span className="form-error">{errors.service}</span>
+              )}
             </label>
           </div>
           <div className="form-row">
-            <label>Budget range<input name="budget" value={form.budget} onChange={update} placeholder="$500 - $5,000 / flexible" maxLength={contactFieldLimits.budget} />{errors.budget && <span className="form-error">{errors.budget}</span>}</label>
-            <label>Timeline<input name="timeline" value={form.timeline} onChange={update} placeholder="This week, 30 days, this quarter" maxLength={contactFieldLimits.timeline} />{errors.timeline && <span className="form-error">{errors.timeline}</span>}</label>
+            <label>
+              Budget range
+              <input
+                name="budget"
+                value={form.budget}
+                onChange={update}
+                placeholder="$500 - $5,000 / flexible"
+                maxLength={contactFieldLimits.budget}
+              />
+              {errors.budget && (
+                <span className="form-error">{errors.budget}</span>
+              )}
+            </label>
+            <label>
+              Timeline
+              <input
+                name="timeline"
+                value={form.timeline}
+                onChange={update}
+                placeholder="This week, 30 days, this quarter"
+                maxLength={contactFieldLimits.timeline}
+              />
+              {errors.timeline && (
+                <span className="form-error">{errors.timeline}</span>
+              )}
+            </label>
           </div>
-          <label>What are you trying to achieve?
-            <textarea name="message" value={form.message} onChange={update} placeholder="Tell me the goal, current problem, deadline, and what success should look like." rows="5" maxLength={contactFieldLimits.message} required />
-            <span className="form-count">{form.message.length}/{contactFieldLimits.message}</span>
-            {errors.message && <span className="form-error">{errors.message}</span>}
+          <label>
+            What are you trying to achieve?
+            <textarea
+              name="message"
+              value={form.message}
+              onChange={update}
+              placeholder="Tell me the goal, current problem, deadline, and what success should look like."
+              rows="5"
+              maxLength={contactFieldLimits.message}
+              required
+            />
+            <span className="form-count">
+              {form.message.length}/{contactFieldLimits.message}
+            </span>
+            {errors.message && (
+              <span className="form-error">{errors.message}</span>
+            )}
           </label>
-          {status && <div className="form-status">{status}</div>}
+          {status && (
+            <div
+              className={`form-status ${status.type}`}
+              role="status"
+              aria-live="polite"
+            >
+              {status.message}
+            </div>
+          )}
           <div className="cta-actions">
-            <button className="btn-primary magnetic" type="submit">Send Project Brief <span className="btn-arrow">→</span></button>
-            <a href="tel:+17867448853" className="btn-secondary magnetic">+1 (786) 744-8853</a>
+            <button
+              className="btn-primary magnetic"
+              type="submit"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Sending..." : "Send Project Brief"}{" "}
+              <span className="btn-arrow">→</span>
+            </button>
+            <a className="btn-secondary magnetic" href={mailtoHref}>
+              Email Instead
+            </a>
+            <a href="tel:+17867448853" className="btn-secondary magnetic">
+              +1 (786) 744-8853
+            </a>
           </div>
         </form>
+      </div>
+    </section>
+  );
+}
+
+function Policies() {
+  return (
+    <section id="policies" className="policies-section">
+      <div className="policies-inner">
+        <div className="policies-copy">
+          <div className="section-tag reveal">Policies</div>
+          <h2 className="reveal delay-1">Privacy, terms, and contact handling</h2>
+          <p className="reveal delay-2">
+            A plain-language summary of how inquiries are handled before any
+            project agreement is in place.
+          </p>
+        </div>
+        <div className="policies-grid">
+          <article id="privacy" className="policy-card reveal delay-2">
+            <h3>Privacy Policy</h3>
+            <div>
+              <p>
+                The contact form only collects what you choose to send: your
+                name, email, project details, and basic project context.
+              </p>
+              <p>
+                That information is used to respond to your inquiry. It is not
+                sold, rented, or used for unrelated marketing.
+              </p>
+            </div>
+          </article>
+          <article id="terms" className="policy-card reveal delay-3">
+            <h3>Terms of Use</h3>
+            <div>
+              <p>
+                This website is for portfolio, service, and inquiry purposes.
+                Submitting the form does not create a client relationship or
+                project commitment.
+              </p>
+              <p>
+                Scope, pricing, timelines, and deliverables are confirmed
+                separately before any work begins.
+              </p>
+            </div>
+          </article>
+          <article id="security" className="policy-card reveal delay-4">
+            <h3>Security & Abuse</h3>
+            <div>
+              <p>
+                Please do not submit passwords, payment details, private keys,
+                or sensitive personal information through the form.
+              </p>
+              <p>
+                Spam, abusive messages, or malicious submissions may be ignored
+                or blocked.
+              </p>
+            </div>
+          </article>
+        </div>
       </div>
     </section>
   );
@@ -1350,11 +2679,25 @@ function Footer() {
   return (
     <footer>
       <div className="footer-inner">
-        <div className="footer-left">chwx projects<span style={{ color: 'var(--gold)' }}>.</span></div>
-        <div className="footer-center">© 2026 chwx projects · Ni · nicholascents77@gmail.com · Available Worldwide</div>
+        <div className="footer-left">
+          chwx projects<span style={{ color: "var(--gold)" }}>.</span>
+        </div>
+        <div className="footer-center">
+          © 2026 chwx projects · Ni · {CONTACT_EMAIL} · Available Worldwide
+        </div>
         <div className="footer-right">
           {socialLinks.map((link) => (
-            <a href={link.href} className="footer-social" title={link.title} aria-label={link.label} target="_blank" rel="noreferrer" key={link.label}>{link.text}</a>
+            <a
+              href={link.href}
+              className="footer-social"
+              title={link.title}
+              aria-label={link.label}
+              target="_blank"
+              rel="noreferrer"
+              key={link.label}
+            >
+              {link.text}
+            </a>
           ))}
         </div>
       </div>
@@ -1364,7 +2707,7 @@ function Footer() {
 
 function Effects() {
   useEffect(() => {
-    const tiltCards = document.querySelectorAll('[data-tilt]');
+    const tiltCards = document.querySelectorAll("[data-tilt]");
     const cleanups = [];
 
     tiltCards.forEach((card) => {
@@ -1375,17 +2718,17 @@ function Effects() {
         card.style.transform = `translateY(-8px) rotateX(${-y * 10}deg) rotateY(${x * 10}deg)`;
       };
       const leave = () => {
-        card.style.transform = '';
+        card.style.transform = "";
       };
-      card.addEventListener('mousemove', move);
-      card.addEventListener('mouseleave', leave);
+      card.addEventListener("mousemove", move);
+      card.addEventListener("mouseleave", leave);
       cleanups.push(() => {
-        card.removeEventListener('mousemove', move);
-        card.removeEventListener('mouseleave', leave);
+        card.removeEventListener("mousemove", move);
+        card.removeEventListener("mouseleave", leave);
       });
     });
 
-    const magneticButtons = document.querySelectorAll('.magnetic');
+    const magneticButtons = document.querySelectorAll(".magnetic");
     magneticButtons.forEach((button) => {
       const move = (event) => {
         const rect = button.getBoundingClientRect();
@@ -1394,17 +2737,19 @@ function Effects() {
         button.style.transform = `translate(${x}px,${y}px) translateY(-3px)`;
       };
       const leave = () => {
-        button.style.transform = '';
+        button.style.transform = "";
       };
-      button.addEventListener('mousemove', move);
-      button.addEventListener('mouseleave', leave);
+      button.addEventListener("mousemove", move);
+      button.addEventListener("mouseleave", leave);
       cleanups.push(() => {
-        button.removeEventListener('mousemove', move);
-        button.removeEventListener('mouseleave', leave);
+        button.removeEventListener("mousemove", move);
+        button.removeEventListener("mouseleave", leave);
       });
     });
 
-    const interactiveCards = document.querySelectorAll('.portfolio-card,.about-img-wrap');
+    const interactiveCards = document.querySelectorAll(
+      ".portfolio-card,.about-img-wrap",
+    );
     interactiveCards.forEach((card) => {
       const move = (event) => {
         const rect = card.getBoundingClientRect();
@@ -1412,62 +2757,68 @@ function Effects() {
         const py = (event.clientY - rect.top) / rect.height;
         const x = px - 0.5;
         const y = py - 0.5;
-        card.classList.add('is-interacting');
-        card.style.setProperty('--spot-x', `${px * 100}%`);
-        card.style.setProperty('--spot-y', `${py * 100}%`);
-        card.style.setProperty('--depth-x', `${x * 18}px`);
-        card.style.setProperty('--depth-y', `${y * 18}px`);
-        card.style.setProperty('--tilt-x', `${-y * 7}deg`);
-        card.style.setProperty('--tilt-y', `${x * 7}deg`);
+        card.classList.add("is-interacting");
+        card.style.setProperty("--spot-x", `${px * 100}%`);
+        card.style.setProperty("--spot-y", `${py * 100}%`);
+        card.style.setProperty("--depth-x", `${x * 18}px`);
+        card.style.setProperty("--depth-y", `${y * 18}px`);
+        card.style.setProperty("--tilt-x", `${-y * 7}deg`);
+        card.style.setProperty("--tilt-y", `${x * 7}deg`);
       };
       const leave = () => {
-        card.classList.remove('is-interacting');
-        card.style.removeProperty('--depth-x');
-        card.style.removeProperty('--depth-y');
-        card.style.removeProperty('--tilt-x');
-        card.style.removeProperty('--tilt-y');
+        card.classList.remove("is-interacting");
+        card.style.removeProperty("--depth-x");
+        card.style.removeProperty("--depth-y");
+        card.style.removeProperty("--tilt-x");
+        card.style.removeProperty("--tilt-y");
       };
-      card.addEventListener('pointermove', move);
-      card.addEventListener('pointerleave', leave);
+      card.addEventListener("pointermove", move);
+      card.addEventListener("pointerleave", leave);
       cleanups.push(() => {
-        card.removeEventListener('pointermove', move);
-        card.removeEventListener('pointerleave', leave);
+        card.removeEventListener("pointermove", move);
+        card.removeEventListener("pointerleave", leave);
       });
     });
 
-    const hero = document.getElementById('hero');
+    const hero = document.getElementById("hero");
     if (hero) {
       const move = (event) => {
         const rect = hero.getBoundingClientRect();
-        const px = Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width));
-        const py = Math.max(0, Math.min(1, (event.clientY - rect.top) / rect.height));
-        hero.style.setProperty('--hero-x', `${px * 100}%`);
-        hero.style.setProperty('--hero-y', `${py * 100}%`);
+        const px = Math.max(
+          0,
+          Math.min(1, (event.clientX - rect.left) / rect.width),
+        );
+        const py = Math.max(
+          0,
+          Math.min(1, (event.clientY - rect.top) / rect.height),
+        );
+        hero.style.setProperty("--hero-x", `${px * 100}%`);
+        hero.style.setProperty("--hero-y", `${py * 100}%`);
       };
       const leave = () => {
-        hero.style.removeProperty('--hero-x');
-        hero.style.removeProperty('--hero-y');
+        hero.style.removeProperty("--hero-x");
+        hero.style.removeProperty("--hero-y");
       };
-      hero.addEventListener('pointermove', move);
-      hero.addEventListener('pointerleave', leave);
+      hero.addEventListener("pointermove", move);
+      hero.addEventListener("pointerleave", leave);
       cleanups.push(() => {
-        hero.removeEventListener('pointermove', move);
-        hero.removeEventListener('pointerleave', leave);
+        hero.removeEventListener("pointermove", move);
+        hero.removeEventListener("pointerleave", leave);
       });
     }
 
     const parallax = () => {
       const scrolled = window.scrollY;
-      const hero = document.getElementById('hero');
+      const hero = document.getElementById("hero");
       if (hero && scrolled < window.innerHeight) {
-        const hTitle = hero.querySelector('.hero-headline');
-        const hSub = hero.querySelector('.hero-sub');
+        const hTitle = hero.querySelector(".hero-headline");
+        const hSub = hero.querySelector(".hero-sub");
         if (hTitle) hTitle.style.transform = `translateY(${scrolled * 0.25}px)`;
         if (hSub) hSub.style.transform = `translateY(${scrolled * 0.15}px)`;
       }
     };
-    window.addEventListener('scroll', parallax, { passive: true });
-    cleanups.push(() => window.removeEventListener('scroll', parallax));
+    window.addEventListener("scroll", parallax, { passive: true });
+    cleanups.push(() => window.removeEventListener("scroll", parallax));
 
     return () => cleanups.forEach((cleanup) => cleanup());
   }, []);
@@ -1485,8 +2836,8 @@ function App() {
       setProgress(max > 0 ? Math.min((window.scrollY / max) * 100, 100) : 0);
     };
     onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   return (
@@ -1504,10 +2855,11 @@ function App() {
       <Testimonials />
       <ServiceFinder />
       <CTA />
+      <Policies />
       <Footer />
       <Effects />
     </>
   );
 }
 
-createRoot(document.getElementById('root')).render(<App />);
+createRoot(document.getElementById("root")).render(<App />);
