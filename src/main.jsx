@@ -173,7 +173,7 @@ const portfolio = [
     decor: "🤖",
     category: "AI / Project Management",
     title: "AI Chatbot Project - Lean Geeks",
-    link: "https://www.notion.so/AI-Chatbot-Project-Lean-Geeks-258b3df263db804fb5eef083a9468b42?source=copy_link",
+    accessLabel: "Request case study",
     metrics: [
       ["60%", "Ticket Reduction"],
       ["25%", "Under Budget"],
@@ -195,7 +195,7 @@ const portfolio = [
     decor: "🛒",
     category: "E-Commerce / Development",
     title: "E-commerce Platform Migration - Convertain Limited",
-    link: "https://www.notion.so/E-commerce-Platform-Migration-Convertain-Limited-258b3df263db807dae26f534b013f3d0?source=copy_link",
+    accessLabel: "Request case study",
     metrics: [
       ["68%", "Complete"],
       ["29%", "Under Budget"],
@@ -217,7 +217,7 @@ const portfolio = [
     decor: "🏢",
     category: "Operations / Executive",
     title: "Pawn Shop Operations Hub - PM & Executive Office",
-    link: "https://www.notion.so/BeePawn-Operations-Hub-PM-Executive-Office-34eb3df263db8104acb2e7af82f9f48c?source=copy_link",
+    accessLabel: "Request case study",
     metrics: [
       ["8+", "Florida Locations"],
       ["PM", "Executive Office"],
@@ -234,7 +234,7 @@ const portfolio = [
     decor: "🤖",
     category: "Automation / Slack Integration",
     title: "Slack Bot Integration Project",
-    link: "https://www.notion.so/Slack-Bot-Integration-Project-25bb3df263db8094ab93ef7d91ca529b?source=copy_link",
+    accessLabel: "Request case study",
     metrics: [
       ["35%", "Efficiency Improvement"],
       ["$7.2K", "Budget Savings"],
@@ -256,7 +256,7 @@ const portfolio = [
     decor: "🎧",
     category: "Zendesk / AI Agent",
     title: "Peter Sage Zendesk AI Agent Integration",
-    link: "https://www.notion.so/Peter-Sage-Zendesk-AI-Agent-Integration-25bb3df263db8190a76cd1b4ee283dc6?source=copy_link",
+    accessLabel: "Request case study",
     metrics: [
       ["95%", "Accuracy"],
       ["24/7", "Availability"],
@@ -273,7 +273,7 @@ const portfolio = [
     decor: "⚖️",
     category: "Legal / Web Development",
     title: "Sutton Legal Consulting Website",
-    link: "https://sutton-legal.vercel.app/",
+    accessLabel: "Request case study",
     metrics: [
       ["Live", "Vercel Site"],
       ["Compliance", "Check Flow"],
@@ -290,20 +290,7 @@ const portfolio = [
     decor: "📺",
     category: "Social Media / Content",
     title: "Gaming Creator Network Growth",
-    links: [
-      {
-        label: "Gaming YouTube",
-        href: "https://www.youtube.com/@christianrauchenwald-gaming",
-      },
-      {
-        label: "Main YouTube",
-        href: "https://www.youtube.com/@ChristianRauchenwald",
-      },
-      {
-        label: "Twitch",
-        href: "https://m.twitch.tv/ChristianRauchenwald/home",
-      },
-    ],
+    accessLabel: "Request case study",
     metrics: [
       ["20%", "Sub Growth"],
       ["30%", "More Views"],
@@ -473,7 +460,7 @@ const testimonials = [
       "Ni helped bring order to busy multi-location operations. His project tracking, executive support, and communication systems made it easier for branch leadership to stay aligned, follow priorities, and move faster without losing visibility.",
     initials: "DN",
     name: "Daniil",
-    role: "Branch Manager · BeePawn",
+    role: "Branch Manager · Hollywood Pawn",
     rating: 5,
   },
   {
@@ -1075,7 +1062,8 @@ const CONTACT_EMAIL =
   import.meta.env.VITE_CONTACT_EMAIL?.trim() || "nicholascents77@gmail.com";
 const CONTACT_ENDPOINT = import.meta.env.VITE_CONTACT_ENDPOINT?.trim() || "";
 const EMAILJS_ENDPOINT = "https://api.emailjs.com/api/v1.0/email/send";
-const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID?.trim() || "";
+const EMAILJS_SERVICE_ID =
+  import.meta.env.VITE_EMAILJS_SERVICE_ID?.trim() || "";
 const EMAILJS_TEMPLATE_ID =
   import.meta.env.VITE_EMAILJS_TEMPLATE_ID?.trim() || "";
 const EMAILJS_PUBLIC_KEY =
@@ -1795,6 +1783,16 @@ function Portfolio() {
     selectProject(item);
   };
 
+  const requestAccess = (event, item) => {
+    event.stopPropagation();
+    window.dispatchEvent(
+      new CustomEvent("portfolio-access-request", {
+        detail: { title: item.title },
+      }),
+    );
+    document.querySelector("#cta")?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <section id="portfolio">
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
@@ -1868,32 +1866,14 @@ function Portfolio() {
                     </div>
                   ))}
                 </div>
-                {item.link && (
-                  <a
+                {item.accessLabel && (
+                  <button
                     className="card-link"
-                    href={item.link}
-                    target="_blank"
-                    rel="noreferrer"
-                    onClick={(event) => event.stopPropagation()}
+                    type="button"
+                    onClick={(event) => requestAccess(event, item)}
                   >
-                    View case study ↗
-                  </a>
-                )}
-                {item.links && (
-                  <div className="card-link-group">
-                    {item.links.map((link) => (
-                      <a
-                        className="card-link"
-                        href={link.href}
-                        target="_blank"
-                        rel="noreferrer"
-                        key={link.href}
-                        onClick={(event) => event.stopPropagation()}
-                      >
-                        {link.label} ↗
-                      </a>
-                    ))}
-                  </div>
+                    {item.accessLabel} →
+                  </button>
                 )}
               </div>
             </div>
@@ -1915,27 +1895,15 @@ function Portfolio() {
               ))}
             </div>
             <div className="detail-actions">
-              {activeProject.link && (
-                <a
+              {activeProject.accessLabel && (
+                <button
                   className="finder-btn"
-                  href={activeProject.link}
-                  target="_blank"
-                  rel="noreferrer"
+                  type="button"
+                  onClick={(event) => requestAccess(event, activeProject)}
                 >
-                  Open case study ↗
-                </a>
+                  Request access →
+                </button>
               )}
-              {activeProject.links?.map((link) => (
-                <a
-                  className="finder-btn ghost"
-                  href={link.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  key={link.href}
-                >
-                  {link.label} ↗
-                </a>
-              ))}
             </div>
           </div>
         )}
@@ -2273,6 +2241,7 @@ function ServiceFinder() {
 function CTA() {
   const [serviceMenuOpen, setServiceMenuOpen] = useState(false);
   const serviceDropdownRef = useRef(null);
+  const [requestedCaseStudy, setRequestedCaseStudy] = useState("");
   const [form, setForm] = useState(() => ({
     ...initialContactForm,
     service: [...initialContactForm.service],
@@ -2427,6 +2396,28 @@ function CTA() {
     };
   }, [serviceMenuOpen]);
 
+  useEffect(() => {
+    const handleAccessRequest = (event) => {
+      const title = event.detail?.title;
+      if (!title) return;
+
+      setRequestedCaseStudy(title);
+      setForm((current) => ({
+        ...current,
+        message: `I would like to request access to the case study: ${title}.`,
+      }));
+      setErrors((current) => ({ ...current, message: "" }));
+      setStatus(null);
+    };
+
+    window.addEventListener("portfolio-access-request", handleAccessRequest);
+    return () =>
+      window.removeEventListener(
+        "portfolio-access-request",
+        handleAccessRequest,
+      );
+  }, []);
+
   return (
     <section id="cta">
       <div className="cta-bg" />
@@ -2443,9 +2434,9 @@ function CTA() {
           <span>Get Results?</span>
         </h2>
         <p className="cta-sub reveal delay-2">
-          Whether you know exactly what you need or want help choosing the right
-          service mix, send the details and I’ll respond with the best next
-          step.
+          {requestedCaseStudy
+            ? `Complete the form to request private access to “${requestedCaseStudy}.” I’ll review your request and follow up directly.`
+            : "Whether you know exactly what you need or want help choosing the right service mix, send the details and I’ll respond with the best next step."}
         </p>
         <form
           className="contact-form reveal delay-3"
@@ -2622,7 +2613,9 @@ function Policies() {
       <div className="policies-inner">
         <div className="policies-copy">
           <div className="section-tag reveal">Policies</div>
-          <h2 className="reveal delay-1">Privacy, terms, and contact handling</h2>
+          <h2 className="reveal delay-1">
+            Privacy, terms, and contact handling
+          </h2>
           <p className="reveal delay-2">
             A plain-language summary of how inquiries are handled before any
             project agreement is in place.
