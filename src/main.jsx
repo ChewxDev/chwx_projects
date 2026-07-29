@@ -270,7 +270,7 @@ const testimonials = [
     quote: "Ni helped bring order to busy multi-location operations. His project tracking, executive support, and communication systems made it easier for branch leadership to stay aligned, follow priorities, and move faster without losing visibility.",
     initials: 'DN',
     name: 'Daniil',
-    role: 'Branch Manager · BeePawn',
+    role: 'Branch Manager · Hollywood Pawn',
     rating: 5
   },
   {
